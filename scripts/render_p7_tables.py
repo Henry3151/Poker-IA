@@ -3,10 +3,14 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-rep = json.loads((ROOT / "artifacts/p7/p7_report.json").read_text())
+SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "artifacts/p7/p7_report.json"
+DST = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "docs/P7_RESULTS_TABLES.md"
+BASE = sys.argv[3] if len(sys.argv) > 3 else "heuristic"
+rep = json.loads(SRC.read_text())
 
 
 def pct(x: float) -> str:
@@ -14,7 +18,7 @@ def pct(x: float) -> str:
 
 
 lines = [
-    "# P7 — tabelas de resultados (gerado automaticamente por scripts/render_p7_tables.py)",
+    f"# Tabelas de resultados — {SRC.name} (gerado automaticamente por scripts/render_p7_tables.py)",
     "",
     f"Evaluation run: `{rep['evaluation_run_id']}` · unidades: {rep['units']}",
     "",
@@ -34,7 +38,7 @@ for scen, cands in rep["scenarios"].items():
         )
     pv = rep["paired_vs_baseline"].get(scen, {})
     if pv:
-        lines += ["", "Diferença pareada vs `heuristic` (lucro por torneio, em buy-ins de 110):", "", "| candidato | média | IC 95% | n | veredito |", "|---|---|---|---|---|"]
+        lines += ["", f"Diferença pareada vs `{BASE}` (lucro por torneio, em buy-ins de 110):", "", "| candidato | média | IC 95% | n | veredito |", "|---|---|---|---|---|"]
         for c, d in pv.items():
             lines.append(f"| {c} | {d['estimate']:+.3f} | [{d['ci_low']:+.3f}, {d['ci_high']:+.3f}] | {d['n']} | {d['verdict']} |")
     lines.append("")
@@ -67,5 +71,5 @@ for c, d in rep["allin_luck"].items():
     m = d["luck_bb_mean"]
     lines.append(f"| {c} | {d['allin_hands']} | {d['luck_bb_total']:+.1f} | {m['estimate']:+.2f} [{m['ci_low']:+.2f}, {m['ci_high']:+.2f}] | {d['allin_ev_bb_total']:+.1f} |")
 
-(ROOT / "docs/P7_RESULTS_TABLES.md").write_text("\n".join(lines) + "\n")
-print("written docs/P7_RESULTS_TABLES.md")
+DST.write_text("\n".join(lines) + "\n")
+print(f"written {DST}")

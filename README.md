@@ -38,13 +38,15 @@ src/poker_lab/
 ## Documentação
 - `docs/P0_REPORT.md`: inspeção, arquitetura e contratos.
 - `docs/P7_REPORT.md`: resultados quantitativos da avaliação, limitações e conclusões permitidas.
+- `docs/P7B_REPORT.md`: diagnóstico, melhorias, champion/challenger independente (P7b).
+- `docs/MODEL_VERSIONS.md`: versões de modelo, sha256 e premissas de treino.
 - `docs/STRATEGY_GUARANTEES.md`: o que é heurístico e o que tem garantia teórica.
 - `docs/TRAINING.md`: auditoria do MCCFR e da política push/fold.
 - `docs/EVALUATION_PROTOCOL.md`, `docs/FINANCIAL_METRICS.md`, `docs/MIGRATIONS.md`
 - `docs/ENGINE_RULES.md`, `docs/TOURNAMENT_RULES.md`, `docs/EXECUTION_LAYER.md`
 
 ## Estado das fases
-P0–P7 concluídas. P8 (Power BI), P9 (CLI/API/UI) e P10 (otimização) ainda **não iniciadas**.
+P0–P7 e P7b concluídas (champion atual: `pushfold@hybrid-v1`; veja `docs/P7B_REPORT.md` e `docs/MODEL_VERSIONS.md`). P8 (Power BI), P9 (CLI/API/UI) e P10 (otimização) ainda **não iniciadas**.
 
 ## Licença e terceiros
 Código próprio. `treys` (MIT) é usado **apenas nos testes**, para validar o avaliador. Os repositórios GPL/AGPL de referência não tiveram código copiado (`docs/P0_REPORT.md`).

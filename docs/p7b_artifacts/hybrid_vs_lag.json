@@ -1,0 +1,66 @@
+{
+ "baseline": {
+  "estimate": 0.204545,
+  "ci_low": -0.081818,
+  "ci_high": 0.507273,
+  "n": 400,
+  "level": 0.95,
+  "method": "percentile_bootstrap"
+ },
+ "field_lag": {
+  "estimate": -0.278182,
+  "ci_low": -0.6,
+  "ci_high": 0.043636,
+  "n": 200,
+  "level": 0.95,
+  "method": "percentile_bootstrap"
+ },
+ "field_nit": {
+  "estimate": 0.0,
+  "ci_low": -0.272727,
+  "ci_high": 0.272727,
+  "n": 100,
+  "level": 0.95,
+  "method": "percentile_bootstrap"
+ },
+ "field_station": {
+  "estimate": 0.676364,
+  "ci_low": 0.163636,
+  "ci_high": 1.243636,
+  "n": 100,
+  "level": 0.95,
+  "method": "percentile_bootstrap"
+ },
+ "field_tag": {
+  "estimate": -0.392727,
+  "ci_low": -0.905455,
+  "ci_high": 0.12,
+  "n": 100,
+  "level": 0.95,
+  "method": "percentile_bootstrap"
+ },
+ "reentry": {
+  "estimate": 0.387273,
+  "ci_low": -0.357273,
+  "ci_high": 1.1,
+  "n": 100,
+  "level": 0.95,
+  "method": "percentile_bootstrap"
+ },
+ "top_heavy": {
+  "estimate": -0.24,
+  "ci_low": -0.954545,
+  "ci_high": 0.490909,
+  "n": 100,
+  "level": 0.95,
+  "method": "percentile_bootstrap"
+ },
+ "turbo_short": {
+  "estimate": -0.06,
+  "ci_low": -0.458182,
+  "ci_high": 0.349091,
+  "n": 200,
+  "level": 0.95,
+  "method": "percentile_bootstrap"
+ }
+}

@@ -1,0 +1,657 @@
+{
+ "A1_accounting": {
+  "tournaments": 5900,
+  "net_sum_equals_minus_fees": 5900,
+  "payouts_equal_prize_pool": 5900,
+  "prize_pool_equals_buyin_x_entries": 5900,
+  "entries_match": 5900,
+  "chips_not_conserved_hands": 0,
+  "invalid_decisions": 0,
+  "audit_issues": 0
+ },
+ "A2_fairness": {
+  "seed_sets_by_scenario": {
+   "baseline": {
+    "candidates": 5,
+    "identical_seed_sets": true,
+    "n": 400
+   },
+   "field_lag": {
+    "candidates": 5,
+    "identical_seed_sets": true,
+    "n": 120
+   },
+   "field_nit": {
+    "candidates": 5,
+    "identical_seed_sets": true,
+    "n": 120
+   },
+   "field_station": {
+    "candidates": 5,
+    "identical_seed_sets": true,
+    "n": 120
+   },
+   "field_random": {
+    "candidates": 5,
+    "identical_seed_sets": true,
+    "n": 60
+   },
+   "turbo_short": {
+    "candidates": 5,
+    "identical_seed_sets": true,
+    "n": 120
+   },
+   "reentry": {
+    "candidates": 5,
+    "identical_seed_sets": true,
+    "n": 120
+   },
+   "top_heavy": {
+    "candidates": 5,
+    "identical_seed_sets": true,
+    "n": 120
+   }
+  },
+  "hero_table_counts": {
+   "1": 2830,
+   "2": 3070
+  },
+  "hero_seat_counts": {
+   "0": 1035,
+   "1": 970,
+   "2": 1105,
+   "3": 955,
+   "4": 860,
+   "5": 975
+  },
+  "seat_chi2_df5": 34.31,
+  "seeds_with_identical_hero_seat_across_candidates": 1180,
+  "seeds_total": 1180
+ },
+ "A3_variance_power_unpaired": {
+  "heuristic": {
+   "n": 400,
+   "mean_buyins": -0.3918,
+   "sd_buyins": 1.12,
+   "n_needed_detect_0_1_buyin_80pct": 984,
+   "n_needed_detect_0_2_buyin_80pct": 246
+  },
+  "equity_icm_adaptive": {
+   "n": 400,
+   "mean_buyins": -0.2527,
+   "sd_buyins": 1.496,
+   "n_needed_detect_0_1_buyin_80pct": 1755,
+   "n_needed_detect_0_2_buyin_80pct": 439
+  },
+  "random": {
+   "n": 400,
+   "mean_buyins": -0.4573,
+   "sd_buyins": 1.486,
+   "n_needed_detect_0_1_buyin_80pct": 1731,
+   "n_needed_detect_0_2_buyin_80pct": 433
+  },
+  "pushfold_policy": {
+   "n": 400,
+   "mean_buyins": -0.1055,
+   "sd_buyins": 1.782,
+   "n_needed_detect_0_1_buyin_80pct": 2491,
+   "n_needed_detect_0_2_buyin_80pct": 623
+  },
+  "equity": {
+   "n": 400,
+   "mean_buyins": -0.3918,
+   "sd_buyins": 1.496,
+   "n_needed_detect_0_1_buyin_80pct": 1756,
+   "n_needed_detect_0_2_buyin_80pct": 439
+  }
+ },
+ "A4_hero_tendencies_baseline": {
+  "heuristic": {
+   "hands_with_preflop_decision": 21628,
+   "vpip": 0.104,
+   "pfr": 0.084,
+   "open_rate_when_unopened_by_position": {
+    "UTG": 0.078,
+    "HJ": 0.097,
+    "CO": 0.143,
+    "BTN": 0.159,
+    "SB": 0.122
+   },
+   "vs_single_open": {
+    "fold": 0.949,
+    "raise": 0.016,
+    "call": 0.035
+   },
+   "bb_vs_open": {
+    "fold": 0.947,
+    "call": 0.043,
+    "raise": 0.01
+   },
+   "postflop_aggression_factor": 5.9,
+   "postflop_fold_share": 0.155
+  },
+  "equity": {
+   "hands_with_preflop_decision": 15398,
+   "vpip": 0.295,
+   "pfr": 0.07,
+   "open_rate_when_unopened_by_position": {
+    "UTG": 0.116,
+    "HJ": 0.108,
+    "CO": 0.12,
+    "BTN": 0.101,
+    "SB": 0.07
+   },
+   "vs_single_open": {
+    "fold": 0.713,
+    "call": 0.271,
+    "raise": 0.016
+   },
+   "bb_vs_open": {
+    "call": 0.671,
+    "fold": 0.323,
+    "raise": 0.006
+   },
+   "postflop_aggression_factor": 0.84,
+   "postflop_fold_share": 0.051
+  },
+  "pushfold_policy": {
+   "hands_with_preflop_decision": 16955,
+   "vpip": 0.261,
+   "pfr": 0.109,
+   "open_rate_when_unopened_by_position": {
+    "UTG": 0.119,
+    "HJ": 0.108,
+    "CO": 0.107,
+    "BTN": 0.155,
+    "SB": 0.41
+   },
+   "vs_single_open": {
+    "fold": 0.705,
+    "call": 0.28,
+    "raise": 0.016
+   },
+   "bb_vs_open": {
+    "call": 0.673,
+    "fold": 0.321,
+    "raise": 0.006
+   },
+   "postflop_aggression_factor": 0.83,
+   "postflop_fold_share": 0.051
+  },
+  "equity_icm_adaptive": {
+   "hands_with_preflop_decision": 16178,
+   "vpip": 0.302,
+   "pfr": 0.069,
+   "open_rate_when_unopened_by_position": {
+    "UTG": 0.11,
+    "HJ": 0.105,
+    "CO": 0.114,
+    "BTN": 0.107,
+    "SB": 0.076
+   },
+   "vs_single_open": {
+    "call": 0.261,
+    "fold": 0.725,
+    "raise": 0.014
+   },
+   "bb_vs_open": {
+    "call": 0.611,
+    "fold": 0.383,
+    "raise": 0.006
+   },
+   "postflop_aggression_factor": 0.85,
+   "postflop_fold_share": 0.055
+  },
+  "random": {
+   "hands_with_preflop_decision": 9919,
+   "vpip": 0.647,
+   "pfr": 0.31,
+   "open_rate_when_unopened_by_position": {
+    "UTG": 0.313,
+    "HJ": 0.323,
+    "CO": 0.336,
+    "BTN": 0.322,
+    "SB": 0.304
+   },
+   "vs_single_open": {
+    "fold": 0.35,
+    "raise": 0.293,
+    "call": 0.357
+   },
+   "bb_vs_open": {
+    "fold": 0.353,
+    "raise": 0.29,
+    "call": 0.357
+   },
+   "postflop_aggression_factor": 4.53,
+   "postflop_fold_share": 0.095
+  }
+ },
+ "A5_loss_decomposition_baseline": {
+  "heuristic": {
+   "worst_lines_total_bb": [
+    {
+     "line": "BB|single_raised|fold",
+     "hands": 2606,
+     "total_bb": -2834.5,
+     "bb_per_hand": -1.088
+    },
+    {
+     "line": "SB|single_raised|fold",
+     "hands": 2249,
+     "total_bb": -1316.0,
+     "bb_per_hand": -0.585
+    },
+    {
+     "line": "SB|unopened|fold",
+     "hands": 1810,
+     "total_bb": -1087.7,
+     "bb_per_hand": -0.601
+    },
+    {
+     "line": "BTN|unopened|fold",
+     "hands": 2651,
+     "total_bb": -338.4,
+     "bb_per_hand": -0.128
+    },
+    {
+     "line": "CO|unopened|fold",
+     "hands": 2950,
+     "total_bb": -287.6,
+     "bb_per_hand": -0.097
+    },
+    {
+     "line": "HJ|unopened|fold",
+     "hands": 2761,
+     "total_bb": -229.5,
+     "bb_per_hand": -0.083
+    },
+    {
+     "line": "BB|three_bet_plus|fold",
+     "hands": 163,
+     "total_bb": -175.5,
+     "bb_per_hand": -1.077
+    },
+    {
+     "line": "BTN|single_raised|fold",
+     "hands": 1542,
+     "total_bb": -130.3,
+     "bb_per_hand": -0.084
+    }
+   ],
+   "best_lines_total_bb": [
+    {
+     "line": "BTN|single_raised|raise",
+     "hands": 30,
+     "total_bb": 260.9,
+     "bb_per_hand": 8.696
+    },
+    {
+     "line": "SB|unopened|raise",
+     "hands": 262,
+     "total_bb": 377.2,
+     "bb_per_hand": 1.44
+    },
+    {
+     "line": "BTN|unopened|raise",
+     "hands": 508,
+     "total_bb": 465.4,
+     "bb_per_hand": 0.916
+    },
+    {
+     "line": "HJ|unopened|raise",
+     "hands": 297,
+     "total_bb": 538.9,
+     "bb_per_hand": 1.814
+    },
+    {
+     "line": "CO|unopened|raise",
+     "hands": 497,
+     "total_bb": 627.1,
+     "bb_per_hand": 1.262
+    }
+   ]
+  },
+  "equity": {
+   "worst_lines_total_bb": [
+    {
+     "line": "SB|single_raised|fold",
+     "hands": 1490,
+     "total_bb": -848.2,
+     "bb_per_hand": -0.569
+    },
+    {
+     "line": "BB|single_raised|fold",
+     "hands": 676,
+     "total_bb": -734.2,
+     "bb_per_hand": -1.086
+    },
+    {
+     "line": "BB|single_raised|call",
+     "hands": 1405,
+     "total_bb": -531.3,
+     "bb_per_hand": -0.378
+    },
+    {
+     "line": "SB|unopened|call",
+     "hands": 1308,
+     "total_bb": -452.0,
+     "bb_per_hand": -0.346
+    },
+    {
+     "line": "CO|unopened|fold",
+     "hands": 2004,
+     "total_bb": -162.4,
+     "bb_per_hand": -0.081
+    },
+    {
+     "line": "BTN|unopened|call",
+     "hands": 552,
+     "total_bb": -151.8,
+     "bb_per_hand": -0.275
+    },
+    {
+     "line": "HJ|unopened|fold",
+     "hands": 1955,
+     "total_bb": -130.1,
+     "bb_per_hand": -0.067
+    },
+    {
+     "line": "BTN|unopened|fold",
+     "hands": 1411,
+     "total_bb": -115.7,
+     "bb_per_hand": -0.082
+    }
+   ],
+   "best_lines_total_bb": [
+    {
+     "line": "BTN|single_raised|raise",
+     "hands": 19,
+     "total_bb": 160.6,
+     "bb_per_hand": 8.452
+    },
+    {
+     "line": "UTG|unopened|raise",
+     "hands": 141,
+     "total_bb": 161.6,
+     "bb_per_hand": 1.146
+    },
+    {
+     "line": "BTN|unopened|raise",
+     "hands": 221,
+     "total_bb": 249.1,
+     "bb_per_hand": 1.127
+    },
+    {
+     "line": "HJ|unopened|raise",
+     "hands": 238,
+     "total_bb": 356.5,
+     "bb_per_hand": 1.498
+    },
+    {
+     "line": "CO|unopened|raise",
+     "hands": 278,
+     "total_bb": 409.9,
+     "bb_per_hand": 1.474
+    }
+   ]
+  },
+  "pushfold_policy": {
+   "worst_lines_total_bb": [
+    {
+     "line": "SB|single_raised|fold",
+     "hands": 1622,
+     "total_bb": -929.4,
+     "bb_per_hand": -0.573
+    },
+    {
+     "line": "BB|single_raised|fold",
+     "hands": 737,
+     "total_bb": -799.3,
+     "bb_per_hand": -1.084
+    },
+    {
+     "line": "BB|single_raised|call",
+     "hands": 1544,
+     "total_bb": -557.5,
+     "bb_per_hand": -0.361
+    },
+    {
+     "line": "SB|unopened|fold",
+     "hands": 617,
+     "total_bb": -360.2,
+     "bb_per_hand": -0.584
+    },
+    {
+     "line": "BTN|unopened|fold",
+     "hands": 1759,
+     "total_bb": -214.5,
+     "bb_per_hand": -0.122
+    },
+    {
+     "line": "CO|unopened|fold",
+     "hands": 2232,
+     "total_bb": -190.4,
+     "bb_per_hand": -0.085
+    },
+    {
+     "line": "HJ|unopened|fold",
+     "hands": 2128,
+     "total_bb": -150.3,
+     "bb_per_hand": -0.071
+    },
+    {
+     "line": "BB|three_bet_plus|fold",
+     "hands": 121,
+     "total_bb": -128.9,
+     "bb_per_hand": -1.066
+    }
+   ],
+   "best_lines_total_bb": [
+    {
+     "line": "BTN|single_raised|raise",
+     "hands": 29,
+     "total_bb": 158.0,
+     "bb_per_hand": 5.447
+    },
+    {
+     "line": "BTN|unopened|raise",
+     "hands": 402,
+     "total_bb": 419.7,
+     "bb_per_hand": 1.044
+    },
+    {
+     "line": "HJ|unopened|raise",
+     "hands": 257,
+     "total_bb": 442.4,
+     "bb_per_hand": 1.721
+    },
+    {
+     "line": "CO|unopened|raise",
+     "hands": 270,
+     "total_bb": 535.6,
+     "bb_per_hand": 1.984
+    },
+    {
+     "line": "SB|unopened|raise",
+     "hands": 668,
+     "total_bb": 719.2,
+     "bb_per_hand": 1.077
+    }
+   ]
+  },
+  "equity_icm_adaptive": {
+   "worst_lines_total_bb": [
+    {
+     "line": "BB|single_raised|fold",
+     "hands": 858,
+     "total_bb": -940.0,
+     "bb_per_hand": -1.096
+    },
+    {
+     "line": "SB|single_raised|fold",
+     "hands": 1514,
+     "total_bb": -863.2,
+     "bb_per_hand": -0.57
+    },
+    {
+     "line": "BB|single_raised|call",
+     "hands": 1367,
+     "total_bb": -447.4,
+     "bb_per_hand": -0.327
+    },
+    {
+     "line": "SB|unopened|call",
+     "hands": 1380,
+     "total_bb": -383.0,
+     "bb_per_hand": -0.278
+    },
+    {
+     "line": "BTN|unopened|call",
+     "hands": 784,
+     "total_bb": -322.1,
+     "bb_per_hand": -0.411
+    },
+    {
+     "line": "CO|unopened|fold",
+     "hands": 2067,
+     "total_bb": -170.5,
+     "bb_per_hand": -0.082
+    },
+    {
+     "line": "BTN|unopened|fold",
+     "hands": 1539,
+     "total_bb": -138.5,
+     "bb_per_hand": -0.09
+    },
+    {
+     "line": "HJ|unopened|fold",
+     "hands": 1969,
+     "total_bb": -132.0,
+     "bb_per_hand": -0.067
+    }
+   ],
+   "best_lines_total_bb": [
+    {
+     "line": "UTG|unopened|raise",
+     "hands": 132,
+     "total_bb": 170.7,
+     "bb_per_hand": 1.293
+    },
+    {
+     "line": "BTN|single_raised|raise",
+     "hands": 19,
+     "total_bb": 171.4,
+     "bb_per_hand": 9.02
+    },
+    {
+     "line": "BTN|unopened|raise",
+     "hands": 279,
+     "total_bb": 302.5,
+     "bb_per_hand": 1.084
+    },
+    {
+     "line": "HJ|unopened|raise",
+     "hands": 231,
+     "total_bb": 382.1,
+     "bb_per_hand": 1.654
+    },
+    {
+     "line": "CO|unopened|raise",
+     "hands": 271,
+     "total_bb": 494.8,
+     "bb_per_hand": 1.826
+    }
+   ]
+  },
+  "random": {
+   "worst_lines_total_bb": [
+    {
+     "line": "SB|single_raised|call",
+     "hands": 376,
+     "total_bb": -1153.2,
+     "bb_per_hand": -3.067
+    },
+    {
+     "line": "BB|single_raised|call",
+     "hands": 450,
+     "total_bb": -793.7,
+     "bb_per_hand": -1.764
+    },
+    {
+     "line": "CO|single_raised|call",
+     "hands": 137,
+     "total_bb": -695.5,
+     "bb_per_hand": -5.077
+    },
+    {
+     "line": "BTN|single_raised|call",
+     "hands": 238,
+     "total_bb": -663.5,
+     "bb_per_hand": -2.788
+    },
+    {
+     "line": "BB|three_bet_plus|call",
+     "hands": 29,
+     "total_bb": -477.5,
+     "bb_per_hand": -16.466
+    },
+    {
+     "line": "BB|single_raised|fold",
+     "hands": 445,
+     "total_bb": -475.1,
+     "bb_per_hand": -1.068
+    },
+    {
+     "line": "UTG|unopened|raise",
+     "hands": 261,
+     "total_bb": -463.9,
+     "bb_per_hand": -1.778
+    },
+    {
+     "line": "BTN|single_raised|raise",
+     "hands": 223,
+     "total_bb": -448.6,
+     "bb_per_hand": -2.011
+    }
+   ],
+   "best_lines_total_bb": [
+    {
+     "line": "BB|single_raised|raise",
+     "hands": 365,
+     "total_bb": 87.7,
+     "bb_per_hand": 0.24
+    },
+    {
+     "line": "BTN|unopened|raise",
+     "hands": 490,
+     "total_bb": 103.0,
+     "bb_per_hand": 0.21
+    },
+    {
+     "line": "SB|unopened|raise",
+     "hands": 308,
+     "total_bb": 267.7,
+     "bb_per_hand": 0.869
+    },
+    {
+     "line": "SB|single_raised|raise",
+     "hands": 274,
+     "total_bb": 292.4,
+     "bb_per_hand": 1.067
+    },
+    {
+     "line": "CO|unopened|raise",
+     "hands": 507,
+     "total_bb": 449.1,
+     "bb_per_hand": 0.886
+    }
+   ]
+  }
+ },
+ "A6_antes": {
+  "hands_with_ante_share": 0.7679,
+  "trained_policy_decisions_with_ante": 5425,
+  "trained_policy_decisions_total": 5575
+ }
+}

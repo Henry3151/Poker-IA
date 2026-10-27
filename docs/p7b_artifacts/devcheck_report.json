@@ -1,0 +1,791 @@
+{
+ "evaluation_run_id": "68342618-9825-5acc-beb1-8c3f01d7d4ff",
+ "protocol": {
+  "name": "p7b-dev-check",
+  "seed": 777001,
+  "candidates": [
+   {
+    "label": "pushfold_p7",
+    "spec": {
+     "algorithm": "policy",
+     "version_label": "p7",
+     "params": {
+      "fallback_samples": 120
+     },
+     "checkpoint_path": "artifacts/checkpoints/pushfold-p7.json"
+    },
+    "lineage": "pushfold"
+   },
+   {
+    "label": "pushfold_v2_ante",
+    "spec": {
+     "algorithm": "policy",
+     "version_label": "v2-ante",
+     "params": {
+      "fallback_samples": 120
+     },
+     "checkpoint_path": "artifacts/checkpoints/pushfold-v2-ante.json"
+    },
+    "lineage": "pushfold"
+   },
+   {
+    "label": "hybrid_v1",
+    "spec": {
+     "algorithm": "policy",
+     "version_label": "hybrid-v1",
+     "params": {
+      "hybrid": true,
+      "table_path": "artifacts/tables/hu_class_equity_s200_seed20261026.json",
+      "samples": 150,
+      "bluff_rate": 0.0,
+      "icm": true
+     },
+     "checkpoint_path": "artifacts/checkpoints/pushfold-v2-ante.json"
+    },
+    "lineage": "pushfold"
+   }
+  ],
+  "scenarios": [
+   {
+    "label": "dev_mixed",
+    "field_profile": "mixed",
+    "entrants": 12,
+    "starting_stack": 3000,
+    "hands_per_level": 8,
+    "blind_scale": 1.0,
+    "buy_in": 100,
+    "fee": 10,
+    "reentry_levels": 0,
+    "max_entries": 1,
+    "payout_percentages": [
+     50.0,
+     30.0,
+     20.0
+    ],
+    "n_tournaments": 100
+   }
+  ],
+  "progressive_n": [
+   100
+  ],
+  "bootstrap_resamples": 2000,
+  "min_n_claim": 200
+ },
+ "units": "simulated buy-in units (SIM); no real money",
+ "scenarios": {
+  "dev_mixed": {
+   "pushfold_p7": {
+    "n_tournaments": 100,
+    "total_cost": 11000.0,
+    "total_payout": 10440.0,
+    "total_net": -560.0,
+    "entries_total": 100,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.050909,
+     "ci_low": -0.378182,
+     "ci_high": 0.298182,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.050909,
+    "net_per_tournament": {
+     "estimate": -5.6,
+     "ci_low": -41.6,
+     "ci_high": 34.0,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.26,
+     "ci_low": 0.18,
+     "ci_high": 0.35,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 9,
+    "mean_relative_place": 0.6042,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": 130.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 1780.0,
+     "final_cumulative": -560.0,
+     "trough_index": 94
+    }
+   },
+   "pushfold_v2_ante": {
+    "n_tournaments": 100,
+    "total_cost": 11000.0,
+    "total_payout": 12360.0,
+    "total_net": 1360.0,
+    "entries_total": 100,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 0.123636,
+     "ci_low": -0.225455,
+     "ci_high": 0.494545,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 0.123636,
+    "net_per_tournament": {
+     "estimate": 13.6,
+     "ci_low": -27.2,
+     "ci_high": 55.6,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.29,
+     "ci_low": 0.21,
+     "ci_high": 0.38,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 12,
+    "mean_relative_place": 0.6,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": 130.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 1690.0,
+     "final_cumulative": 1360.0,
+     "trough_index": 94
+    }
+   },
+   "hybrid_v1": {
+    "n_tournaments": 100,
+    "total_cost": 11000.0,
+    "total_payout": 19680.0,
+    "total_net": 8680.0,
+    "entries_total": 100,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 0.789091,
+     "ci_low": 0.309091,
+     "ci_high": 1.258182,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 0.789091,
+    "net_per_tournament": {
+     "estimate": 86.8,
+     "ci_low": 37.6,
+     "ci_high": 136.0,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.4,
+     "ci_low": 0.3,
+     "ci_high": 0.5,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 25,
+    "mean_relative_place": 0.4992,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": 310.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 1410.0,
+     "final_cumulative": 8680.0,
+     "trough_index": 76
+    }
+   }
+  }
+ },
+ "progressive": {
+  "pushfold_p7": [
+   {
+    "n": 100,
+    "roi": {
+     "estimate": -0.050909,
+     "ci_low": -0.378182,
+     "ci_high": 0.298182,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.26
+   }
+  ],
+  "pushfold_v2_ante": [
+   {
+    "n": 100,
+    "roi": {
+     "estimate": 0.123636,
+     "ci_low": -0.225455,
+     "ci_high": 0.494545,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.29
+   }
+  ],
+  "hybrid_v1": [
+   {
+    "n": 100,
+    "roi": {
+     "estimate": 0.789091,
+     "ci_low": 0.309091,
+     "ci_high": 1.258182,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.4
+   }
+  ]
+ },
+ "paired_vs_baseline": {
+  "dev_mixed": {
+   "pushfold_v2_ante": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.174545,
+    "ci_low": -0.043636,
+    "ci_high": 0.403636,
+    "n": 100,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "hybrid_v1": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.84,
+    "ci_low": 0.327273,
+    "ci_high": 1.374545,
+    "n": 100,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   }
+  }
+ },
+ "breakdowns": {
+  "pushfold_p7": {
+   "phase": {
+    "early": {
+     "metric": "net bb per hand",
+     "hands": 782,
+     "estimate": 0.399361,
+     "ci_low": -0.296452,
+     "ci_high": 1.105787,
+     "n": 100,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "final_table": {
+     "metric": "net bb per hand",
+     "hands": 783,
+     "estimate": -0.031246,
+     "ci_low": -0.219674,
+     "ci_high": 0.144896,
+     "n": 38,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "middle": {
+     "metric": "net bb per hand",
+     "hands": 3169,
+     "estimate": 0.066802,
+     "ci_low": -0.084093,
+     "ci_high": 0.199602,
+     "n": 93,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "position": {
+    "BB": {
+     "metric": "net bb per hand",
+     "hands": 1037,
+     "estimate": 0.014572,
+     "ci_low": -0.608867,
+     "ci_high": 0.573758,
+     "n": 100,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "BTN": {
+     "metric": "net bb per hand",
+     "hands": 1018,
+     "estimate": 0.175949,
+     "ci_low": -0.072785,
+     "ci_high": 0.401594,
+     "n": 96,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "CO": {
+     "metric": "net bb per hand",
+     "hands": 851,
+     "estimate": 0.276472,
+     "ci_low": 0.058673,
+     "ci_high": 0.510092,
+     "n": 98,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "HJ": {
+     "metric": "net bb per hand",
+     "hands": 626,
+     "estimate": 0.163938,
+     "ci_low": -0.132838,
+     "ci_high": 0.466754,
+     "n": 99,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "SB": {
+     "metric": "net bb per hand",
+     "hands": 933,
+     "estimate": -0.153664,
+     "ci_low": -0.577032,
+     "ci_high": 0.245891,
+     "n": 97,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "UTG": {
+     "metric": "net bb per hand",
+     "hands": 269,
+     "estimate": 0.411772,
+     "ci_low": -0.178978,
+     "ci_high": 1.246687,
+     "n": 93,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "stack_bucket": {
+    "10-20bb": {
+     "metric": "net bb per hand",
+     "hands": 1416,
+     "estimate": 0.044108,
+     "ci_low": -0.142902,
+     "ci_high": 0.210357,
+     "n": 83,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "20-40bb": {
+     "metric": "net bb per hand",
+     "hands": 1560,
+     "estimate": 0.095292,
+     "ci_low": -0.140908,
+     "ci_high": 0.304568,
+     "n": 93,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "40bb+": {
+     "metric": "net bb per hand",
+     "hands": 1100,
+     "estimate": 0.244992,
+     "ci_low": -0.235061,
+     "ci_high": 0.67719,
+     "n": 100,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "<10bb": {
+     "metric": "net bb per hand",
+     "hands": 658,
+     "estimate": 0.02876,
+     "ci_low": -0.187225,
+     "ci_high": 0.218477,
+     "n": 73,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   }
+  },
+  "hybrid_v1": {
+   "phase": {
+    "early": {
+     "metric": "net bb per hand",
+     "hands": 791,
+     "estimate": 0.674817,
+     "ci_low": 0.134866,
+     "ci_high": 1.233817,
+     "n": 100,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "final_table": {
+     "metric": "net bb per hand",
+     "hands": 1154,
+     "estimate": 0.186203,
+     "ci_low": 0.006155,
+     "ci_high": 0.376529,
+     "n": 53,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "middle": {
+     "metric": "net bb per hand",
+     "hands": 3378,
+     "estimate": 0.289582,
+     "ci_low": 0.149709,
+     "ci_high": 0.421855,
+     "n": 97,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    }
+   },
+   "position": {
+    "BB": {
+     "metric": "net bb per hand",
+     "hands": 1193,
+     "estimate": -0.041754,
+     "ci_low": -0.392855,
+     "ci_high": 0.279383,
+     "n": 100,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "BTN": {
+     "metric": "net bb per hand",
+     "hands": 1190,
+     "estimate": 0.68131,
+     "ci_low": 0.374295,
+     "ci_high": 0.990913,
+     "n": 99,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "CO": {
+     "metric": "net bb per hand",
+     "hands": 922,
+     "estimate": 0.676888,
+     "ci_low": 0.36422,
+     "ci_high": 0.980155,
+     "n": 99,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "HJ": {
+     "metric": "net bb per hand",
+     "hands": 660,
+     "estimate": 0.40422,
+     "ci_low": 0.110756,
+     "ci_high": 0.700574,
+     "n": 99,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "SB": {
+     "metric": "net bb per hand",
+     "hands": 1065,
+     "estimate": 0.100239,
+     "ci_low": -0.118045,
+     "ci_high": 0.316511,
+     "n": 99,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "UTG": {
+     "metric": "net bb per hand",
+     "hands": 293,
+     "estimate": -0.108228,
+     "ci_low": -0.534653,
+     "ci_high": 0.215721,
+     "n": 93,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "stack_bucket": {
+    "10-20bb": {
+     "metric": "net bb per hand",
+     "hands": 1737,
+     "estimate": 0.257523,
+     "ci_low": 0.109486,
+     "ci_high": 0.386852,
+     "n": 86,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "20-40bb": {
+     "metric": "net bb per hand",
+     "hands": 1894,
+     "estimate": 0.346061,
+     "ci_low": 0.140737,
+     "ci_high": 0.52036,
+     "n": 95,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "40bb+": {
+     "metric": "net bb per hand",
+     "hands": 1198,
+     "estimate": 0.456183,
+     "ci_low": 0.098187,
+     "ci_high": 0.805409,
+     "n": 100,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "<10bb": {
+     "metric": "net bb per hand",
+     "hands": 494,
+     "estimate": 0.157091,
+     "ci_low": -0.168934,
+     "ci_high": 0.404881,
+     "n": 71,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   }
+  },
+  "pushfold_v2_ante": {
+   "phase": {
+    "early": {
+     "metric": "net bb per hand",
+     "hands": 786,
+     "estimate": 0.412392,
+     "ci_low": -0.309682,
+     "ci_high": 1.14514,
+     "n": 100,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "final_table": {
+     "metric": "net bb per hand",
+     "hands": 882,
+     "estimate": 0.054622,
+     "ci_low": -0.117274,
+     "ci_high": 0.21027,
+     "n": 37,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "middle": {
+     "metric": "net bb per hand",
+     "hands": 3100,
+     "estimate": 0.081075,
+     "ci_low": -0.061758,
+     "ci_high": 0.223109,
+     "n": 94,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "position": {
+    "BB": {
+     "metric": "net bb per hand",
+     "hands": 1061,
+     "estimate": 0.029668,
+     "ci_low": -0.581096,
+     "ci_high": 0.61345,
+     "n": 100,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "BTN": {
+     "metric": "net bb per hand",
+     "hands": 1040,
+     "estimate": 0.192868,
+     "ci_low": -0.045171,
+     "ci_high": 0.44526,
+     "n": 97,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "CO": {
+     "metric": "net bb per hand",
+     "hands": 840,
+     "estimate": 0.296878,
+     "ci_low": 0.074022,
+     "ci_high": 0.5371,
+     "n": 99,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "HJ": {
+     "metric": "net bb per hand",
+     "hands": 624,
+     "estimate": 0.196809,
+     "ci_low": -0.134991,
+     "ci_high": 0.521852,
+     "n": 99,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "SB": {
+     "metric": "net bb per hand",
+     "hands": 927,
+     "estimate": -0.099367,
+     "ci_low": -0.496964,
+     "ci_high": 0.264058,
+     "n": 97,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "UTG": {
+     "metric": "net bb per hand",
+     "hands": 276,
+     "estimate": 0.404046,
+     "ci_low": -0.146362,
+     "ci_high": 1.190649,
+     "n": 95,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "stack_bucket": {
+    "10-20bb": {
+     "metric": "net bb per hand",
+     "hands": 1488,
+     "estimate": 0.075831,
+     "ci_low": -0.097585,
+     "ci_high": 0.23106,
+     "n": 84,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "20-40bb": {
+     "metric": "net bb per hand",
+     "hands": 1598,
+     "estimate": 0.118522,
+     "ci_low": -0.130896,
+     "ci_high": 0.326758,
+     "n": 93,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "40bb+": {
+     "metric": "net bb per hand",
+     "hands": 1104,
+     "estimate": 0.245056,
+     "ci_low": -0.260741,
+     "ci_high": 0.680059,
+     "n": 100,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "<10bb": {
+     "metric": "net bb per hand",
+     "hands": 578,
+     "estimate": 0.088017,
+     "ci_low": -0.136865,
+     "ci_high": 0.28577,
+     "n": 73,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   }
+  }
+ },
+ "allin_luck": {
+  "hybrid_v1": {
+   "allin_hands": 471,
+   "luck_bb_total": -220.54,
+   "luck_bb_mean": {
+    "estimate": -0.46823,
+    "ci_low": -1.319244,
+    "ci_high": 0.320344,
+    "n": 471,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "allin_ev_bb_total": 458.94
+  },
+  "pushfold_v2_ante": {
+   "allin_hands": 315,
+   "luck_bb_total": -116.76,
+   "luck_bb_mean": {
+    "estimate": -0.370663,
+    "ci_low": -1.491864,
+    "ci_high": 0.775493,
+    "n": 315,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "allin_ev_bb_total": 502.4
+  },
+  "pushfold_p7": {
+   "allin_hands": 310,
+   "luck_bb_total": -136.13,
+   "luck_bb_mean": {
+    "estimate": -0.43914,
+    "ci_low": -1.601994,
+    "ci_high": 0.540729,
+    "n": 310,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "allin_ev_bb_total": 486.88
+  }
+ },
+ "decision_quality": {}
+}

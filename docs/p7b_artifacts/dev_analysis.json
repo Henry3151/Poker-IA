@@ -1,0 +1,492 @@
+{
+ "B1_profile_stats": {
+  "tag": {
+   "hands": 19547,
+   "vpip": 0.099,
+   "pfr": 0.081,
+   "open_when_unopened": 0.082,
+   "open_by_pos": {
+    "UTG": 0.053,
+    "HJ": 0.057,
+    "CO": 0.081,
+    "BTN": 0.107,
+    "SB": 0.1
+   },
+   "blind_vs_steal_fold": 0.972,
+   "blind_vs_steal_n": 5201,
+   "cbet": 0.337,
+   "fold_vs_cbet": 0.6,
+   "postflop_af": 5.85,
+   "postflop_fold_share": 0.128
+  },
+  "station": {
+   "hands": 12481,
+   "vpip": 0.438,
+   "pfr": 0.371,
+   "open_when_unopened": 0.464,
+   "open_by_pos": {
+    "UTG": 0.293,
+    "HJ": 0.454,
+    "CO": 0.487,
+    "BTN": 0.526,
+    "SB": 0.442
+   },
+   "blind_vs_steal_fold": 0.777,
+   "blind_vs_steal_n": 2400,
+   "cbet": 0.12,
+   "fold_vs_cbet": 0.006,
+   "postflop_af": 0.52,
+   "postflop_fold_share": 0.002
+  },
+  "nit": {
+   "hands": 17995,
+   "vpip": 0.044,
+   "pfr": 0.035,
+   "open_when_unopened": 0.031,
+   "open_by_pos": {
+    "UTG": 0.025,
+    "HJ": 0.019,
+    "CO": 0.034,
+    "BTN": 0.038,
+    "SB": 0.039
+   },
+   "blind_vs_steal_fold": 0.982,
+   "blind_vs_steal_n": 4667,
+   "cbet": 0.351,
+   "fold_vs_cbet": 0.25,
+   "postflop_af": 8.08,
+   "postflop_fold_share": 0.09
+  },
+  "lag": {
+   "hands": 19472,
+   "vpip": 0.492,
+   "pfr": 0.44,
+   "open_when_unopened": 0.451,
+   "open_by_pos": {
+    "UTG": 0.304,
+    "HJ": 0.405,
+    "CO": 0.485,
+    "BTN": 0.503,
+    "SB": 0.438
+   },
+   "blind_vs_steal_fold": 0.77,
+   "blind_vs_steal_n": 4716,
+   "cbet": 0.331,
+   "fold_vs_cbet": 0.825,
+   "postflop_af": 10.27,
+   "postflop_fold_share": 0.147
+  },
+  "hero:heuristic": {
+   "hands": 3325,
+   "vpip": 0.099,
+   "pfr": 0.084,
+   "open_when_unopened": 0.124,
+   "open_by_pos": {
+    "UTG": 0.063,
+    "HJ": 0.087,
+    "CO": 0.143,
+    "BTN": 0.176,
+    "SB": 0.104
+   },
+   "blind_vs_steal_fold": 0.951,
+   "blind_vs_steal_n": 595,
+   "cbet": 0.296,
+   "fold_vs_cbet": 0.571,
+   "postflop_af": 5.62,
+   "postflop_fold_share": 0.154
+  },
+  "hero:equity": {
+   "hands": 2422,
+   "vpip": 0.298,
+   "pfr": 0.07,
+   "open_when_unopened": 0.103,
+   "open_by_pos": {
+    "UTG": 0.11,
+    "HJ": 0.091,
+    "CO": 0.122,
+    "BTN": 0.124,
+    "SB": 0.056
+   },
+   "blind_vs_steal_fold": 0.605,
+   "blind_vs_steal_n": 420,
+   "cbet": 0.333,
+   "fold_vs_cbet": 0.159,
+   "postflop_af": 0.94,
+   "postflop_fold_share": 0.051
+  },
+  "hero:pushfold_p7": {
+   "hands": 2647,
+   "vpip": 0.258,
+   "pfr": 0.109,
+   "open_when_unopened": 0.168,
+   "open_by_pos": {
+    "UTG": 0.119,
+    "HJ": 0.083,
+    "CO": 0.116,
+    "BTN": 0.176,
+    "SB": 0.371
+   },
+   "blind_vs_steal_fold": 0.602,
+   "blind_vs_steal_n": 500,
+   "cbet": 0.333,
+   "fold_vs_cbet": 0.193,
+   "postflop_af": 0.91,
+   "postflop_fold_share": 0.058
+  }
+ },
+ "B2_bb_per_hand_by_profile_position": {
+  "nit": {
+   "BB": {
+    "hands": 6211,
+    "bb_per_hand": -0.279
+   },
+   "BTN": {
+    "hands": 6078,
+    "bb_per_hand": 0.034
+   },
+   "CO": {
+    "hands": 5726,
+    "bb_per_hand": 0.009
+   },
+   "HJ": {
+    "hands": 4217,
+    "bb_per_hand": -0.065
+   },
+   "SB": {
+    "hands": 6069,
+    "bb_per_hand": -0.465
+   },
+   "UTG": {
+    "hands": 1756,
+    "bb_per_hand": 0.084
+   }
+  },
+  "hero:heuristic": {
+   "BB": {
+    "hands": 769,
+    "bb_per_hand": -0.203
+   },
+   "BTN": {
+    "hands": 771,
+    "bb_per_hand": 0.037
+   },
+   "CO": {
+    "hands": 682,
+    "bb_per_hand": 0.313
+   },
+   "HJ": {
+    "hands": 484,
+    "bb_per_hand": 0.025
+   },
+   "SB": {
+    "hands": 722,
+    "bb_per_hand": -0.434
+   },
+   "UTG": {
+    "hands": 205,
+    "bb_per_hand": 0.276
+   }
+  },
+  "station": {
+   "BB": {
+    "hands": 3441,
+    "bb_per_hand": -0.264
+   },
+   "BTN": {
+    "hands": 3535,
+    "bb_per_hand": 0.262
+   },
+   "CO": {
+    "hands": 2649,
+    "bb_per_hand": 0.244
+   },
+   "HJ": {
+    "hands": 2056,
+    "bb_per_hand": -0.24
+   },
+   "SB": {
+    "hands": 2989,
+    "bb_per_hand": -0.124
+   },
+   "UTG": {
+    "hands": 945,
+    "bb_per_hand": -0.634
+   }
+  },
+  "tag": {
+   "BB": {
+    "hands": 6658,
+    "bb_per_hand": -0.275
+   },
+   "BTN": {
+    "hands": 6581,
+    "bb_per_hand": 0.155
+   },
+   "CO": {
+    "hands": 5939,
+    "bb_per_hand": 0.075
+   },
+   "HJ": {
+    "hands": 4144,
+    "bb_per_hand": 0.029
+   },
+   "SB": {
+    "hands": 6383,
+    "bb_per_hand": -0.477
+   },
+   "UTG": {
+    "hands": 1692,
+    "bb_per_hand": -0.047
+   }
+  },
+  "lag": {
+   "BB": {
+    "hands": 7063,
+    "bb_per_hand": 0.098
+   },
+   "BTN": {
+    "hands": 7181,
+    "bb_per_hand": 0.427
+   },
+   "CO": {
+    "hands": 4996,
+    "bb_per_hand": 0.674
+   },
+   "HJ": {
+    "hands": 3600,
+    "bb_per_hand": 0.116
+   },
+   "SB": {
+    "hands": 5786,
+    "bb_per_hand": 0.049
+   },
+   "UTG": {
+    "hands": 1556,
+    "bb_per_hand": 0.358
+   }
+  },
+  "hero:equity": {
+   "BB": {
+    "hands": 552,
+    "bb_per_hand": 0.199
+   },
+   "BTN": {
+    "hands": 550,
+    "bb_per_hand": -0.109
+   },
+   "CO": {
+    "hands": 470,
+    "bb_per_hand": 0.081
+   },
+   "HJ": {
+    "hands": 349,
+    "bb_per_hand": 0.158
+   },
+   "SB": {
+    "hands": 527,
+    "bb_per_hand": -0.282
+   },
+   "UTG": {
+    "hands": 172,
+    "bb_per_hand": 0.602
+   }
+  },
+  "hero:pushfold_p7": {
+   "BB": {
+    "hands": 629,
+    "bb_per_hand": 0.044
+   },
+   "BTN": {
+    "hands": 627,
+    "bb_per_hand": 0.095
+   },
+   "CO": {
+    "hands": 516,
+    "bb_per_hand": 0.335
+   },
+   "HJ": {
+    "hands": 367,
+    "bb_per_hand": 0.093
+   },
+   "SB": {
+    "hands": 565,
+    "bb_per_hand": -0.222
+   },
+   "UTG": {
+    "hands": 159,
+    "bb_per_hand": 0.613
+   }
+  }
+ },
+ "B3_equity_calibration_when_facing_bet": {
+  "equity|flop|call": {
+   "n": 82,
+   "mean_estimated": 0.515,
+   "mean_true": 0.358,
+   "bias": {
+    "estimate": 0.156295,
+    "ci_low": 0.095028,
+    "ci_high": 0.218165,
+    "n": 82,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "equity|preflop|call": {
+   "n": 632,
+   "mean_estimated": 0.431,
+   "mean_true": 0.45,
+   "bias": {
+    "estimate": -0.019186,
+    "ci_low": -0.030418,
+    "ci_high": -0.007757,
+    "n": 632,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "equity|preflop|fold": {
+   "n": 1702,
+   "mean_estimated": 0.217,
+   "mean_true": 0.23,
+   "bias": {
+    "estimate": -0.013855,
+    "ci_low": -0.018172,
+    "ci_high": -0.009373,
+    "n": 1702,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "equity|preflop|raise": {
+   "n": 171,
+   "mean_estimated": 0.451,
+   "mean_true": 0.428,
+   "bias": {
+    "estimate": 0.022548,
+    "ci_low": 0.00678,
+    "ci_high": 0.040342,
+    "n": 171,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "equity|river|call": {
+   "n": 69,
+   "mean_estimated": 0.541,
+   "mean_true": 0.21,
+   "bias": {
+    "estimate": 0.330857,
+    "ci_low": 0.253502,
+    "ci_high": 0.41087,
+    "n": 69,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "equity|river|fold": {
+   "n": 33,
+   "mean_estimated": 0.139,
+   "mean_true": 0.045,
+   "bias": {
+    "estimate": 0.093434,
+    "ci_low": 0.019066,
+    "ci_high": 0.146212,
+    "n": 33,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "equity|turn|call": {
+   "n": 77,
+   "mean_estimated": 0.511,
+   "mean_true": 0.291,
+   "bias": {
+    "estimate": 0.219904,
+    "ci_low": 0.136551,
+    "ci_high": 0.298663,
+    "n": 77,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "pushfold_p7|flop|call": {
+   "n": 58,
+   "mean_estimated": 0.517,
+   "mean_true": 0.359,
+   "bias": {
+    "estimate": 0.158263,
+    "ci_low": 0.091419,
+    "ci_high": 0.234188,
+    "n": 58,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "pushfold_p7|preflop|call": {
+   "n": 420,
+   "mean_estimated": 0.401,
+   "mean_true": 0.425,
+   "bias": {
+    "estimate": -0.023835,
+    "ci_low": -0.036998,
+    "ci_high": -0.009787,
+    "n": 420,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "pushfold_p7|preflop|fold": {
+   "n": 1780,
+   "mean_estimated": 0.218,
+   "mean_true": 0.232,
+   "bias": {
+    "estimate": -0.014184,
+    "ci_low": -0.018409,
+    "ci_high": -0.009769,
+    "n": 1780,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "pushfold_p7|preflop|raise": {
+   "n": 162,
+   "mean_estimated": 0.447,
+   "mean_true": 0.415,
+   "bias": {
+    "estimate": 0.031764,
+    "ci_low": 0.016412,
+    "ci_high": 0.047351,
+    "n": 162,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "pushfold_p7|river|call": {
+   "n": 54,
+   "mean_estimated": 0.552,
+   "mean_true": 0.185,
+   "bias": {
+    "estimate": 0.367053,
+    "ci_low": 0.289275,
+    "ci_high": 0.448071,
+    "n": 54,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  },
+  "pushfold_p7|turn|call": {
+   "n": 53,
+   "mean_estimated": 0.548,
+   "mean_true": 0.303,
+   "bias": {
+    "estimate": 0.245633,
+    "ci_low": 0.157369,
+    "ci_high": 0.327459,
+    "n": 53,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   }
+  }
+ }
+}
