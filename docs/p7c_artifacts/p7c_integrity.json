@@ -1,0 +1,49 @@
+{
+ "db": "artifacts/p7c/final.db",
+ "evaluation_run_id": "0a9c56b9-9690-506e-86c8-75dea356b46e",
+ "checks": {
+  "all_completed": {
+   "ok": true,
+   "detail": {
+    "completed": 6000
+   }
+  },
+  "completeness_vs_frozen_scale": {
+   "ok": true,
+   "detail": {
+    "total": 6000,
+    "expected_total": 6000,
+    "mismatches": {}
+   }
+  },
+  "crn_pairing_same_seeds": {
+   "ok": true,
+   "detail": {}
+  },
+  "exactly_one_hero": {
+   "ok": true,
+   "detail": 0
+  },
+  "ledger_reconciliation": {
+   "ok": true,
+   "detail": {
+    "failures": 0,
+    "examples": {}
+   }
+  },
+  "money_conservation (payouts=prize pool, sum net = -fees)": {
+   "ok": true,
+   "detail": 0
+  },
+  "zero_invalid_actions_recorded": {
+   "ok": true,
+   "detail": {}
+  },
+  "no_duplicate_tournaments": {
+   "ok": true,
+   "detail": 0
+  }
+ },
+ "ok": true,
+ "integrity_check_sqlite": "ok"
+}

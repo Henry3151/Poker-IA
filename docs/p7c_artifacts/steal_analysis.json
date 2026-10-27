@@ -1,0 +1,4938 @@
+{
+ "adaptive_only": {
+  "hybrid_v1": {
+   "late_first_in_opps": 3499,
+   "steal_rate": 0.483,
+   "steal_won_immediately": 0.715,
+   "steal_hands": 1690,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.202753,
+    "ci_low": 1.014417,
+    "ci_high": 1.375219,
+    "n": 182,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 70,
+   "resteal_response": {
+    "fold": 0.714,
+    "call": 0.271,
+    "raise": 0.014
+   },
+   "resteal_hands_net_bb_mean": -3.201,
+   "steal_rate_first_half": 0.423,
+   "steal_rate_second_half": 0.54,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.063349,
+      "ci_low": 0.842538,
+      "ci_high": 1.26422,
+      "n": 156,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.156917,
+      "ci_low": 0.673105,
+      "ci_high": 1.53755,
+      "n": 163,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.455559,
+      "ci_low": 1.157256,
+      "ci_high": 1.754416,
+      "n": 148,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.346618,
+      "ci_low": 0.996077,
+      "ci_high": 1.661643,
+      "n": 138,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.334759,
+      "ci_low": 0.963228,
+      "ci_high": 1.744863,
+      "n": 130,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.300833,
+      "ci_low": -1.016154,
+      "ci_high": 1.291852,
+      "n": 97,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.217783,
+      "ci_low": 1.021769,
+      "ci_high": 1.404437,
+      "n": 135,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.307281,
+      "ci_low": 1.128678,
+      "ci_high": 1.481037,
+      "n": 162,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.689615,
+      "ci_low": -0.023645,
+      "ci_high": 1.24968,
+      "n": 142,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 1.202753,
+      "ci_low": 0.986184,
+      "ci_high": 1.383422,
+      "n": 182,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.028518,
+      "ci_low": 0.258806,
+      "ci_high": 1.769179,
+      "n": 25,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.994999,
+      "ci_low": 0.666622,
+      "ci_high": 1.276534,
+      "n": 173,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.362959,
+      "ci_low": 1.143763,
+      "ci_high": 1.572327,
+      "n": 143,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.15,
+     "CO": -0.085,
+     "SB": -0.565
+    },
+    "eff_stack": {
+     "10-20bb": -0.206,
+     "20-40bb": -0.089,
+     "40bb+": -0.061,
+     "<10bb": -0.318
+    },
+    "ante": {
+     "ante": -0.238,
+     "no_ante": -0.056
+    },
+    "defender_class": {
+     "adaptive": -0.194
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5809
+  },
+  "hybrid_v1_bluffcatch": {
+   "late_first_in_opps": 3421,
+   "steal_rate": 0.488,
+   "steal_won_immediately": 0.718,
+   "steal_hands": 1668,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.102068,
+    "ci_low": 0.896311,
+    "ci_high": 1.287379,
+    "n": 182,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 83,
+   "resteal_response": {
+    "fold": 0.699,
+    "call": 0.289,
+    "raise": 0.012
+   },
+   "resteal_hands_net_bb_mean": -2.028,
+   "steal_rate_first_half": 0.417,
+   "steal_rate_second_half": 0.554,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 0.966558,
+      "ci_low": 0.6899,
+      "ci_high": 1.210382,
+      "n": 160,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.160774,
+      "ci_low": 0.687765,
+      "ci_high": 1.56414,
+      "n": 160,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.24176,
+      "ci_low": 0.892779,
+      "ci_high": 1.533351,
+      "n": 140,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.409927,
+      "ci_low": 1.08789,
+      "ci_high": 1.688894,
+      "n": 139,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.030695,
+      "ci_low": 0.463812,
+      "ci_high": 1.593166,
+      "n": 129,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.046387,
+      "ci_low": -1.551752,
+      "ci_high": 1.129852,
+      "n": 97,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.091188,
+      "ci_low": 0.879442,
+      "ci_high": 1.284164,
+      "n": 124,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.257083,
+      "ci_low": 1.074724,
+      "ci_high": 1.418145,
+      "n": 156,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.365483,
+      "ci_low": -0.382509,
+      "ci_high": 0.997649,
+      "n": 144,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 1.102068,
+      "ci_low": 0.883589,
+      "ci_high": 1.292172,
+      "n": 182,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.924642,
+      "ci_low": 0.132285,
+      "ci_high": 1.496111,
+      "n": 23,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.014659,
+      "ci_low": 0.655606,
+      "ci_high": 1.354081,
+      "n": 172,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.179309,
+      "ci_low": 0.949915,
+      "ci_high": 1.374708,
+      "n": 138,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.148,
+     "CO": -0.085,
+     "SB": -0.572
+    },
+    "eff_stack": {
+     "10-20bb": -0.207,
+     "20-40bb": -0.098,
+     "40bb+": -0.06,
+     "<10bb": -0.319
+    },
+    "ante": {
+     "ante": -0.238,
+     "no_ante": -0.056
+    },
+    "defender_class": {
+     "adaptive": -0.194
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5373
+  },
+  "hybrid_v2_adaptive": {
+   "late_first_in_opps": 3373,
+   "steal_rate": 0.486,
+   "steal_won_immediately": 0.73,
+   "steal_hands": 1639,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.174017,
+    "ci_low": 0.957931,
+    "ci_high": 1.375144,
+    "n": 180,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 77,
+   "resteal_response": {
+    "fold": 0.39,
+    "call": 0.597,
+    "raise": 0.013
+   },
+   "resteal_hands_net_bb_mean": -2.41,
+   "steal_rate_first_half": 0.412,
+   "steal_rate_second_half": 0.557,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.029433,
+      "ci_low": 0.702925,
+      "ci_high": 1.342572,
+      "n": 156,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.275904,
+      "ci_low": 0.730027,
+      "ci_high": 1.829379,
+      "n": 159,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.275079,
+      "ci_low": 0.990891,
+      "ci_high": 1.576452,
+      "n": 135,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.446631,
+      "ci_low": 1.066483,
+      "ci_high": 1.802953,
+      "n": 138,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.11632,
+      "ci_low": 0.467494,
+      "ci_high": 1.758715,
+      "n": 125,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.062393,
+      "ci_low": -1.598696,
+      "ci_high": 1.688889,
+      "n": 95,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.215458,
+      "ci_low": 1.044742,
+      "ci_high": 1.410423,
+      "n": 119,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.317695,
+      "ci_low": 1.110551,
+      "ci_high": 1.467167,
+      "n": 153,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.485583,
+      "ci_low": -0.436052,
+      "ci_high": 1.354702,
+      "n": 141,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 1.174017,
+      "ci_low": 0.946811,
+      "ci_high": 1.384535,
+      "n": 180,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.099881,
+      "ci_low": 0.555068,
+      "ci_high": 1.533838,
+      "n": 27,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.092177,
+      "ci_low": 0.583524,
+      "ci_high": 1.530764,
+      "n": 171,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.241522,
+      "ci_low": 1.032782,
+      "ci_high": 1.43483,
+      "n": 133,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.144,
+     "CO": -0.085,
+     "SB": -0.567
+    },
+    "eff_stack": {
+     "10-20bb": -0.204,
+     "20-40bb": -0.099,
+     "40bb+": -0.061,
+     "<10bb": -0.31
+    },
+    "ante": {
+     "ante": -0.234,
+     "no_ante": -0.057
+    },
+    "defender_class": {
+     "adaptive": -0.19
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5705
+  },
+  "lag": {
+   "late_first_in_opps": 4088,
+   "steal_rate": 0.501,
+   "steal_won_immediately": 0.717,
+   "steal_hands": 2050,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.97855,
+    "ci_low": 0.838927,
+    "ci_high": 1.127643,
+    "n": 192,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 126,
+   "resteal_response": {
+    "fold": 0.778,
+    "raise": 0.095,
+    "call": 0.127
+   },
+   "resteal_hands_net_bb_mean": -2.151,
+   "steal_rate_first_half": 0.548,
+   "steal_rate_second_half": 0.464,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.001781,
+      "ci_low": 0.803505,
+      "ci_high": 1.165792,
+      "n": 178,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 0.874137,
+      "ci_low": 0.525492,
+      "ci_high": 1.211915,
+      "n": 183,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.115752,
+      "ci_low": 0.91397,
+      "ci_high": 1.33397,
+      "n": 148,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.039407,
+      "ci_low": 0.768375,
+      "ci_high": 1.273429,
+      "n": 153,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 0.887502,
+      "ci_low": 0.531587,
+      "ci_high": 1.265831,
+      "n": 161,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.372925,
+      "ci_low": -0.634811,
+      "ci_high": 1.093493,
+      "n": 137,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.13992,
+      "ci_low": 0.942209,
+      "ci_high": 1.332933,
+      "n": 148,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.051656,
+      "ci_low": 0.881877,
+      "ci_high": 1.185892,
+      "n": 173,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.705543,
+      "ci_low": 0.202803,
+      "ci_high": 1.098793,
+      "n": 174,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 0.97855,
+      "ci_low": 0.819269,
+      "ci_high": 1.122081,
+      "n": 192,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.064483,
+      "ci_low": 0.51706,
+      "ci_high": 1.545728,
+      "n": 49,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.857921,
+      "ci_low": 0.614279,
+      "ci_high": 1.094201,
+      "n": 191,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.144928,
+      "ci_low": 0.951526,
+      "ci_high": 1.340265,
+      "n": 139,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.246,
+     "CO": -0.096,
+     "SB": -0.478
+    },
+    "eff_stack": {
+     "10-20bb": -0.216,
+     "20-40bb": -0.116,
+     "40bb+": -0.066,
+     "<10bb": -0.315
+    },
+    "ante": {
+     "ante": -0.273,
+     "no_ante": -0.071
+    },
+    "defender_class": {
+     "adaptive": -0.242
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.4907
+  },
+  "pushfold_p7": {
+   "late_first_in_opps": 2761,
+   "steal_rate": 0.198,
+   "steal_won_immediately": 0.799,
+   "steal_hands": 546,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.31114,
+    "ci_low": 0.854566,
+    "ci_high": 1.705878,
+    "n": 138,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 10,
+   "resteal_response": {
+    "call": 1.0
+   },
+   "resteal_hands_net_bb_mean": -2.241,
+   "steal_rate_first_half": 0.136,
+   "steal_rate_second_half": 0.282,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.345079,
+      "ci_low": 0.705863,
+      "ci_high": 1.810646,
+      "n": 73,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.526253,
+      "ci_low": 0.053346,
+      "ci_high": 2.837764,
+      "n": 92,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.164444,
+      "ci_low": 0.74246,
+      "ci_high": 1.593565,
+      "n": 101,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.818209,
+      "ci_low": 1.101824,
+      "ci_high": 2.476476,
+      "n": 77,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.65435,
+      "ci_low": -1.319405,
+      "ci_high": 4.653993,
+      "n": 45,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": -3.605333,
+      "ci_low": -12.561429,
+      "ci_high": 2.272857,
+      "n": 14,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.245385,
+      "ci_low": 0.979415,
+      "ci_high": 1.498173,
+      "n": 93,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.496496,
+      "ci_low": 1.172365,
+      "ci_high": 1.782909,
+      "n": 116,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": -0.413019,
+      "ci_low": -4.4328,
+      "ci_high": 2.7125,
+      "n": 47,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 1.31114,
+      "ci_low": 0.832977,
+      "ci_high": 1.764843,
+      "n": 138,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.135715,
+      "ci_low": -0.681855,
+      "ci_high": 2.637635,
+      "n": 86,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.283889,
+      "ci_low": 1.075,
+      "ci_high": 1.485556,
+      "n": 13,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.365028,
+      "ci_low": 1.020876,
+      "ci_high": 1.670638,
+      "n": 106,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.029,
+     "CO": -0.034,
+     "SB": -0.535
+    },
+    "eff_stack": {
+     "10-20bb": -0.115,
+     "20-40bb": -0.22,
+     "40bb+": 0.296,
+     "<10bb": -0.224
+    },
+    "ante": {
+     "ante": -0.14,
+     "no_ante": -0.051
+    },
+    "defender_class": {
+     "adaptive": -0.112
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.2593
+  }
+ },
+ "baseline_mixed": {
+  "hybrid_v1": {
+   "late_first_in_opps": 3925,
+   "steal_rate": 0.486,
+   "steal_won_immediately": 0.729,
+   "steal_hands": 1908,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.282985,
+    "ci_low": 1.070741,
+    "ci_high": 1.48277,
+    "n": 180,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 74,
+   "resteal_response": {
+    "call": 0.122,
+    "fold": 0.784,
+    "raise": 0.095
+   },
+   "resteal_hands_net_bb_mean": 0.181,
+   "steal_rate_first_half": 0.435,
+   "steal_rate_second_half": 0.532,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.297752,
+      "ci_low": 1.030952,
+      "ci_high": 1.561538,
+      "n": 168,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.512891,
+      "ci_low": 0.967892,
+      "ci_high": 1.991605,
+      "n": 156,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.050725,
+      "ci_low": 0.73215,
+      "ci_high": 1.369315,
+      "n": 152,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.258243,
+      "ci_low": 0.975571,
+      "ci_high": 1.529055,
+      "n": 141,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.766399,
+      "ci_low": 1.146089,
+      "ci_high": 2.402591,
+      "n": 143,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 1.215344,
+      "ci_low": -0.007195,
+      "ci_high": 2.416267,
+      "n": 114,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.087576,
+      "ci_low": 0.921305,
+      "ci_high": 1.242958,
+      "n": 123,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.210804,
+      "ci_low": 1.032483,
+      "ci_high": 1.398782,
+      "n": 157,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.608844,
+      "ci_low": 0.923663,
+      "ci_high": 2.284699,
+      "n": 161,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 1.003623,
+      "ci_low": 0.692515,
+      "ci_high": 1.292388,
+      "n": 143,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.527221,
+      "ci_low": 1.238229,
+      "ci_high": 1.806379,
+      "n": 158,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.860856,
+      "ci_low": -0.06537,
+      "ci_high": 1.594503,
+      "n": 22,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.502558,
+      "ci_low": 1.109211,
+      "ci_high": 1.834278,
+      "n": 178,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.11452,
+      "ci_low": 0.930168,
+      "ci_high": 1.294523,
+      "n": 142,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.172,
+     "CO": -0.086,
+     "SB": -0.568
+    },
+    "eff_stack": {
+     "10-20bb": -0.226,
+     "20-40bb": -0.138,
+     "40bb+": -0.076,
+     "<10bb": -0.33
+    },
+    "ante": {
+     "ante": -0.259,
+     "no_ante": -0.067
+    },
+    "defender_class": {
+     "aggressive": -0.197,
+     "static_tight": -0.236
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.6237
+  },
+  "hybrid_v1_bluffcatch": {
+   "late_first_in_opps": 3656,
+   "steal_rate": 0.49,
+   "steal_won_immediately": 0.723,
+   "steal_hands": 1791,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.188429,
+    "ci_low": 0.954525,
+    "ci_high": 1.401945,
+    "n": 177,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 71,
+   "resteal_response": {
+    "fold": 0.803,
+    "raise": 0.099,
+    "call": 0.099
+   },
+   "resteal_hands_net_bb_mean": -0.375,
+   "steal_rate_first_half": 0.432,
+   "steal_rate_second_half": 0.545,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.240974,
+      "ci_low": 0.953755,
+      "ci_high": 1.514898,
+      "n": 159,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.28419,
+      "ci_low": 0.750997,
+      "ci_high": 1.83696,
+      "n": 152,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.012271,
+      "ci_low": 0.660605,
+      "ci_high": 1.344563,
+      "n": 141,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.067323,
+      "ci_low": 0.750172,
+      "ci_high": 1.380536,
+      "n": 133,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.586377,
+      "ci_low": 0.909638,
+      "ci_high": 2.253966,
+      "n": 132,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 1.140742,
+      "ci_low": -0.357718,
+      "ci_high": 2.450573,
+      "n": 111,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.11,
+      "ci_low": 0.913443,
+      "ci_high": 1.294452,
+      "n": 117,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.101693,
+      "ci_low": 0.864782,
+      "ci_high": 1.307523,
+      "n": 147,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.550665,
+      "ci_low": 0.767076,
+      "ci_high": 2.286299,
+      "n": 161,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 0.891667,
+      "ci_low": 0.556206,
+      "ci_high": 1.164851,
+      "n": 141,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.446469,
+      "ci_low": 1.102182,
+      "ci_high": 1.767406,
+      "n": 151,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.140012,
+      "ci_low": 0.249786,
+      "ci_high": 2.019844,
+      "n": 26,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.218279,
+      "ci_low": 0.776776,
+      "ci_high": 1.642711,
+      "n": 174,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.165744,
+      "ci_low": 0.998686,
+      "ci_high": 1.332747,
+      "n": 132,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.155,
+     "CO": -0.084,
+     "SB": -0.559
+    },
+    "eff_stack": {
+     "10-20bb": -0.222,
+     "20-40bb": -0.129,
+     "40bb+": -0.076,
+     "<10bb": -0.329
+    },
+    "ante": {
+     "ante": -0.256,
+     "no_ante": -0.067
+    },
+    "defender_class": {
+     "aggressive": -0.179,
+     "static_tight": -0.24
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5822
+  },
+  "hybrid_v2_adaptive": {
+   "late_first_in_opps": 3752,
+   "steal_rate": 0.48,
+   "steal_won_immediately": 0.725,
+   "steal_hands": 1801,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.361194,
+    "ci_low": 1.110445,
+    "ci_high": 1.596085,
+    "n": 178,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 65,
+   "resteal_response": {
+    "call": 0.431,
+    "fold": 0.462,
+    "raise": 0.108
+   },
+   "resteal_hands_net_bb_mean": 1.062,
+   "steal_rate_first_half": 0.418,
+   "steal_rate_second_half": 0.538,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.502935,
+      "ci_low": 1.200232,
+      "ci_high": 1.77033,
+      "n": 162,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.390147,
+      "ci_low": 0.879966,
+      "ci_high": 1.957065,
+      "n": 154,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.116318,
+      "ci_low": 0.728902,
+      "ci_high": 1.463022,
+      "n": 145,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.145793,
+      "ci_low": 0.774253,
+      "ci_high": 1.48058,
+      "n": 140,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.983187,
+      "ci_low": 1.312497,
+      "ci_high": 2.692397,
+      "n": 132,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 1.643323,
+      "ci_low": 0.12175,
+      "ci_high": 3.09021,
+      "n": 112,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.192012,
+      "ci_low": 1.012233,
+      "ci_high": 1.361365,
+      "n": 121,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.255457,
+      "ci_low": 1.027692,
+      "ci_high": 1.459614,
+      "n": 150,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.805838,
+      "ci_low": 0.906301,
+      "ci_high": 2.535625,
+      "n": 161,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 1.149602,
+      "ci_low": 0.832595,
+      "ci_high": 1.447424,
+      "n": 144,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.529918,
+      "ci_low": 1.226382,
+      "ci_high": 1.841621,
+      "n": 153,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.844361,
+      "ci_low": -0.023849,
+      "ci_high": 1.734684,
+      "n": 25,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.542768,
+      "ci_low": 1.034925,
+      "ci_high": 1.991774,
+      "n": 173,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.238496,
+      "ci_low": 1.052876,
+      "ci_high": 1.41309,
+      "n": 137,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.164,
+     "CO": -0.085,
+     "SB": -0.557
+    },
+    "eff_stack": {
+     "10-20bb": -0.221,
+     "20-40bb": -0.132,
+     "40bb+": -0.078,
+     "<10bb": -0.332
+    },
+    "ante": {
+     "ante": -0.256,
+     "no_ante": -0.068
+    },
+    "defender_class": {
+     "aggressive": -0.183,
+     "static_tight": -0.24
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.6534
+  },
+  "lag": {
+   "late_first_in_opps": 4753,
+   "steal_rate": 0.482,
+   "steal_won_immediately": 0.724,
+   "steal_hands": 2293,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.189464,
+    "ci_low": 1.010854,
+    "ci_high": 1.368327,
+    "n": 184,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 128,
+   "resteal_response": {
+    "fold": 0.781,
+    "raise": 0.07,
+    "call": 0.148
+   },
+   "resteal_hands_net_bb_mean": -1.919,
+   "steal_rate_first_half": 0.551,
+   "steal_rate_second_half": 0.435,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.192009,
+      "ci_low": 0.99279,
+      "ci_high": 1.389679,
+      "n": 167,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.369552,
+      "ci_low": 0.949837,
+      "ci_high": 1.754392,
+      "n": 173,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 0.912126,
+      "ci_low": 0.495693,
+      "ci_high": 1.219861,
+      "n": 152,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.15238,
+      "ci_low": 0.918522,
+      "ci_high": 1.382114,
+      "n": 151,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.507502,
+      "ci_low": 0.971942,
+      "ci_high": 2.02965,
+      "n": 148,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.662642,
+      "ci_low": -0.519815,
+      "ci_high": 1.760845,
+      "n": 132,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.179413,
+      "ci_low": 1.011243,
+      "ci_high": 1.321604,
+      "n": 146,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.17993,
+      "ci_low": 1.024082,
+      "ci_high": 1.322761,
+      "n": 161,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.229389,
+      "ci_low": 0.539624,
+      "ci_high": 1.931667,
+      "n": 170,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 0.73316,
+      "ci_low": 0.460475,
+      "ci_high": 0.978984,
+      "n": 155,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.604355,
+      "ci_low": 1.3692,
+      "ci_high": 1.818989,
+      "n": 166,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.848174,
+      "ci_low": 0.398108,
+      "ci_high": 1.21098,
+      "n": 49,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.240844,
+      "ci_low": 0.959709,
+      "ci_high": 1.537608,
+      "n": 182,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.143116,
+      "ci_low": 0.946109,
+      "ci_high": 1.335046,
+      "n": 143,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.269,
+     "CO": -0.087,
+     "SB": -0.53
+    },
+    "eff_stack": {
+     "10-20bb": -0.294,
+     "20-40bb": -0.113,
+     "40bb+": -0.004,
+     "<10bb": -0.335
+    },
+    "ante": {
+     "ante": -0.309,
+     "no_ante": -0.035
+    },
+    "defender_class": {
+     "aggressive": -0.285,
+     "static_tight": -0.259
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5738
+  },
+  "pushfold_p7": {
+   "late_first_in_opps": 3008,
+   "steal_rate": 0.203,
+   "steal_won_immediately": 0.818,
+   "steal_hands": 610,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.190805,
+    "ci_low": 0.748128,
+    "ci_high": 1.581464,
+    "n": 136,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 7,
+   "resteal_response": {
+    "raise": 0.286,
+    "call": 0.714
+   },
+   "resteal_hands_net_bb_mean": 4.724,
+   "steal_rate_first_half": 0.122,
+   "steal_rate_second_half": 0.297,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.623274,
+      "ci_low": 1.071488,
+      "ci_high": 2.378818,
+      "n": 68,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 0.692004,
+      "ci_low": -0.762868,
+      "ci_high": 1.997004,
+      "n": 89,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.1153,
+      "ci_low": 0.758854,
+      "ci_high": 1.483897,
+      "n": 109,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.119749,
+      "ci_low": 0.655451,
+      "ci_high": 1.516511,
+      "n": 91,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.244316,
+      "ci_low": -1.945203,
+      "ci_high": 4.357172,
+      "n": 32,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": -2.092857,
+      "ci_low": -13.725714,
+      "ci_high": 9.307143,
+      "n": 14,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.338237,
+      "ci_low": 1.092898,
+      "ci_high": 1.590471,
+      "n": 97,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.192134,
+      "ci_low": 0.905771,
+      "ci_high": 1.444897,
+      "n": 115,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.176538,
+      "ci_low": -2.339,
+      "ci_high": 4.843,
+      "n": 47,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 0.737964,
+      "ci_low": 0.00437,
+      "ci_high": 1.278776,
+      "n": 82,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.580137,
+      "ci_low": 1.088817,
+      "ci_high": 2.028038,
+      "n": 112,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.852513,
+      "ci_low": -0.914027,
+      "ci_high": 2.583929,
+      "n": 69,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 2.603063,
+      "ci_low": 0.325157,
+      "ci_high": 6.815222,
+      "n": 15,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.221003,
+      "ci_low": 0.963007,
+      "ci_high": 1.445738,
+      "n": 111,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.391,
+     "CO": -0.114,
+     "SB": -0.482
+    },
+    "eff_stack": {
+     "10-20bb": -0.553,
+     "20-40bb": -0.225,
+     "40bb+": -0.014,
+     "<10bb": -0.209
+    },
+    "ante": {
+     "ante": -0.348,
+     "no_ante": -0.151
+    },
+    "defender_class": {
+     "aggressive": -0.408,
+     "static_tight": -0.195
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.2415
+  }
+ },
+ "bluff_heavy": {
+  "hybrid_v1": {
+   "late_first_in_opps": 2549,
+   "steal_rate": 0.455,
+   "steal_won_immediately": 0.652,
+   "steal_hands": 1160,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.901348,
+    "ci_low": 0.586031,
+    "ci_high": 1.208382,
+    "n": 176,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 104,
+   "resteal_response": {
+    "fold": 0.673,
+    "call": 0.269,
+    "raise": 0.058
+   },
+   "resteal_hands_net_bb_mean": -1.638,
+   "steal_rate_first_half": 0.398,
+   "steal_rate_second_half": 0.512,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 0.965256,
+      "ci_low": 0.519477,
+      "ci_high": 1.458291,
+      "n": 139,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 0.800785,
+      "ci_low": 0.154845,
+      "ci_high": 1.454951,
+      "n": 159,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 0.92873,
+      "ci_low": 0.371652,
+      "ci_high": 1.444444,
+      "n": 114,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 0.824751,
+      "ci_low": 0.392855,
+      "ci_high": 1.223694,
+      "n": 135,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.227369,
+      "ci_low": 0.475918,
+      "ci_high": 1.98576,
+      "n": 111,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.288255,
+      "ci_low": -1.684706,
+      "ci_high": 2.796,
+      "n": 84,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 0.952461,
+      "ci_low": 0.635505,
+      "ci_high": 1.23793,
+      "n": 103,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.019832,
+      "ci_low": 0.756661,
+      "ci_high": 1.262504,
+      "n": 154,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.411681,
+      "ci_low": -0.705149,
+      "ci_high": 1.426432,
+      "n": 128,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 0.901348,
+      "ci_low": 0.584711,
+      "ci_high": 1.183045,
+      "n": 176,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.255766,
+      "ci_low": 0.443527,
+      "ci_high": 1.913272,
+      "n": 24,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.861143,
+      "ci_low": 0.313982,
+      "ci_high": 1.424979,
+      "n": 169,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 0.9228,
+      "ci_low": 0.586478,
+      "ci_high": 1.180748,
+      "n": 125,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.15,
+     "CO": -0.083,
+     "SB": -0.59
+    },
+    "eff_stack": {
+     "10-20bb": -0.198,
+     "20-40bb": -0.11,
+     "40bb+": -0.035,
+     "<10bb": -0.278
+    },
+    "ante": {
+     "ante": -0.212,
+     "no_ante": -0.042
+    },
+    "defender_class": {
+     "aggressive": -0.169
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.4102
+  },
+  "hybrid_v1_bluffcatch": {
+   "late_first_in_opps": 2357,
+   "steal_rate": 0.459,
+   "steal_won_immediately": 0.648,
+   "steal_hands": 1081,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.978015,
+    "ci_low": 0.607226,
+    "ci_high": 1.312085,
+    "n": 169,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 90,
+   "resteal_response": {
+    "fold": 0.756,
+    "call": 0.167,
+    "raise": 0.078
+   },
+   "resteal_hands_net_bb_mean": -0.449,
+   "steal_rate_first_half": 0.401,
+   "steal_rate_second_half": 0.517,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 0.934117,
+      "ci_low": 0.412983,
+      "ci_high": 1.469598,
+      "n": 127,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.043597,
+      "ci_low": 0.184358,
+      "ci_high": 1.904429,
+      "n": 152,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 0.971371,
+      "ci_low": 0.379856,
+      "ci_high": 1.512429,
+      "n": 106,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 0.827343,
+      "ci_low": 0.256814,
+      "ci_high": 1.352685,
+      "n": 114,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.190178,
+      "ci_low": 0.060485,
+      "ci_high": 2.172571,
+      "n": 106,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.417125,
+      "ci_low": -1.613119,
+      "ci_high": 2.673905,
+      "n": 84,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.176763,
+      "ci_low": 0.889697,
+      "ci_high": 1.474079,
+      "n": 99,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.218963,
+      "ci_low": 0.895727,
+      "ci_high": 1.515242,
+      "n": 138,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.024174,
+      "ci_low": -1.215622,
+      "ci_high": 1.199954,
+      "n": 126,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 0.978015,
+      "ci_low": 0.618112,
+      "ci_high": 1.322057,
+      "n": 169,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.849274,
+      "ci_low": -0.143735,
+      "ci_high": 1.712727,
+      "n": 23,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.997196,
+      "ci_low": 0.400473,
+      "ci_high": 1.645451,
+      "n": 162,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 0.966378,
+      "ci_low": 0.566294,
+      "ci_high": 1.351009,
+      "n": 111,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.178,
+     "CO": -0.08,
+     "SB": -0.583
+    },
+    "eff_stack": {
+     "10-20bb": -0.206,
+     "20-40bb": -0.126,
+     "40bb+": -0.035,
+     "<10bb": -0.266
+    },
+    "ante": {
+     "ante": -0.222,
+     "no_ante": -0.043
+    },
+    "defender_class": {
+     "aggressive": -0.172
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.4486
+  },
+  "hybrid_v2_adaptive": {
+   "late_first_in_opps": 2166,
+   "steal_rate": 0.45,
+   "steal_won_immediately": 0.646,
+   "steal_hands": 975,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.963955,
+    "ci_low": 0.536412,
+    "ci_high": 1.360072,
+    "n": 165,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 84,
+   "resteal_response": {
+    "call": 0.488,
+    "fold": 0.44,
+    "raise": 0.071
+   },
+   "resteal_hands_net_bb_mean": 0.258,
+   "steal_rate_first_half": 0.398,
+   "steal_rate_second_half": 0.508,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 0.981541,
+      "ci_low": 0.374803,
+      "ci_high": 1.570938,
+      "n": 120,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 0.956456,
+      "ci_low": -0.020821,
+      "ci_high": 1.898698,
+      "n": 148,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 0.941476,
+      "ci_low": 0.231433,
+      "ci_high": 1.53897,
+      "n": 104,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 0.893868,
+      "ci_low": 0.193962,
+      "ci_high": 1.548706,
+      "n": 103,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.059659,
+      "ci_low": -0.178725,
+      "ci_high": 2.265046,
+      "n": 99,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.359252,
+      "ci_low": -1.856963,
+      "ci_high": 2.613269,
+      "n": 84,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.1698,
+      "ci_low": 0.801585,
+      "ci_high": 1.453724,
+      "n": 97,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.163761,
+      "ci_low": 0.800491,
+      "ci_high": 1.48853,
+      "n": 125,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.249155,
+      "ci_low": -1.124286,
+      "ci_high": 1.638962,
+      "n": 126,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 0.963955,
+      "ci_low": 0.521812,
+      "ci_high": 1.325708,
+      "n": 165,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.162774,
+      "ci_low": 0.357816,
+      "ci_high": 1.967551,
+      "n": 24,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.001225,
+      "ci_low": 0.193241,
+      "ci_high": 1.734076,
+      "n": 159,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 0.90873,
+      "ci_low": 0.460023,
+      "ci_high": 1.259842,
+      "n": 103,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.172,
+     "CO": -0.077,
+     "SB": -0.58
+    },
+    "eff_stack": {
+     "10-20bb": -0.205,
+     "20-40bb": -0.12,
+     "40bb+": -0.036,
+     "<10bb": -0.275
+    },
+    "ante": {
+     "ante": -0.222,
+     "no_ante": -0.047
+    },
+    "defender_class": {
+     "aggressive": -0.171
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.4339
+  },
+  "lag": {
+   "late_first_in_opps": 3062,
+   "steal_rate": 0.508,
+   "steal_won_immediately": 0.626,
+   "steal_hands": 1554,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.921649,
+    "ci_low": 0.656297,
+    "ci_high": 1.189095,
+    "n": 180,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 145,
+   "resteal_response": {
+    "call": 0.179,
+    "fold": 0.703,
+    "raise": 0.117
+   },
+   "resteal_hands_net_bb_mean": -1.059,
+   "steal_rate_first_half": 0.55,
+   "steal_rate_second_half": 0.473,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 0.904257,
+      "ci_low": 0.486082,
+      "ci_high": 1.240478,
+      "n": 156,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 0.922567,
+      "ci_low": 0.420986,
+      "ci_high": 1.403286,
+      "n": 170,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 0.968278,
+      "ci_low": 0.588232,
+      "ci_high": 1.353781,
+      "n": 102,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 0.853645,
+      "ci_low": 0.482848,
+      "ci_high": 1.194132,
+      "n": 141,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 0.625409,
+      "ci_low": -0.086403,
+      "ci_high": 1.281587,
+      "n": 130,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.782409,
+      "ci_low": -0.638342,
+      "ci_high": 2.418012,
+      "n": 105,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.198177,
+      "ci_low": 0.885626,
+      "ci_high": 1.49457,
+      "n": 121,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.058295,
+      "ci_low": 0.826219,
+      "ci_high": 1.285426,
+      "n": 155,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.390535,
+      "ci_low": -0.610351,
+      "ci_high": 1.330161,
+      "n": 152,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 0.921649,
+      "ci_low": 0.635259,
+      "ci_high": 1.179887,
+      "n": 180,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.318118,
+      "ci_low": 0.840396,
+      "ci_high": 1.73275,
+      "n": 47,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.67918,
+      "ci_low": 0.258461,
+      "ci_high": 1.13308,
+      "n": 176,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.272491,
+      "ci_low": 0.852674,
+      "ci_high": 1.622414,
+      "n": 121,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.245,
+     "CO": -0.09,
+     "SB": -0.553
+    },
+    "eff_stack": {
+     "10-20bb": -0.222,
+     "20-40bb": -0.126,
+     "40bb+": -0.053,
+     "<10bb": -0.325
+    },
+    "ante": {
+     "ante": -0.277,
+     "no_ante": -0.067
+    },
+    "defender_class": {
+     "aggressive": -0.241
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.4677
+  },
+  "pushfold_p7": {
+   "late_first_in_opps": 1972,
+   "steal_rate": 0.188,
+   "steal_won_immediately": 0.732,
+   "steal_hands": 370,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.30137,
+    "ci_low": 0.458639,
+    "ci_high": 2.253674,
+    "n": 112,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 14,
+   "resteal_response": {
+    "call": 0.929,
+    "raise": 0.071
+   },
+   "resteal_hands_net_bb_mean": 10.268,
+   "steal_rate_first_half": 0.128,
+   "steal_rate_second_half": 0.271,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.218742,
+      "ci_low": -0.551334,
+      "ci_high": 2.336964,
+      "n": 45,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.915593,
+      "ci_low": -0.686069,
+      "ci_high": 5.194088,
+      "n": 78,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 0.927817,
+      "ci_low": 0.193922,
+      "ci_high": 1.510606,
+      "n": 69,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.294038,
+      "ci_low": 0.061468,
+      "ci_high": 2.497399,
+      "n": 69,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.638788,
+      "ci_low": -1.468021,
+      "ci_high": 4.118021,
+      "n": 30,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 1.515,
+      "ci_low": -11.273,
+      "ci_high": 16.184,
+      "n": 20,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.229905,
+      "ci_low": 0.747674,
+      "ci_high": 1.683898,
+      "n": 62,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.293591,
+      "ci_low": 0.786242,
+      "ci_high": 1.716648,
+      "n": 92,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.357556,
+      "ci_low": -5.455333,
+      "ci_high": 7.823111,
+      "n": 43,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "aggressive": {
+      "estimate": 1.30137,
+      "ci_low": 0.403198,
+      "ci_high": 2.201056,
+      "n": 112,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.052125,
+      "ci_low": -1.648164,
+      "ci_high": 4.080434,
+      "n": 77,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.763854,
+      "ci_low": -0.810278,
+      "ci_high": 1.696528,
+      "n": 6,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.419934,
+      "ci_low": 0.905636,
+      "ci_high": 1.855359,
+      "n": 78,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.136,
+     "CO": -0.072,
+     "SB": -0.591
+    },
+    "eff_stack": {
+     "10-20bb": -0.158,
+     "20-40bb": -0.258,
+     "40bb+": -0.033,
+     "<10bb": -0.136
+    },
+    "ante": {
+     "ante": -0.106,
+     "no_ante": -0.291
+    },
+    "defender_class": {
+     "aggressive": -0.161
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.2442
+  }
+ },
+ "robust_mix": {
+  "hybrid_v1": {
+   "late_first_in_opps": 8208,
+   "steal_rate": 0.491,
+   "steal_won_immediately": 0.738,
+   "steal_hands": 4028,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.260123,
+    "ci_low": 1.142756,
+    "ci_high": 1.376304,
+    "n": 377,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 157,
+   "resteal_response": {
+    "fold": 0.713,
+    "call": 0.242,
+    "raise": 0.045
+   },
+   "resteal_hands_net_bb_mean": -1.806,
+   "steal_rate_first_half": 0.422,
+   "steal_rate_second_half": 0.55,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.265899,
+      "ci_low": 1.072288,
+      "ci_high": 1.47317,
+      "n": 333,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.359543,
+      "ci_low": 1.129405,
+      "ci_high": 1.599882,
+      "n": 349,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.151646,
+      "ci_low": 0.990272,
+      "ci_high": 1.326862,
+      "n": 313,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.409492,
+      "ci_low": 1.176194,
+      "ci_high": 1.625508,
+      "n": 300,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.467745,
+      "ci_low": 1.083041,
+      "ci_high": 1.828092,
+      "n": 268,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.958451,
+      "ci_low": 0.342409,
+      "ci_high": 1.594373,
+      "n": 230,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.13677,
+      "ci_low": 1.01781,
+      "ci_high": 1.242571,
+      "n": 294,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.272378,
+      "ci_low": 1.136835,
+      "ci_high": 1.384012,
+      "n": 336,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.198595,
+      "ci_low": 0.813001,
+      "ci_high": 1.628565,
+      "n": 321,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 1.24679,
+      "ci_low": 1.043719,
+      "ci_high": 1.468169,
+      "n": 246,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "aggressive": {
+      "estimate": 1.289996,
+      "ci_low": 1.126851,
+      "ci_high": 1.464191,
+      "n": 306,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.217077,
+      "ci_low": 0.964193,
+      "ci_high": 1.453673,
+      "n": 235,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.881277,
+      "ci_low": 0.365295,
+      "ci_high": 1.328337,
+      "n": 52,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.372756,
+      "ci_low": 1.165853,
+      "ci_high": 1.59368,
+      "n": 367,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.191528,
+      "ci_low": 1.057755,
+      "ci_high": 1.320868,
+      "n": 310,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.183,
+     "CO": -0.087,
+     "SB": -0.557
+    },
+    "eff_stack": {
+     "10-20bb": -0.208,
+     "20-40bb": -0.12,
+     "40bb+": -0.063,
+     "<10bb": -0.322
+    },
+    "ante": {
+     "ante": -0.248,
+     "no_ante": -0.067
+    },
+    "defender_class": {
+     "adaptive": -0.158,
+     "aggressive": -0.206,
+     "static_tight": -0.281
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.6184
+  },
+  "hybrid_v1_bluffcatch": {
+   "late_first_in_opps": 7776,
+   "steal_rate": 0.494,
+   "steal_won_immediately": 0.736,
+   "steal_hands": 3840,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.187237,
+    "ci_low": 1.052474,
+    "ci_high": 1.305723,
+    "n": 373,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 148,
+   "resteal_response": {
+    "fold": 0.73,
+    "call": 0.243,
+    "raise": 0.027
+   },
+   "resteal_hands_net_bb_mean": -1.951,
+   "steal_rate_first_half": 0.426,
+   "steal_rate_second_half": 0.555,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.350996,
+      "ci_low": 1.148749,
+      "ci_high": 1.55267,
+      "n": 324,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.07597,
+      "ci_low": 0.833779,
+      "ci_high": 1.343633,
+      "n": 337,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.042944,
+      "ci_low": 0.877894,
+      "ci_high": 1.226622,
+      "n": 300,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.298756,
+      "ci_low": 1.038484,
+      "ci_high": 1.528756,
+      "n": 284,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.50848,
+      "ci_low": 1.047078,
+      "ci_high": 1.953613,
+      "n": 259,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.717564,
+      "ci_low": -0.027423,
+      "ci_high": 1.429867,
+      "n": 229,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.08732,
+      "ci_low": 0.970411,
+      "ci_high": 1.199336,
+      "n": 279,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.234187,
+      "ci_low": 1.081289,
+      "ci_high": 1.36052,
+      "n": 321,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.962262,
+      "ci_low": 0.549123,
+      "ci_high": 1.407929,
+      "n": 320,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 1.163866,
+      "ci_low": 0.908264,
+      "ci_high": 1.407744,
+      "n": 233,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "aggressive": {
+      "estimate": 1.129828,
+      "ci_low": 0.911241,
+      "ci_high": 1.343773,
+      "n": 303,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.322745,
+      "ci_low": 1.0722,
+      "ci_high": 1.561,
+      "n": 231,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.087806,
+      "ci_low": 0.682517,
+      "ci_high": 1.436824,
+      "n": 57,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.286624,
+      "ci_low": 1.041364,
+      "ci_high": 1.549704,
+      "n": 361,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.118581,
+      "ci_low": 0.980456,
+      "ci_high": 1.254046,
+      "n": 295,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.179,
+     "CO": -0.085,
+     "SB": -0.558
+    },
+    "eff_stack": {
+     "10-20bb": -0.209,
+     "20-40bb": -0.122,
+     "40bb+": -0.064,
+     "<10bb": -0.324
+    },
+    "ante": {
+     "ante": -0.25,
+     "no_ante": -0.068
+    },
+    "defender_class": {
+     "adaptive": -0.163,
+     "aggressive": -0.204,
+     "static_tight": -0.275
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5863
+  },
+  "hybrid_v2_adaptive": {
+   "late_first_in_opps": 7595,
+   "steal_rate": 0.491,
+   "steal_won_immediately": 0.738,
+   "steal_hands": 3732,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.169834,
+    "ci_low": 1.031456,
+    "ci_high": 1.31771,
+    "n": 369,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 136,
+   "resteal_response": {
+    "fold": 0.426,
+    "call": 0.544,
+    "raise": 0.029
+   },
+   "resteal_hands_net_bb_mean": -2.049,
+   "steal_rate_first_half": 0.423,
+   "steal_rate_second_half": 0.555,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.270801,
+      "ci_low": 1.044394,
+      "ci_high": 1.452871,
+      "n": 315,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.065078,
+      "ci_low": 0.736067,
+      "ci_high": 1.356025,
+      "n": 331,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.117403,
+      "ci_low": 0.937002,
+      "ci_high": 1.287352,
+      "n": 298,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.302709,
+      "ci_low": 1.019129,
+      "ci_high": 1.589007,
+      "n": 280,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.613928,
+      "ci_low": 1.103094,
+      "ci_high": 2.108525,
+      "n": 256,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.543759,
+      "ci_low": -0.079629,
+      "ci_high": 1.237119,
+      "n": 226,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.045267,
+      "ci_low": 0.923062,
+      "ci_high": 1.14386,
+      "n": 276,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.238152,
+      "ci_low": 1.078093,
+      "ci_high": 1.366348,
+      "n": 318,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.848303,
+      "ci_low": 0.435661,
+      "ci_high": 1.269119,
+      "n": 317,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 1.077233,
+      "ci_low": 0.814915,
+      "ci_high": 1.332526,
+      "n": 229,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "aggressive": {
+      "estimate": 1.148331,
+      "ci_low": 0.938733,
+      "ci_high": 1.365625,
+      "n": 293,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.313063,
+      "ci_low": 1.053285,
+      "ci_high": 1.548818,
+      "n": 223,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.877124,
+      "ci_low": 0.381906,
+      "ci_high": 1.248478,
+      "n": 63,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.233803,
+      "ci_low": 0.975594,
+      "ci_high": 1.473377,
+      "n": 357,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.137373,
+      "ci_low": 1.001021,
+      "ci_high": 1.284344,
+      "n": 288,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.178,
+     "CO": -0.084,
+     "SB": -0.562
+    },
+    "eff_stack": {
+     "10-20bb": -0.209,
+     "20-40bb": -0.122,
+     "40bb+": -0.064,
+     "<10bb": -0.326
+    },
+    "ante": {
+     "ante": -0.25,
+     "no_ante": -0.067
+    },
+    "defender_class": {
+     "adaptive": -0.162,
+     "aggressive": -0.203,
+     "static_tight": -0.272
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5748
+  },
+  "lag": {
+   "late_first_in_opps": 9069,
+   "steal_rate": 0.486,
+   "steal_won_immediately": 0.724,
+   "steal_hands": 4411,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.162942,
+    "ci_low": 1.037978,
+    "ci_high": 1.284734,
+    "n": 373,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 214,
+   "resteal_response": {
+    "fold": 0.799,
+    "raise": 0.112,
+    "call": 0.089
+   },
+   "resteal_hands_net_bb_mean": -1.141,
+   "steal_rate_first_half": 0.554,
+   "steal_rate_second_half": 0.435,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.175026,
+      "ci_low": 1.014372,
+      "ci_high": 1.340151,
+      "n": 345,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.209494,
+      "ci_low": 0.937545,
+      "ci_high": 1.478367,
+      "n": 362,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.054569,
+      "ci_low": 0.822229,
+      "ci_high": 1.285214,
+      "n": 307,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.265936,
+      "ci_low": 1.08079,
+      "ci_high": 1.428415,
+      "n": 320,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.386539,
+      "ci_low": 1.086194,
+      "ci_high": 1.684799,
+      "n": 297,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.636253,
+      "ci_low": -0.21443,
+      "ci_high": 1.474264,
+      "n": 274,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.097943,
+      "ci_low": 0.964112,
+      "ci_high": 1.210514,
+      "n": 288,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.206464,
+      "ci_low": 1.095904,
+      "ci_high": 1.313579,
+      "n": 339,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.994104,
+      "ci_low": 0.43693,
+      "ci_high": 1.475448,
+      "n": 344,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 1.208494,
+      "ci_low": 0.990265,
+      "ci_high": 1.421685,
+      "n": 255,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "aggressive": {
+      "estimate": 1.060863,
+      "ci_low": 0.843432,
+      "ci_high": 1.269842,
+      "n": 331,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.306358,
+      "ci_low": 1.04498,
+      "ci_high": 1.540763,
+      "n": 243,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.21669,
+      "ci_low": 0.940744,
+      "ci_high": 1.456875,
+      "n": 93,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.18073,
+      "ci_low": 0.962336,
+      "ci_high": 1.368042,
+      "n": 366,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.131725,
+      "ci_low": 0.988241,
+      "ci_high": 1.257096,
+      "n": 303,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.227,
+     "CO": -0.096,
+     "SB": -0.447
+    },
+    "eff_stack": {
+     "10-20bb": -0.241,
+     "20-40bb": -0.114,
+     "40bb+": 0.11,
+     "<10bb": -0.324
+    },
+    "ante": {
+     "ante": -0.288,
+     "no_ante": 0.034
+    },
+    "defender_class": {
+     "adaptive": -0.219,
+     "aggressive": -0.269,
+     "static_tight": -0.211
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5656
+  },
+  "pushfold_p7": {
+   "late_first_in_opps": 6209,
+   "steal_rate": 0.211,
+   "steal_won_immediately": 0.821,
+   "steal_hands": 1308,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.115287,
+    "ci_low": 0.886868,
+    "ci_high": 1.33522,
+    "n": 286,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 19,
+   "resteal_response": {
+    "call": 0.895,
+    "fold": 0.053,
+    "raise": 0.053
+   },
+   "resteal_hands_net_bb_mean": -2.992,
+   "steal_rate_first_half": 0.145,
+   "steal_rate_second_half": 0.292,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.494163,
+      "ci_low": 0.91915,
+      "ci_high": 2.047981,
+      "n": 142,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 0.668881,
+      "ci_low": 0.026452,
+      "ci_high": 1.335161,
+      "n": 174,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 1.080902,
+      "ci_low": 0.872153,
+      "ci_high": 1.273587,
+      "n": 226,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.375744,
+      "ci_low": 0.949836,
+      "ci_high": 1.777094,
+      "n": 180,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.96991,
+      "ci_low": 0.268686,
+      "ci_high": 3.483389,
+      "n": 79,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": -3.642791,
+      "ci_low": -7.675909,
+      "ci_high": -0.204762,
+      "n": 40,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.155257,
+      "ci_low": 0.972548,
+      "ci_high": 1.319577,
+      "n": 202,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.252902,
+      "ci_low": 1.060953,
+      "ci_high": 1.426934,
+      "n": 252,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": -0.19871,
+      "ci_low": -1.9235,
+      "ci_high": 1.273622,
+      "n": 99,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "adaptive": {
+      "estimate": 1.232272,
+      "ci_low": 0.608715,
+      "ci_high": 1.941689,
+      "n": 134,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "aggressive": {
+      "estimate": 0.996498,
+      "ci_low": 0.595943,
+      "ci_high": 1.322646,
+      "n": 194,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "static_tight": {
+      "estimate": 1.218696,
+      "ci_low": 1.005782,
+      "ci_high": 1.476256,
+      "n": 141,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.764552,
+      "ci_low": -0.271334,
+      "ci_high": 1.665782,
+      "n": 165,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.345437,
+      "ci_low": 1.072978,
+      "ci_high": 1.623747,
+      "n": 26,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 1.199081,
+      "ci_low": 1.033279,
+      "ci_high": 1.353437,
+      "n": 239,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.039,
+     "CO": -0.115,
+     "SB": -0.368
+    },
+    "eff_stack": {
+     "10-20bb": -0.231,
+     "20-40bb": -0.024,
+     "40bb+": 0.046,
+     "<10bb": -0.164
+    },
+    "ante": {
+     "ante": -0.173,
+     "no_ante": -0.008
+    },
+    "defender_class": {
+     "adaptive": -0.148,
+     "aggressive": -0.074,
+     "static_tight": -0.194
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.2349
+  }
+ },
+ "selfplay_hybrid": {
+  "hybrid_v1": {
+   "late_first_in_opps": 1169,
+   "steal_rate": 0.431,
+   "steal_won_immediately": 0.286,
+   "steal_hands": 504,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.630471,
+    "ci_low": -0.158114,
+    "ci_high": 1.38981,
+    "n": 93,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 43,
+   "resteal_response": {
+    "fold": 0.837,
+    "call": 0.14,
+    "raise": 0.023
+   },
+   "resteal_hands_net_bb_mean": -1.968,
+   "steal_rate_first_half": 0.409,
+   "steal_rate_second_half": 0.452,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 0.829928,
+      "ci_low": -0.417405,
+      "ci_high": 2.106785,
+      "n": 76,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.012164,
+      "ci_low": -0.292974,
+      "ci_high": 2.637183,
+      "n": 65,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": -0.159835,
+      "ci_low": -1.470564,
+      "ci_high": 1.022176,
+      "n": 64,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": -0.242961,
+      "ci_low": -1.327998,
+      "ci_high": 0.84768,
+      "n": 64,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.189697,
+      "ci_low": -0.346028,
+      "ci_high": 2.732232,
+      "n": 70,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 1.134925,
+      "ci_low": -1.510164,
+      "ci_high": 3.885072,
+      "n": 51,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 0.748598,
+      "ci_low": -0.61686,
+      "ci_high": 2.032583,
+      "n": 44,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 0.224098,
+      "ci_low": -0.628332,
+      "ci_high": 0.932892,
+      "n": 74,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.676667,
+      "ci_low": -0.324714,
+      "ci_high": 3.862908,
+      "n": 79,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 0.630471,
+      "ci_low": -0.058084,
+      "ci_high": 1.375072,
+      "n": 93,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.356889,
+      "ci_low": 0.002037,
+      "ci_high": 3.360476,
+      "n": 10,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.902253,
+      "ci_low": -0.222021,
+      "ci_high": 1.809399,
+      "n": 90,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": -0.043783,
+      "ci_low": -1.295287,
+      "ci_high": 1.181893,
+      "n": 56,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.136,
+     "CO": -0.073,
+     "SB": -0.591
+    },
+    "eff_stack": {
+     "10-20bb": -0.24,
+     "20-40bb": -0.134,
+     "40bb+": -0.041,
+     "<10bb": -0.209
+    },
+    "ante": {
+     "ante": -0.215,
+     "no_ante": -0.048
+    },
+    "defender_class": {
+     "self_or_versions": -0.163
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.2718
+  },
+  "hybrid_v1_bluffcatch": {
+   "late_first_in_opps": 1049,
+   "steal_rate": 0.424,
+   "steal_won_immediately": 0.272,
+   "steal_hands": 445,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.569977,
+    "ci_low": -0.375117,
+    "ci_high": 1.385813,
+    "n": 92,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 37,
+   "resteal_response": {
+    "fold": 0.865,
+    "raise": 0.054,
+    "call": 0.081
+   },
+   "resteal_hands_net_bb_mean": 0.309,
+   "steal_rate_first_half": 0.405,
+   "steal_rate_second_half": 0.444,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.036434,
+      "ci_low": -0.380426,
+      "ci_high": 2.536619,
+      "n": 72,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.101917,
+      "ci_low": -0.696554,
+      "ci_high": 3.050249,
+      "n": 68,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": -0.989182,
+      "ci_low": -2.912889,
+      "ci_high": 0.846463,
+      "n": 57,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 0.572301,
+      "ci_low": -0.621079,
+      "ci_high": 1.739286,
+      "n": 58,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 0.838953,
+      "ci_low": -0.976445,
+      "ci_high": 2.326138,
+      "n": 71,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 0.369872,
+      "ci_low": -3.145625,
+      "ci_high": 3.555291,
+      "n": 51,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 0.110103,
+      "ci_low": -1.261473,
+      "ci_high": 1.45493,
+      "n": 36,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 0.366922,
+      "ci_low": -0.512576,
+      "ci_high": 1.277507,
+      "n": 66,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.046316,
+      "ci_low": -1.349421,
+      "ci_high": 3.635563,
+      "n": 78,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 0.569977,
+      "ci_low": -0.371777,
+      "ci_high": 1.286262,
+      "n": 92,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.63,
+      "ci_low": -1.849333,
+      "ci_high": 5.556667,
+      "n": 5,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.829817,
+      "ci_low": -0.450379,
+      "ci_high": 2.036987,
+      "n": 89,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": -0.030829,
+      "ci_low": -1.533827,
+      "ci_high": 1.184067,
+      "n": 50,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.144,
+     "CO": -0.071,
+     "SB": -0.59
+    },
+    "eff_stack": {
+     "10-20bb": -0.253,
+     "20-40bb": -0.155,
+     "40bb+": -0.045,
+     "<10bb": -0.219
+    },
+    "ante": {
+     "ante": -0.23,
+     "no_ante": -0.051
+    },
+    "defender_class": {
+     "self_or_versions": -0.17
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.2418
+  },
+  "hybrid_v2_adaptive": {
+   "late_first_in_opps": 1056,
+   "steal_rate": 0.417,
+   "steal_won_immediately": 0.293,
+   "steal_hands": 440,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.373232,
+    "ci_low": -0.552089,
+    "ci_high": 1.238003,
+    "n": 92,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 35,
+   "resteal_response": {
+    "fold": 0.657,
+    "call": 0.286,
+    "raise": 0.057
+   },
+   "resteal_hands_net_bb_mean": -0.611,
+   "steal_rate_first_half": 0.403,
+   "steal_rate_second_half": 0.431,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 0.562204,
+      "ci_low": -1.12957,
+      "ci_high": 2.213015,
+      "n": 70,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.026042,
+      "ci_low": -0.754197,
+      "ci_high": 3.015777,
+      "n": 69,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": -0.848127,
+      "ci_low": -2.676658,
+      "ci_high": 0.947817,
+      "n": 56,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 0.630702,
+      "ci_low": -0.61907,
+      "ci_high": 2.23837,
+      "n": 58,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 0.709995,
+      "ci_low": -1.083602,
+      "ci_high": 2.391422,
+      "n": 68,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": -0.565051,
+      "ci_low": -3.694758,
+      "ci_high": 3.360639,
+      "n": 50,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 0.007256,
+      "ci_low": -1.160361,
+      "ci_high": 1.284435,
+      "n": 38,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 0.162046,
+      "ci_low": -0.699752,
+      "ci_high": 1.131756,
+      "n": 66,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.871374,
+      "ci_low": -1.488768,
+      "ci_high": 3.382803,
+      "n": 77,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 0.373232,
+      "ci_low": -0.524296,
+      "ci_high": 1.225236,
+      "n": 92,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.52975,
+      "ci_low": -2.005917,
+      "ci_high": 3.085667,
+      "n": 10,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.499299,
+      "ci_low": -0.820912,
+      "ci_high": 1.685192,
+      "n": 89,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 0.100915,
+      "ci_low": -1.086941,
+      "ci_high": 1.188129,
+      "n": 50,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.15,
+     "CO": -0.07,
+     "SB": -0.592
+    },
+    "eff_stack": {
+     "10-20bb": -0.262,
+     "20-40bb": -0.156,
+     "40bb+": -0.045,
+     "<10bb": -0.247
+    },
+    "ante": {
+     "ante": -0.24,
+     "no_ante": -0.051
+    },
+    "defender_class": {
+     "self_or_versions": -0.178
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.1555
+  },
+  "lag": {
+   "late_first_in_opps": 1318,
+   "steal_rate": 0.52,
+   "steal_won_immediately": 0.378,
+   "steal_hands": 686,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.851839,
+    "ci_low": 0.216262,
+    "ci_high": 1.486821,
+    "n": 93,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 88,
+   "resteal_response": {
+    "call": 0.159,
+    "fold": 0.818,
+    "raise": 0.023
+   },
+   "resteal_hands_net_bb_mean": -3.899,
+   "steal_rate_first_half": 0.552,
+   "steal_rate_second_half": 0.497,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 0.202125,
+      "ci_low": -0.825255,
+      "ci_high": 1.045409,
+      "n": 84,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.942898,
+      "ci_low": 0.715164,
+      "ci_high": 3.198889,
+      "n": 84,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 0.404766,
+      "ci_low": -0.42785,
+      "ci_high": 1.237304,
+      "n": 58,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 0.724276,
+      "ci_low": -0.006145,
+      "ci_high": 1.45067,
+      "n": 76,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.017383,
+      "ci_low": -0.033025,
+      "ci_high": 1.960956,
+      "n": 72,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 1.764728,
+      "ci_low": -1.122576,
+      "ci_high": 4.599252,
+      "n": 62,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": -0.12755,
+      "ci_low": -1.806137,
+      "ci_high": 1.449723,
+      "n": 52,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 0.634578,
+      "ci_low": 0.026015,
+      "ci_high": 1.202988,
+      "n": 79,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.467207,
+      "ci_low": -0.323533,
+      "ci_high": 3.368266,
+      "n": 83,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 0.851839,
+      "ci_low": 0.231183,
+      "ci_high": 1.490679,
+      "n": 93,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": -1.098306,
+      "ci_low": -3.205994,
+      "ci_high": 0.618137,
+      "n": 13,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.919096,
+      "ci_low": 0.131394,
+      "ci_high": 1.651729,
+      "n": 93,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 0.78222,
+      "ci_low": -0.763631,
+      "ci_high": 2.129308,
+      "n": 61,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.21,
+     "CO": -0.082,
+     "SB": -0.567
+    },
+    "eff_stack": {
+     "10-20bb": -0.251,
+     "20-40bb": -0.186,
+     "40bb+": -0.091,
+     "<10bb": -0.326
+    },
+    "ante": {
+     "ante": -0.269,
+     "no_ante": -0.099
+    },
+    "defender_class": {
+     "self_or_versions": -0.228
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.4434
+  },
+  "pushfold_p7": {
+   "late_first_in_opps": 949,
+   "steal_rate": 0.133,
+   "steal_won_immediately": 0.556,
+   "steal_hands": 126,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.684997,
+    "ci_low": -1.167927,
+    "ci_high": 2.684062,
+    "n": 60,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 3,
+   "resteal_response": {
+    "call": 0.667,
+    "raise": 0.333
+   },
+   "resteal_hands_net_bb_mean": 2.32,
+   "steal_rate_first_half": 0.092,
+   "steal_rate_second_half": 0.187,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 2.217307,
+      "ci_low": -3.988646,
+      "ci_high": 7.470282,
+      "n": 21,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.292143,
+      "ci_low": -3.8925,
+      "ci_high": 6.695926,
+      "n": 29,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": -0.333333,
+      "ci_low": -2.017275,
+      "ci_high": 1.332768,
+      "n": 44,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": -0.856775,
+      "ci_low": -2.81949,
+      "ci_high": 1.045039,
+      "n": 33,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.7039,
+      "ci_low": -5.92183,
+      "ci_high": 9.59154,
+      "n": 21,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 9.431111,
+      "ci_low": -3.7775,
+      "ci_high": 27.325,
+      "n": 8,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": -0.038179,
+      "ci_low": -1.608528,
+      "ci_high": 1.490106,
+      "n": 34,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": -0.057704,
+      "ci_low": -1.913714,
+      "ci_high": 1.533398,
+      "n": 49,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 3.541538,
+      "ci_low": -3.3064,
+      "ci_high": 11.577917,
+      "n": 23,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 0.684997,
+      "ci_low": -0.968556,
+      "ci_high": 2.508921,
+      "n": 60,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 2.193935,
+      "ci_low": -3.824951,
+      "ci_high": 7.986019,
+      "n": 27,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": -1.812222,
+      "ci_low": -2.2,
+      "ci_high": -1.136667,
+      "n": 3,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 0.146719,
+      "ci_low": -1.705602,
+      "ci_high": 1.858104,
+      "n": 48,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.141,
+     "CO": -0.079,
+     "SB": -0.343
+    },
+    "eff_stack": {
+     "10-20bb": -0.249,
+     "20-40bb": -0.089,
+     "40bb+": -0.055,
+     "<10bb": -0.204
+    },
+    "ante": {
+     "ante": -0.168,
+     "no_ante": -0.104
+    },
+    "defender_class": {
+     "self_or_versions": -0.142
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.0909
+  }
+ },
+ "versions_mix": {
+  "hybrid_v1": {
+   "late_first_in_opps": 1567,
+   "steal_rate": 0.451,
+   "steal_won_immediately": 0.272,
+   "steal_hands": 706,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.343176,
+    "ci_low": 0.431611,
+    "ci_high": 2.260984,
+    "n": 96,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 27,
+   "resteal_response": {
+    "fold": 0.926,
+    "call": 0.074
+   },
+   "resteal_hands_net_bb_mean": -3.235,
+   "steal_rate_first_half": 0.44,
+   "steal_rate_second_half": 0.46,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 2.299417,
+      "ci_low": 0.982488,
+      "ci_high": 3.673133,
+      "n": 87,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.793067,
+      "ci_low": 0.336916,
+      "ci_high": 3.408788,
+      "n": 76,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": -0.577142,
+      "ci_low": -2.257407,
+      "ci_high": 0.974522,
+      "n": 82,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": -0.408922,
+      "ci_low": -1.742793,
+      "ci_high": 0.876246,
+      "n": 66,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 1.034345,
+      "ci_low": -0.216923,
+      "ci_high": 2.304661,
+      "n": 80,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 3.844013,
+      "ci_low": 1.516864,
+      "ci_high": 5.864802,
+      "n": 75,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 0.959912,
+      "ci_low": 0.068647,
+      "ci_high": 1.876311,
+      "n": 56,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 0.93065,
+      "ci_low": -0.037902,
+      "ci_high": 1.795637,
+      "n": 76,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 2.139129,
+      "ci_low": 0.443013,
+      "ci_high": 3.957276,
+      "n": 91,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 1.343176,
+      "ci_low": 0.440919,
+      "ci_high": 2.173866,
+      "n": 96,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 3.336597,
+      "ci_low": 1.32375,
+      "ci_high": 5.272436,
+      "n": 10,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 2.131189,
+      "ci_low": 0.963758,
+      "ci_high": 3.250323,
+      "n": 95,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": -0.475214,
+      "ci_low": -1.403814,
+      "ci_high": 0.391254,
+      "n": 73,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.2,
+     "CO": -0.07,
+     "SB": -0.577
+    },
+    "eff_stack": {
+     "10-20bb": -0.281,
+     "20-40bb": -0.194,
+     "40bb+": -0.115,
+     "<10bb": -0.254
+    },
+    "ante": {
+     "ante": -0.264,
+     "no_ante": -0.09
+    },
+    "defender_class": {
+     "self_or_versions": -0.208
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.6052
+  },
+  "hybrid_v1_bluffcatch": {
+   "late_first_in_opps": 1525,
+   "steal_rate": 0.452,
+   "steal_won_immediately": 0.26,
+   "steal_hands": 689,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.194431,
+    "ci_low": 0.404375,
+    "ci_high": 2.00859,
+    "n": 95,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 26,
+   "resteal_response": {
+    "fold": 1.0
+   },
+   "resteal_hands_net_bb_mean": -2.277,
+   "steal_rate_first_half": 0.453,
+   "steal_rate_second_half": 0.451,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.501952,
+      "ci_low": 0.410145,
+      "ci_high": 2.732489,
+      "n": 87,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 2.726677,
+      "ci_low": 0.977029,
+      "ci_high": 4.767862,
+      "n": 73,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": -0.508814,
+      "ci_low": -1.976151,
+      "ci_high": 0.830569,
+      "n": 81,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": -0.065244,
+      "ci_low": -1.239981,
+      "ci_high": 1.099395,
+      "n": 59,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 0.794674,
+      "ci_low": -0.666987,
+      "ci_high": 1.993497,
+      "n": 76,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 3.277505,
+      "ci_low": 1.054764,
+      "ci_high": 5.7179,
+      "n": 75,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.351772,
+      "ci_low": 0.284268,
+      "ci_high": 2.421062,
+      "n": 54,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 0.949519,
+      "ci_low": 0.069692,
+      "ci_high": 1.84141,
+      "n": 75,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.658529,
+      "ci_low": -0.205726,
+      "ci_high": 3.365413,
+      "n": 90,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 1.194431,
+      "ci_low": 0.345184,
+      "ci_high": 1.975104,
+      "n": 95,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 2.526607,
+      "ci_low": 0.854286,
+      "ci_high": 4.346278,
+      "n": 12,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.614314,
+      "ci_low": 0.454899,
+      "ci_high": 2.602306,
+      "n": 93,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": -0.063861,
+      "ci_low": -1.071332,
+      "ci_high": 0.891139,
+      "n": 69,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.174,
+     "CO": -0.073,
+     "SB": -0.575
+    },
+    "eff_stack": {
+     "10-20bb": -0.268,
+     "20-40bb": -0.179,
+     "40bb+": -0.117,
+     "<10bb": -0.226
+    },
+    "ante": {
+     "ante": -0.246,
+     "no_ante": -0.093
+    },
+    "defender_class": {
+     "self_or_versions": -0.196
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5396
+  },
+  "hybrid_v2_adaptive": {
+   "late_first_in_opps": 1466,
+   "steal_rate": 0.43,
+   "steal_won_immediately": 0.24,
+   "steal_hands": 630,
+   "steal_net_bb_per_hand": {
+    "estimate": 0.990757,
+    "ci_low": 0.142067,
+    "ci_high": 1.815658,
+    "n": 95,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 25,
+   "resteal_response": {
+    "fold": 0.72,
+    "call": 0.28
+   },
+   "resteal_hands_net_bb_mean": -5.019,
+   "steal_rate_first_half": 0.433,
+   "steal_rate_second_half": 0.426,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.59338,
+      "ci_low": 0.212527,
+      "ci_high": 3.068916,
+      "n": 86,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.851522,
+      "ci_low": 0.001902,
+      "ci_high": 3.79414,
+      "n": 75,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": -0.628433,
+      "ci_low": -2.139661,
+      "ci_high": 0.655013,
+      "n": 80,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 0.148982,
+      "ci_low": -1.451005,
+      "ci_high": 1.435117,
+      "n": 57,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 0.587719,
+      "ci_low": -1.079229,
+      "ci_high": 2.191135,
+      "n": 75,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 2.355311,
+      "ci_low": -0.503158,
+      "ci_high": 5.167376,
+      "n": 74,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 1.257869,
+      "ci_low": 0.325602,
+      "ci_high": 2.240523,
+      "n": 52,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 0.71047,
+      "ci_low": -0.31864,
+      "ci_high": 1.695736,
+      "n": 73,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.471595,
+      "ci_low": -0.540422,
+      "ci_high": 3.66131,
+      "n": 90,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 0.990757,
+      "ci_low": -0.055432,
+      "ci_high": 1.803751,
+      "n": 95,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 3.202963,
+      "ci_low": 1.192593,
+      "ci_high": 5.74375,
+      "n": 8,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.324573,
+      "ci_low": 0.223437,
+      "ci_high": 2.394014,
+      "n": 93,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": -0.019862,
+      "ci_low": -1.066951,
+      "ci_high": 1.036067,
+      "n": 65,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.172,
+     "CO": -0.07,
+     "SB": -0.566
+    },
+    "eff_stack": {
+     "10-20bb": -0.243,
+     "20-40bb": -0.187,
+     "40bb+": -0.117,
+     "<10bb": -0.259
+    },
+    "ante": {
+     "ante": -0.244,
+     "no_ante": -0.095
+    },
+    "defender_class": {
+     "self_or_versions": -0.194
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.4258
+  },
+  "lag": {
+   "late_first_in_opps": 1746,
+   "steal_rate": 0.551,
+   "steal_won_immediately": 0.305,
+   "steal_hands": 962,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.041239,
+    "ci_low": 0.46535,
+    "ci_high": 1.59306,
+    "n": 96,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 59,
+   "resteal_response": {
+    "fold": 0.678,
+    "call": 0.254,
+    "raise": 0.068
+   },
+   "resteal_hands_net_bb_mean": 0.161,
+   "steal_rate_first_half": 0.599,
+   "steal_rate_second_half": 0.508,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.260447,
+      "ci_low": 0.549782,
+      "ci_high": 2.151496,
+      "n": 93,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.139362,
+      "ci_low": 0.084511,
+      "ci_high": 2.149073,
+      "n": 90,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 0.333684,
+      "ci_low": -1.143558,
+      "ci_high": 1.789979,
+      "n": 81,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 1.165884,
+      "ci_low": 0.318013,
+      "ci_high": 1.966231,
+      "n": 67,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 0.749705,
+      "ci_low": -0.221112,
+      "ci_high": 1.607663,
+      "n": 82,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 1.713597,
+      "ci_low": -0.11469,
+      "ci_high": 3.52879,
+      "n": 88,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 0.611656,
+      "ci_low": -0.255151,
+      "ci_high": 1.314782,
+      "n": 55,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 0.946274,
+      "ci_low": 0.260785,
+      "ci_high": 1.541027,
+      "n": 78,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 1.230872,
+      "ci_low": 0.10744,
+      "ci_high": 2.420125,
+      "n": 96,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 1.041239,
+      "ci_low": 0.432599,
+      "ci_high": 1.522452,
+      "n": 96,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 0.74193,
+      "ci_low": -0.769363,
+      "ci_high": 2.01088,
+      "n": 13,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 1.079356,
+      "ci_low": 0.401478,
+      "ci_high": 1.69765,
+      "n": 96,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 0.876284,
+      "ci_low": -0.19532,
+      "ci_high": 1.84373,
+      "n": 57,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": -0.209,
+     "CO": -0.08,
+     "SB": 0.016
+    },
+    "eff_stack": {
+     "10-20bb": -0.155,
+     "20-40bb": -0.175,
+     "40bb+": 0.474,
+     "<10bb": -0.305
+    },
+    "ante": {
+     "ante": -0.222,
+     "no_ante": 0.23
+    },
+    "defender_class": {
+     "self_or_versions": -0.103
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.5737
+  },
+  "pushfold_p7": {
+   "late_first_in_opps": 1387,
+   "steal_rate": 0.182,
+   "steal_won_immediately": 0.536,
+   "steal_hands": 252,
+   "steal_net_bb_per_hand": {
+    "estimate": 1.203333,
+    "ci_low": 0.051873,
+    "ci_high": 2.363733,
+    "n": 74,
+    "level": 0.95,
+    "method": "cluster_bootstrap"
+   },
+   "resteal_faced": 3,
+   "resteal_response": {
+    "call": 1.0
+   },
+   "resteal_hands_net_bb_mean": -15.616,
+   "steal_rate_first_half": 0.107,
+   "steal_rate_second_half": 0.283,
+   "by_dimension_steal_net_bb": {
+    "position": {
+     "BTN": {
+      "estimate": 1.719682,
+      "ci_low": -1.072705,
+      "ci_high": 4.063846,
+      "n": 32,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "CO": {
+      "estimate": 1.515132,
+      "ci_low": -1.383796,
+      "ci_high": 3.887672,
+      "n": 45,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "SB": {
+      "estimate": 0.764355,
+      "ci_low": -0.49399,
+      "ci_high": 1.862143,
+      "n": 56,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "eff_stack": {
+     "10-20bb": {
+      "estimate": 0.967826,
+      "ci_low": -0.736641,
+      "ci_high": 2.427693,
+      "n": 50,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "20-40bb": {
+      "estimate": 4.252738,
+      "ci_low": 2.287333,
+      "ci_high": 6.693561,
+      "n": 22,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "40bb+": {
+      "estimate": 1.256944,
+      "ci_low": -9.624706,
+      "ci_high": 10.197222,
+      "n": 16,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<10bb": {
+      "estimate": 0.623882,
+      "ci_low": -0.340336,
+      "ci_high": 1.384025,
+      "n": 50,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "ante": {
+     "ante": {
+      "estimate": 1.410577,
+      "ci_low": 0.349845,
+      "ci_high": 2.334482,
+      "n": 64,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "no_ante": {
+      "estimate": 0.223636,
+      "ci_low": -3.808409,
+      "ci_high": 3.926818,
+      "n": 32,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "defender_class": {
+     "self_or_versions": {
+      "estimate": 1.203333,
+      "ci_low": -0.01279,
+      "ci_high": 2.220089,
+      "n": 74,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    },
+    "open_size": {
+     "2.5-5bb": {
+      "estimate": 1.920582,
+      "ci_low": -1.023986,
+      "ci_high": 4.421544,
+      "n": 48,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "<=2.5bb": {
+      "estimate": 0.814097,
+      "ci_low": -0.744167,
+      "ci_high": 2.452708,
+      "n": 6,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     },
+     "shove/large": {
+      "estimate": 0.914178,
+      "ci_low": -0.141472,
+      "ci_high": 1.95701,
+      "n": 57,
+      "level": 0.95,
+      "method": "cluster_bootstrap"
+     }
+    }
+   },
+   "by_dimension_not_open_net_bb": {
+    "position": {
+     "BTN": 0.434,
+     "CO": -0.064,
+     "SB": -0.711
+    },
+    "eff_stack": {
+     "10-20bb": 0.14,
+     "20-40bb": 0.098,
+     "40bb+": -0.055,
+     "<10bb": -0.238
+    },
+    "ante": {
+     "ante": -0.01,
+     "no_ante": 0.076
+    },
+    "defender_class": {
+     "self_or_versions": 0.026
+    }
+   },
+   "ev_per_opportunity_open_line_bb": 0.2186
+  }
+ }
+}
