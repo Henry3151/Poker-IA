@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "poker-lab"
+version = "0.1.0"
+description = "Poker AI Tournament Lab: local NLHE 6-max MTT simulator, agents, MCCFR prototype, analytics and Power BI exports."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+  "pydantic>=2.7",
+  "typer>=0.12",
+  "pyarrow>=15",
+  "fastapi>=0.110",
+  "uvicorn>=0.29",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "hypothesis>=6.100",
+  "mypy>=1.10",
+  "ruff>=0.5",
+  "treys>=0.1.8",        # test-only cross-check of the hand evaluator (MIT)
+  "jsonschema>=4.21",
+  "httpx>=0.27",
+  "pandas>=2.2",
+]
+
+[project.scripts]
+poker-lab = "poker_lab.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/poker_lab"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["slow: longer simulations"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+packages = ["poker_lab"]
+ignore_missing_imports = true

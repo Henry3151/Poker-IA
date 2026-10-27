@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Poker AI Audit Event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "occurred_at",
+    "tournament_id",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "hand_started",
+        "decision_made",
+        "action_applied",
+        "hand_completed",
+        "player_eliminated",
+        "tournament_completed",
+        "training_checkpoint_saved",
+        "review_note_added"
+      ]
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "tournament_id": {
+      "type": "string"
+    },
+    "hand_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "agent_version_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": [
+        "public_observation",
+        "private_agent_observation",
+        "offline_audit"
+      ],
+      "description": "Keep offline audit truth separate from the observation supplied to an agent."
+    }
+  },
+  "additionalProperties": false
+}
