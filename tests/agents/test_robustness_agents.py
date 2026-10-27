@@ -94,3 +94,43 @@ def test_hybrid_v2_legal_session(ckpt, table):
     ]
     res = play_session(agents, 150, starting_stack=4000, small_blind=25, big_blind=50, seed=5)
     assert res.invalid_actions == 0
+
+
+def test_new_agents_invariant_to_hidden_and_future_cards(ckpt, table):
+    """Adaptive opponents and hybrid-v2 must use only public information."""
+    import random
+
+    from tests.agents.test_information_leakage import _hero_decisions, _swap_opponent_cards
+
+    rng = random.Random(21)
+    agents = [
+        HybridAdaptiveAgent(ckpt, table, "hero", seed=5, samples=30),
+        AdaptiveHeuristicAgent("hero", seed=5, defend_pct=0.4, resteal_pct=0.15),
+    ]
+    for agent in agents:
+        for _ in range(20):
+            n = rng.choice([2, 6])
+            seat = rng.randrange(n)
+            deck = list(range(52))
+            rng.shuffle(deck)
+            stacks = [rng.choice([800, 4000]) for _ in range(n)]
+            a = _hero_decisions(deck, seat, n, agent, stacks, 0)
+            b = _hero_decisions(_swap_opponent_cards(deck, seat, n, rng), seat, n, agent, stacks, 0)
+            assert a == b
+            alt = list(deck)
+            ti, ri = 2 * n + 5, 2 * n + 7
+            sp = rng.sample(range(2 * n + 8, 52), 2)
+            alt[ti], alt[sp[0]] = alt[sp[0]], alt[ti]
+            alt[ri], alt[sp[1]] = alt[sp[1]], alt[ri]
+            c = _hero_decisions(alt, seat, n, agent, stacks, 0)
+            assert [d for d in a if d[0] in ("preflop", "flop")] == [d for d in c if d[0] in ("preflop", "flop")]
+
+
+def test_opponent_model_reads_only_observation_history():
+    import inspect
+
+    from poker_lab.strategy import opponents
+
+    src = inspect.getsource(opponents)
+    for forbidden in ("hole_cards_offline", "offline_hole_cards", "_deck", "HandEngine", "sqlite"):
+        assert forbidden not in src
