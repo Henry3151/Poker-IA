@@ -1,0 +1,2 @@
+54 entrants / 9 tables: 618 hands, 184 rounds, 5.1s; winner=random-36
+top6: [(1, 'random-36'), (2, 'heuristic-16'), (3, 'heuristic-1'), (4, 'equity-20'), (5, 'heuristic-10'), (6, 'heuristic-7')]
