@@ -36,6 +36,7 @@ class PolicyAgent(Agent):
         self.ckpt = checkpoint
         self.checkpoint_sha256 = checkpoint_sha256
         self.stacks = sorted(checkpoint.policy.stacks_bb)
+        self.contexts = checkpoint.policy.context_table()
         self.fallback = EquityAgent(f"{self.name}-fallback", version_label, seed + 1, samples=fallback_samples)
 
     @classmethod
@@ -50,11 +51,27 @@ class PolicyAgent(Agent):
     def config(self) -> dict[str, Any]:
         return {**super().config(), "checkpoint_sha256": self.checkpoint_sha256, "stacks_bb": self.stacks}
 
-    def _bucket(self, eff_bb: float) -> str | None:
+    def _bucket(self, eff_bb: float, ante_bb: float = 0.0, dead_bb: float = 0.0) -> str | None:
+        """Nearest trained context: closest ante, then closest dead money, then closest stack."""
         if eff_bb > self.stacks[-1] * 1.15:
             return None
-        s = min(self.stacks, key=lambda x: abs(x - eff_bb))
-        return f"{s:g}"
+        ctx = self.contexts
+        best_ante = min({c["ante_bb"] for c in ctx.values()}, key=lambda a: abs(a - ante_bb))
+        cands = {k: c for k, c in ctx.items() if c["ante_bb"] == best_ante}
+        best_dead = min({c["dead_bb"] for c in cands.values()}, key=lambda d: abs(d - dead_bb))
+        cands = {k: c for k, c in cands.items() if c["dead_bb"] == best_dead}
+        return min(cands, key=lambda k: abs(cands[k]["stack_bb"] - eff_bb))
+
+    @staticmethod
+    def _hand_totals(obs: Observation) -> tuple[float, float, float]:
+        """(effective total stack incl. antes/blinds, ante, dead money from others) in big blinds."""
+        live = [s for s in obs.seats if not s.folded]
+        me = next(s for s in live if s.seat == obs.seat)
+        opp = next(s for s in live if s.seat != obs.seat)
+        bb = obs.big_blind
+        eff = min(me.stack + me.total_commitment, opp.stack + opp.total_commitment) / bb
+        dead = (obs.pot - me.total_commitment - opp.total_commitment) / bb
+        return eff, obs.ante / bb, max(0.0, dead)
 
     def _situation(self, obs: Observation) -> str | None:
         if obs.street is not Street.PREFLOP:
@@ -81,8 +98,8 @@ class PolicyAgent(Agent):
 
     def act(self, obs: Observation) -> Action:
         sit = self._situation(obs)
-        eff_bb = obs.effective_stack / obs.big_blind
-        bucket = self._bucket(eff_bb) if sit else None
+        eff_bb, ante_bb, dead_bb = self._hand_totals(obs) if sit else (obs.effective_stack / obs.big_blind, 0.0, 0.0)
+        bucket = self._bucket(eff_bb, ante_bb, dead_bb) if sit else None
         if sit is None or bucket is None:
             action = self.fallback.act(obs)
             self.last_info = {**self.fallback.last_info, "path": "equity_fallback"}

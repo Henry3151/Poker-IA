@@ -31,6 +31,8 @@ def run_pushfold_training(
     ante_bb: float = 0.0,
     resume_path: str | None = None,
     experiment_id: str | None = None,
+    contexts: list[tuple[float, float]] | None = None,
+    assumptions: list[str] | None = None,
 ) -> dict[str, Any]:
     art = Path(artifacts_dir)
     table_path = art / "tables" / f"hu_class_equity_s{table_samples}_seed{table_seed}.json"
@@ -44,6 +46,7 @@ def run_pushfold_training(
         "table_samples": table_samples,
         "table_seed": table_seed,
         "resume_from_sha256": parent_sha,
+        "contexts": [list(c) for c in contexts] if contexts else None,
     }
     exp = experiment_id or repo.create_experiment(
         conn, f"pushfold-{version_label}", "mccfr_external_sampling", config, seed, hypothesis="MCCFR push/fold policy"
@@ -51,7 +54,7 @@ def run_pushfold_training(
     repo.set_experiment_status(conn, exp, "running")
     run_id = repo.start_training_run(conn, exp, "mccfr_external_sampling", "hu_pushfold", seed, config)
     try:
-        summary = train_pushfold(table, iterations, seed, stacks=stacks, ante_bb=ante_bb, resume=resume)
+        summary = train_pushfold(table, iterations, seed, stacks=stacks, ante_bb=ante_bb, resume=resume, contexts=contexts)
     except Exception as exc:
         repo.finish_training_run(
             conn, run_id, status="failed", iteration_end=None, elapsed_seconds=0.0, peak_memory_mb=None, throughput=None,
@@ -61,6 +64,13 @@ def run_pushfold_training(
         raise
     ckpt = summary.checkpoint
     ckpt.parent_sha256 = parent_sha
+    ckpt.config["version_label"] = version_label
+    ckpt.config["assumptions"] = assumptions or [
+        "heads-up push/fold abstraction (SB: fold/all-in; BB: fold/call)",
+        "chip EV (no ICM)",
+        f"ante_bb={ante_bb}" if not contexts else f"contexts (ante_bb, dead_bb)={contexts}",
+        f"equity table: Monte Carlo {table_samples} samples/pair, seed {table_seed}",
+    ]
     ckpt_path = art / "checkpoints" / f"{LINEAGE}-{version_label}.json"
     if ckpt_path.exists():
         raise FileExistsError(f"checkpoint {ckpt_path} already exists; choose a new version label")

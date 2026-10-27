@@ -22,8 +22,15 @@ class PushFoldPolicy(BaseModel):
     """Per stack depth: probability to shove (SB) and to call a shove (BB) per class."""
 
     stacks_bb: list[float]
-    sb_push: dict[str, dict[str, float]]  # str(stack) -> class -> prob
+    sb_push: dict[str, dict[str, float]]  # context key -> class -> prob
     bb_call: dict[str, dict[str, float]]
+    # v2: key -> {"stack_bb", "ante_bb", "dead_bb"}; absent in v1 (keys are stacks, no ante)
+    contexts: dict[str, dict[str, float]] = Field(default_factory=dict)
+
+    def context_table(self) -> dict[str, dict[str, float]]:
+        if self.contexts:
+            return self.contexts
+        return {k: {"stack_bb": float(k), "ante_bb": 0.0, "dead_bb": 0.0} for k in self.sb_push}
 
     @field_validator("sb_push", "bb_call")
     @classmethod

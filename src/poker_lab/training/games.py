@@ -87,15 +87,31 @@ class KuhnPoker(TabularGame):
 
 
 class PushFoldGame(TabularGame):
-    """Heads-up push/fold at a fixed effective stack (in big blinds)."""
+    """Heads-up push/fold at a fixed effective stack (in big blinds).
+
+    ``ante_bb``: ante paid by each of the two players (part of their stack ``stack_bb``).
+    ``dead_bb``: extra dead money in the pot from players who already folded (their antes),
+    e.g. (players_dealt - 2) * ante when it is folded to the small blind.
+    """
 
     name = "hu_pushfold"
 
-    def __init__(self, stack_bb: float, classes: list[str], equity: list[list[float]], weights: list[list[float]], ante_bb: float = 0.0) -> None:
-        if stack_bb <= 1:
-            raise ValueError("stack must exceed the big blind")
+    def __init__(
+        self,
+        stack_bb: float,
+        classes: list[str],
+        equity: list[list[float]],
+        weights: list[list[float]],
+        ante_bb: float = 0.0,
+        dead_bb: float = 0.0,
+    ) -> None:
+        if stack_bb <= 1 + ante_bb:
+            raise ValueError("stack must exceed the big blind plus ante")
+        if ante_bb < 0 or dead_bb < 0:
+            raise ValueError("ante and dead money must be non-negative")
         self.stack = float(stack_bb)
         self.ante = float(ante_bb)
+        self.dead = float(dead_bb)
         self.classes = classes
         self.eq = equity
         n = len(classes)
@@ -123,9 +139,9 @@ class PushFoldGame(TabularGame):
         if h == ("f",):
             return -(0.5 + self.ante)
         if h == ("p", "f"):
-            return 1.0 + self.ante
+            return 1.0 + self.ante + self.dead
         if h == ("p", "c"):
-            return float(self.eq[i][j]) * 2 * self.stack - self.stack
+            return float(self.eq[i][j]) * (2 * self.stack + self.dead) - self.stack
         raise ValueError(h)
 
     def player(self, h: History) -> int:

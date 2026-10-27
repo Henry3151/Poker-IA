@@ -36,11 +36,19 @@ def train_pushfold(
     resume: Checkpoint | None = None,
     evaluate: bool = True,
     progress: Callable[[float, int], None] | None = None,
+    contexts: list[tuple[float, float]] | None = None,
 ) -> TrainingSummary:
+    """Train one push/fold game per (stack, ante, dead money) context.
+
+    ``contexts``: list of (ante_bb, dead_bb). When omitted, a single no-ante context is
+    trained with v1-compatible keys (the stack only).
+    """
     validate_seed(seed)
     if iterations <= 0:
         raise ValueError("iterations must be positive")
     stacks = stacks or (resume.policy.stacks_bb if resume else list(DEFAULT_STACKS))
+    if contexts is None and resume is not None and resume.config.get("contexts"):
+        contexts = [(float(a), float(d)) for a, d in resume.config["contexts"]]
     if resume is not None:
         if resume.seed != seed:
             raise ValueError("resume requires the same seed for reproducibility")
@@ -54,12 +62,20 @@ def train_pushfold(
     solver_state: dict[str, Any] = {}
     iters: dict[str, int] = {}
     metrics: dict[str, Any] = {"per_stack": {}}
-    for s in stacks:
-        key = f"{s:g}"
-        game = PushFoldGame(s, classes, table["equity"], table["weights"], ante_bb)
+    ctx_list: list[tuple[float, float, float, str]] = []
+    if contexts:
+        for a, d in contexts:
+            for s in stacks:
+                ctx_list.append((s, a, d, f"{s:g}|a{a:g}|d{d:g}"))
+    else:
+        ctx_list = [(s, ante_bb, 0.0, f"{s:g}") for s in stacks]
+    ctx_meta: dict[str, dict[str, float]] = {}
+    for s, a, d, key in ctx_list:
+        ctx_meta[key] = {"stack_bb": s, "ante_bb": a, "dead_bb": d}
+        game = PushFoldGame(s, classes, table["equity"], table["weights"], a, d)
         state = MCCFRState.from_json(resume.solver_state[key]) if resume and key in resume.solver_state else None
         solver = ExternalSamplingMCCFR(game, derive_seed(seed, "stack", key), state)
-        cb: Callable[[int], None] | None = functools.partial(progress, s) if progress is not None else None
+        cb: Callable[[int], None] | None = functools.partial(progress, s) if progress is not None else None  # noqa: B023
         solver.run(iterations, callback=cb)
         avg = solver.average_strategy()
         sb_push[key] = {c: round(avg.get(f"SB:{c}", [1.0, 0.0])[1], 6) for c in classes}
@@ -80,7 +96,7 @@ def train_pushfold(
     total_iters = sum(iters.values()) - (sum(resume.iterations.values()) if resume else 0)
     if evaluate:
         metrics["mean_exploitability_bb"] = round(
-            sum(v["exploitability_bb"] for v in metrics["per_stack"].values()) / len(stacks), 6
+            sum(v["exploitability_bb"] for v in metrics["per_stack"].values()) / len(ctx_list), 6
         )
     ckpt = Checkpoint(
         algorithm="mccfr_external_sampling",
@@ -90,10 +106,13 @@ def train_pushfold(
         config={
             "ante_bb": ante_bb,
             "stacks_bb": stacks,
+            "contexts": [list(c) for c in contexts] if contexts else None,
             "equity_table": {k: table[k] for k in ("samples_per_pair", "seed", "method")},
         },
         metrics=metrics,
-        policy=PushFoldPolicy(stacks_bb=stacks, sb_push=sb_push, bb_call=bb_call),
+        policy=PushFoldPolicy(
+            stacks_bb=stacks, sb_push=sb_push, bb_call=bb_call, contexts=ctx_meta if contexts else {}
+        ),
         solver_state=solver_state,
     )
     return TrainingSummary(

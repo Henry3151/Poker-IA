@@ -123,7 +123,12 @@ def _ensure_run(conn: sqlite3.Connection, protocol: Protocol) -> str:
 
 
 def run_shard(
-    db_path: str | Path, protocol: Protocol, shard_index: int = 0, shard_count: int = 1, log_every: int = 50
+    db_path: str | Path,
+    protocol: Protocol,
+    shard_index: int = 0,
+    shard_count: int = 1,
+    log_every: int = 50,
+    record_level: str = "hero",
 ) -> dict[str, Any]:
     conn = open_db(db_path)
     exp_id = _ensure_run(conn, protocol)
@@ -141,7 +146,7 @@ def run_shard(
         run_tournament(
             conn, scen.tournament_config(), entrants, seed, exp_id,
             tournament_id=tid, evaluation_run_id=rid, scenario_label=f"{scen.field_profile}|{scen.label}|{cand.label}",
-            hero_labels=frozenset({HERO}), record_level="hero", allin_samples=300,
+            hero_labels=frozenset({HERO}), record_level=record_level, allin_samples=300,
         )
         ran += 1
         if log_every and ran % log_every == 0:

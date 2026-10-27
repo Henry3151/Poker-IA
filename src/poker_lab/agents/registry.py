@@ -27,7 +27,7 @@ _ALLOWED_PARAMS = {
     "random": set(),
     "heuristic": {"bluff_freq", "tightness", "aggression", "stickiness"},
     "equity": {"samples", "call_margin", "value_multiplier", "raised_range", "icm", "adaptive"},
-    "policy": {"fallback_samples"},
+    "policy": {"fallback_samples", "hybrid", "table_path", "samples", "bluff_rate", "icm", "shove_max_bb", "cbet_freq"},
 }
 
 
@@ -48,6 +48,18 @@ def create_agent(spec: AgentSpec, name: str, seed: int) -> Agent:
 
     if not spec.checkpoint_path:
         raise ValueError("policy agent requires checkpoint_path")
+    if spec.params.get("hybrid"):
+        from poker_lab.agents.hybrid import HybridAgent
+
+        params = {k: v for k, v in spec.params.items() if k not in ("hybrid", "table_path", "fallback_samples")}
+        if "table_path" not in spec.params:
+            raise ValueError("hybrid policy requires table_path")
+        hybrid: Agent = HybridAgent.from_checkpoint(
+            spec.checkpoint_path, name, spec.version_label, seed, str(spec.params["table_path"]), **params
+        )
+        return hybrid
+    if set(spec.params) - {"fallback_samples"}:
+        raise ValueError("non-hybrid policy agents only accept fallback_samples")
     agent: Agent = PolicyAgent.from_checkpoint(spec.checkpoint_path, name, spec.version_label, seed, **spec.params)
     return agent
 
