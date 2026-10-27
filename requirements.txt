@@ -5,3 +5,4 @@ typer==0.27.3
 pyarrow==26.0.0
 fastapi==0.162.0
 uvicorn==0.54.0
+websockets==15.0.1  # P11 Open Poker adapter (BSD-3-Clause); only used when the integration is enabled
