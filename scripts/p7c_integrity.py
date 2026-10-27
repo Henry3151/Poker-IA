@@ -17,8 +17,8 @@ from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from p7c_final import CHALLENGERS, SCALE, protocol  # noqa: E402
 from p7c_common import CHAMPION, REFERENCES  # noqa: E402
+from p7c_final import CHALLENGERS, SCALE, protocol  # noqa: E402
 
 from poker_lab.persistence.repositories import reconcile_tournament_ledger  # noqa: E402
 
