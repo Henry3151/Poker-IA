@@ -174,6 +174,8 @@ def insert_hand(
     allin_estimates: dict[int, tuple[float, float]] | None = None,
     phase: str | None = None,
     players_remaining: int | None = None,
+    decision_seats: set[int] | None = None,
+    store_events: bool = True,
 ) -> None:
     """Write a complete hand (hand, players, offline cards, decisions, events) atomically."""
     e = rec.engine
@@ -240,6 +242,8 @@ def insert_hand(
                 (rec.hand_id, i, dumps([card_to_str(c) for c in e.hole_cards_offline(i)]), int(i in showdown)),
             )
         for d in rec.decisions:
+            if decision_seats is not None and d.seat not in decision_seats:
+                continue
             info = d.info or {}
             eq_val = info.get("equity")
             conn.execute(
@@ -300,7 +304,7 @@ def insert_hand(
                         completed,
                     ),
                 )
-        for ev in e.events:
+        for ev in e.events if store_events else ():
             conn.execute(
                 "INSERT INTO action_events(event_id,hand_id,sequence_number,event_type,visibility,payload_json,created_at)"
                 " VALUES (?,?,?,?,?,?,?)",

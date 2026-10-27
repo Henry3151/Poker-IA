@@ -61,7 +61,17 @@ def run_tournament(
     evaluation_run_id: str | None = None,
     scenario_label: str | None = None,
     hero_labels: frozenset[str] = frozenset(),
+    record_level: str = "full",
 ) -> tuple[str, TournamentResult]:
+    """Run and persist a tournament.
+
+    ``record_level``: ``full`` stores every decision and event; ``hero`` (used by large
+    evaluations) stores all hands/results/ledger but only hero decisions and no per-hand
+    action events, to bound database size. Decisions with execution issues (invalid action,
+    exception, timeout) are stored for every seat in both modes.
+    """
+    if record_level not in ("full", "hero"):
+        raise ValueError("record_level must be 'full' or 'hero'")
     validate_seed(seed)
     version_ids = {e.label: register_agent_version(conn, e.spec, e.lineage) for e in entrants}
     agents = [
@@ -70,6 +80,12 @@ def run_tournament(
 
     def on_hand(ctx: HandContext, rec: HandRecord) -> None:
         est = allin_ev(rec.engine, samples=allin_samples, seed=derive_seed(seed, "allin", ctx.hand_number))
+        seats = None
+        if record_level == "hero":
+            seats = {i for i, a in enumerate(rec.seat_agents) if a.name in hero_labels}
+            invalid_field = [d for d in rec.decisions if not d.valid and d.seat not in seats]
+            if invalid_field:
+                seats |= {d.seat for d in invalid_field}  # never hide execution issues
         repo.insert_hand(
             conn,
             rec,
@@ -85,6 +101,8 @@ def run_tournament(
             allin_estimates=est,
             phase=ctx.phase,
             players_remaining=ctx.players_remaining,
+            decision_seats=seats,
+            store_events=record_level == "full",
         )
 
     events: list[TournamentEvent] = []
