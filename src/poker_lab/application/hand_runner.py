@@ -52,6 +52,7 @@ class HandRecord:
     result: HandResult
     decisions: list[DecisionRecord] = field(default_factory=list)
     seat_agents: list[Agent] = field(default_factory=list)
+    started_at: str = ""
 
 
 DecisionHook = Callable[[DecisionRecord], None]
@@ -66,6 +67,9 @@ def play_hand(
 ) -> HandRecord:
     if len(seat_agents) != engine.n:
         raise ValueError("one agent per seat required")
+    from datetime import UTC, datetime
+
+    started_at = datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
     decisions: list[DecisionRecord] = []
     seq = 0
     while not engine.is_finished:
@@ -123,7 +127,7 @@ def play_hand(
         if on_decision:
             on_decision(rec)
         seq += 1
-    return HandRecord(engine.hand_id, engine, engine.result(), decisions, list(seat_agents))
+    return HandRecord(engine.hand_id, engine, engine.result(), decisions, list(seat_agents), started_at)
 
 
 @dataclass(slots=True)
