@@ -116,6 +116,14 @@ class HybridAgent(Agent):
         off = (seat - obs.button_seat) % n
         return {0: 2, 1: 1, 2: 1}.get(off, n - off + 2)
 
+    def _open_fraction(self, obs: Observation, behind: list[int]) -> tuple[float, dict[str, Any]]:
+        """First-in open fraction (v1: fixed by players behind)."""
+        return open_fraction(len(behind)), {}
+
+    def _reraise_range(self, obs: Observation, raiser_seat: int) -> tuple[dict[str, float], str]:
+        """Range assumed for a player who re-raised us (v1: fixed top 6%)."""
+        return top_range(min(0.06, open_fraction(1) * 0.1)), "+3bet"
+
     def _icm_ok(self, obs: Observation) -> bool:
         t = obs.tournament
         return self.icm and t is not None and t.phase in ("bubble", "itm", "final_table")
@@ -162,8 +170,10 @@ class HybridAgent(Agent):
                 )
                 self.last_info = {**info, "component": "first_in_shove_ev", "shove_ev_bb": round(ev, 4), "callers": len(callers)}
                 return clamp_raise(lg, lg.max_raise_to) if ev > 0 else give_up(lg)
-            open_frac = open_fraction(len(behind))
-            self.last_info = {**info, "component": "first_in_open", "open_fraction": open_frac, "players_behind": len(behind)}
+            open_frac, adj = self._open_fraction(obs, behind)
+            self.last_info = {
+                **info, "component": "first_in_open", "open_fraction": open_frac, "players_behind": len(behind), **adj
+            }
             if frac <= open_frac and lg.can_raise:
                 limpers = sum(1 for a in obs.history if a.street == "preflop" and a.kind == "call")
                 return clamp_raise(lg, int((2.2 + limpers) * bb))
@@ -172,8 +182,8 @@ class HybridAgent(Agent):
         raiser = raises[-1].seat
         rng_r, prof = self._raiser_range(obs, raiser)
         if len(raises) >= 2:
-            rng_r = top_range(min(0.06, open_fraction(1) * 0.1))
-            prof += "+3bet"
+            rng_r, tag = self._reraise_range(obs, raiser)
+            prof += tag
         eq, _ = self.ce.eq_vs_range(cls, rng_r)
         po = pot_odds(obs.to_call, obs.pot)
         info.update({"component": "vs_raise", "raiser_profile": prof, "eq_vs_range": round(eq, 4), "pot_odds": round(po, 4)})
@@ -242,3 +252,42 @@ class HybridAgent(Agent):
             return clamp_raise(lg, max(obs.big_blind, int(obs.pot * 0.4)))
         self.last_info["decision"] = "check"
         return Action.check() if lg.can_check else give_up(lg)
+
+
+class HybridAdaptiveAgent(HybridAgent):
+    """hybrid-v2-adaptive: v1 + adjustments from opponents' observed public behaviour.
+
+    - Steal sizing of the range: estimated probability that all players behind fold, from
+      their observed fold-to-steal (prior 0.75 per unknown player, shrunk with n_prior=10).
+      Open range is narrowed when resistance is high and widened when it is low.
+    - Re-raise range: when a player 3-bets us, assume a range as wide as their observed
+      3-bet frequency (shrunk toward 6%), instead of a fixed top 6%.
+    """
+
+    PRIOR_FOLD = 0.75
+    N_PRIOR = 10
+
+    def _fold_prob(self, obs: Observation, seat: int) -> float:
+        st = self.model.get(obs.seats[seat].player_id)
+        n = st.vs_steal_opps if st else 0
+        folds = st.vs_steal_folds if st else 0
+        return (folds + self.PRIOR_FOLD * self.N_PRIOR) / (n + self.N_PRIOR)
+
+    def _open_fraction(self, obs: Observation, behind: list[int]) -> tuple[float, dict[str, Any]]:
+        base, _ = super()._open_fraction(obs, behind)
+        if len(behind) > 2:
+            return base, {}
+        p_all_fold = 1.0
+        for k in behind:
+            p_all_fold *= self._fold_prob(obs, k)
+        prior = self.PRIOR_FOLD ** len(behind)
+        # scale the open fraction with observed vs prior resistance, bounded
+        scale = max(0.5, min(1.35, (p_all_fold / prior) ** 1.5))
+        return min(0.8, base * scale), {"p_all_fold_est": round(p_all_fold, 3), "open_scale": round(scale, 3)}
+
+    def _reraise_range(self, obs: Observation, raiser_seat: int) -> tuple[dict[str, float], str]:
+        st = self.model.get(obs.seats[raiser_seat].player_id)
+        if not st or st.threebet_opps == 0:
+            return super()._reraise_range(obs, raiser_seat)
+        rate = (st.threebets + 0.06 * self.N_PRIOR) / (st.threebet_opps + self.N_PRIOR)
+        return top_range(max(0.03, min(0.35, rate))), f"+3bet(rate={rate:.2f})"

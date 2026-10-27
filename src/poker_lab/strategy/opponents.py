@@ -20,6 +20,26 @@ class PlayerStats:
     pfr_hands: int = 0
     aggressive_actions: int = 0  # bets + raises postflop
     calls: int = 0  # calls postflop
+    # preflop context stats (public actions only)
+    steal_opps: int = 0  # first in from CO/BTN/SB (unopened, unlimped)
+    steals: int = 0
+    vs_steal_opps: int = 0  # in SB/BB facing a single late-position open, nobody in between
+    vs_steal_folds: int = 0
+    vs_steal_3bets: int = 0
+    threebet_opps: int = 0  # facing exactly one raise
+    threebets: int = 0
+
+    @property
+    def steal_rate(self) -> float:
+        return self.steals / self.steal_opps if self.steal_opps else 0.0
+
+    @property
+    def fold_to_steal(self) -> float:
+        return self.vs_steal_folds / self.vs_steal_opps if self.vs_steal_opps else 0.0
+
+    @property
+    def threebet_rate(self) -> float:
+        return self.threebets / self.threebet_opps if self.threebet_opps else 0.0
 
     @property
     def vpip(self) -> float:
@@ -68,6 +88,7 @@ class OpponentModel:
                 old = self._hands_order.pop(0)
                 self._seen.pop(old, None)
         seat_to_pid = {s.seat: s.player_id for s in obs.seats}
+        self._preflop_context(obs, seat_to_pid, self._seen[hid])
         for a in obs.history[self._seen[hid] :]:
             pid = seat_to_pid.get(a.seat)
             if pid is None or pid == obs.player_id:
@@ -87,6 +108,38 @@ class OpponentModel:
                 elif a.kind == "call":
                     st.calls += 1
         self._seen[hid] = len(obs.history)
+
+    def _preflop_context(self, obs: Observation, seat_to_pid: dict[int, str], start: int) -> None:
+        pos = {s.seat: s.position for s in obs.seats}
+        raises = 0
+        callers = 0
+        opener_pos = ""
+        for idx, a in enumerate(obs.history):
+            if a.street != "preflop":
+                break
+            pid = seat_to_pid.get(a.seat)
+            count = idx >= start and pid is not None and pid != obs.player_id
+            st = self.stats.setdefault(pid, PlayerStats()) if count and pid else None
+            if st is not None:
+                if raises == 0 and callers == 0 and pos[a.seat] in ("CO", "BTN", "SB"):
+                    st.steal_opps += 1
+                    st.steals += a.kind == "raise"
+                if raises == 1 and callers == 0 and opener_pos in ("CO", "BTN", "SB") and pos[a.seat] in ("SB", "BB"):
+                    st.vs_steal_opps += 1
+                    st.vs_steal_folds += a.kind == "fold"
+                    st.vs_steal_3bets += a.kind == "raise"
+                if raises == 1:
+                    st.threebet_opps += 1
+                    st.threebets += a.kind == "raise"
+            if a.kind == "raise":
+                if raises == 0:
+                    opener_pos = pos[a.seat]
+                raises += 1
+            elif a.kind == "call":
+                callers += 1
+
+    def get(self, player_id: str) -> PlayerStats | None:
+        return self.stats.get(player_id)
 
     def profile(self, player_id: str) -> str:
         st = self.stats.get(player_id)

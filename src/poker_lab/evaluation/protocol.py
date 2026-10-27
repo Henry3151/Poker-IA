@@ -44,6 +44,9 @@ class Scenario(BaseModel):
     max_entries: int = 1
     payout_percentages: list[float] = Field(default_factory=lambda: [50.0, 30.0, 20.0])
     n_tournaments: int = Field(default=100, ge=1)
+    # optional explicit field composition, cycled over the field seats (overrides field_profile)
+    field_mix: list[str] = Field(default_factory=list)
+    extra_specs: dict[str, AgentSpec] = Field(default_factory=dict)
 
     def tournament_config(self) -> TournamentConfig:
         levels = [
@@ -68,6 +71,12 @@ class Scenario(BaseModel):
 
     def field(self) -> list[EntrantSpec]:
         out = []
+        if self.field_mix:
+            for i in range(self.entrants - 1):
+                name = self.field_mix[i % len(self.field_mix)]
+                spec = self.extra_specs.get(name) or OPPONENT_PROFILES[name]
+                out.append(EntrantSpec(f"field{i:02d}_{name}", spec, lineage=f"field_{name}"))
+            return out
         for i in range(self.entrants - 1):
             prof = FIELD_MIX[i % len(FIELD_MIX)] if self.field_profile == "mixed" else self.field_profile
             out.append(EntrantSpec(f"field{i:02d}_{prof}", OPPONENT_PROFILES[prof], lineage=f"field_{prof}"))
