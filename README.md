@@ -64,6 +64,21 @@ Cada torneio do `hybrid-v1` é comparado com o torneio do baseline jogado com **
 | `hybrid-v1` vs `push/fold P7`, cenário principal (n = 400) | **+0,998** buy-in/torneio | [0,742; 1,249] | 0,0015 | **promovido a champion** |
 | `hybrid-v1` vs perfil LAG de referência | +0,20 | [−0,08; 0,51] | — | inconclusivo (≠ equivalência) |
 
+### Robustez (P7c): o champion se sustenta
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/p7c_challengers_dark.png">
+  <img alt="Diferença pareada entre dois desafiantes e o hybrid-v1 em seis cenários; nenhuma estimativa positiva" src="docs/assets/p7c_challengers_light.png">
+</picture>
+
+O ciclo de robustez enfrentou dois desafiantes ao `hybrid-v1` em seis cenários: oponentes adaptativos, blefadores, self-play e campos mistos, com 6.000 torneios, seed final nova e a regra congelada antes da execução.
+- **Nenhum desafiante teve estimativa positiva em nenhum cenário**, e o champion foi **mantido**.
+- No cenário primário, as duas variantes pioraram de 0,22 a 0,25 buy-in por torneio, mas essa piora não sobrevive à correção de Holm.
+- Os steals do champion **continuam lucrativos contra defensores adaptativos**: +1,25 bb por steal, IC [1,04; 1,47].
+- O ponto fraco identificado é o campo de blefadores, onde o ROI fica perto de zero e inconclusivo.
+
+Detalhes em [`docs/P7C_REPORT.md`](docs/P7C_REPORT.md).
+
 ### Validação do MCCFR
 
 <picture>
@@ -235,7 +250,7 @@ python scripts/make_readme_charts.py  # regenera os gráficos deste README (requ
 | P5–P6 | MCCFR, push/fold, persistência e analytics | ✅ |
 | P7 | Avaliação quantitativa (~5.900 torneios) e métricas financeiras | ✅ |
 | P7b | Diagnóstico, melhorias e promoção do `hybrid-v1` | ✅ |
-| P7c | Robustez: oponentes adaptativos, blefadores, self-play | 🔄 em análise |
+| P7c | Robustez: oponentes adaptativos, blefadores, self-play (6.000 torneios); `hybrid-v1` mantido | ✅ |
 | P8 | Dashboard Power BI (especificação pronta) | ⏳ |
 | P9–P10 | CLI/API/UI e otimização | ⏳ |
 | P11 | Adaptador experimental para plataforma de bots com fichas virtuais (branch `p11-openpoker`) | 🧪 testado localmente |
@@ -247,7 +262,7 @@ python scripts/make_readme_charts.py  # regenera os gráficos deste README (requ
 | Documento | Conteúdo |
 |---|---|
 | [`P0_REPORT.md`](docs/P0_REPORT.md) | Inspeção inicial, arquitetura e contratos |
-| [`P7_REPORT.md`](docs/P7_REPORT.md) · [`P7B_REPORT.md`](docs/P7B_REPORT.md) | Resultados, limitações e conclusões permitidas |
+| [`P7_REPORT.md`](docs/P7_REPORT.md) · [`P7B_REPORT.md`](docs/P7B_REPORT.md) · [`P7C_REPORT.md`](docs/P7C_REPORT.md) | Resultados, limitações e conclusões permitidas |
 | [`MODEL_VERSIONS.md`](docs/MODEL_VERSIONS.md) | Registro imutável de versões, sha256 e premissas |
 | [`STRATEGY_GUARANTEES.md`](docs/STRATEGY_GUARANTEES.md) | O que é heurístico e o que tem garantia teórica |
 | [`TRAINING.md`](docs/TRAINING.md) | Auditoria do MCCFR e da política push/fold |

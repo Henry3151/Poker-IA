@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs/assets"
 REPORT = json.loads((ROOT / "docs/p7b_artifacts/p7b_final_report.json").read_text())
 AUDIT = json.loads((ROOT / "docs/p7_artifacts/mccfr_audit.json").read_text())
+P7C_PATH = ROOT / "docs/p7c_artifacts/p7c_final_report.json"
 
 THEMES = {
     "light": dict(surface="#fcfcfb", text="#0b0b0b", text2="#52514e", muted="#8a8984", grid="#e6e5e1",
@@ -87,7 +88,7 @@ def paired_chart(mode: str) -> None:
     items.sort(key=lambda x: x[1]["estimate"])
     f, ax = fig(t)
     style(ax, t)
-    for i, (s, r) in enumerate(items):
+    for i, (_scen, r) in enumerate(items):
         pos = r["ci_low"] > 0
         c = t["accent"] if pos else t["neutral"]
         ax.plot([r["ci_low"], r["ci_high"]], [i, i], color=c, linewidth=2, solid_capstyle="round")
@@ -133,6 +134,44 @@ def convergence_chart(mode: str) -> None:
     plt.close(f)
 
 
+P7C_SCEN = {"robust_mix": "robust mix (primário)", "adaptive_only": "só adaptativos", "bluff_heavy": "blefadores",
+            "baseline_mixed": "campo misto", "selfplay_hybrid": "self-play", "versions_mix": "versões mistas"}
+
+
+def p7c_chart(mode: str) -> None:
+    """Robustness cycle: challenger - champion paired differences (frozen decision tests)."""
+    if not P7C_PATH.exists():
+        return
+    t = THEMES[mode]
+    rep = json.loads(P7C_PATH.read_text())
+    dec = rep["champion_challenger"]["decisions"]
+    series = [("hybrid_v2_adaptive", "v2 adaptativo (β 0,2)", t["accent"], 0.17),
+              ("hybrid_v1_bluffcatch", "v1 + bluff-catch (β 0,2)", t["series2"], -0.17)]
+    scen = list(P7C_SCEN)
+    f, ax = fig(t, h=4.9)
+    style(ax, t)
+    ax.axvspan(-0.10, 0.10, color=t["grid"], alpha=0.55, linewidth=0)
+    for key, label, color, off in series:
+        tests = dec[key]["tests"]
+        for i, s in enumerate(reversed(scen)):
+            r = tests[s]
+            ax.plot([r["ci_low"], r["ci_high"]], [i + off, i + off], color=color, linewidth=2, solid_capstyle="round")
+            ax.scatter([r["estimate"]], [i + off], s=55, color=color, edgecolor=t["surface"], linewidth=2, zorder=3,
+                       label=label if i == 0 else None)
+    ax.axvline(0, color=t["muted"], linewidth=1)
+    ax.set_yticks(range(len(scen)), [P7C_SCEN[s] for s in reversed(scen)], color=t["text"])
+    ax.set_xlabel("desafiante − champion (buy-ins por torneio, mesmas seeds) · faixa cinza = ±δ 0,10", color=t["text2"],
+                  fontsize=9.5)
+    leg = ax.legend(loc="lower left", bbox_to_anchor=(0, 1.0), ncol=2, frameon=False, fontsize=9.5)
+    for txt in leg.get_texts():
+        txt.set_color(t["text"])
+    ax.set_title("P7c: nenhum desafiante superou o hybrid-v1 (IC 95%)", loc="left", color=t["text"], fontsize=12,
+                 fontweight="semibold", pad=30)
+    f.tight_layout()
+    f.savefig(OUT / f"p7c_challengers_{mode}.png", facecolor=t["surface"])
+    plt.close(f)
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     plt.rcParams["font.family"] = "DejaVu Sans"
@@ -140,4 +179,5 @@ if __name__ == "__main__":
         roi_chart(m)
         paired_chart(m)
         convergence_chart(m)
+        p7c_chart(m)
     print(sorted(p.name for p in OUT.glob("*.png")))
