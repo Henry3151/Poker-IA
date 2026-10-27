@@ -1,0 +1,51 @@
+{
+ "experiment_id": "a11def54-a04b-42f0-b8ff-d5d850cd6d73",
+ "training_run_id": "db55c03e-9893-4d97-9a1f-682f798511c3",
+ "agent_version_id": "ee1591e6-cb68-5103-a395-74b5cd01fed2",
+ "checkpoint_path": "artifacts/checkpoints/pushfold-p7.json",
+ "sha256": "edb1937b765c6bdc530eb13b36258fb688886982a983dfb54f93b5b5e4b43756",
+ "metrics": {
+  "per_stack": {
+   "5": {
+    "push_pct_combos": 69.33,
+    "call_pct_combos": 62.47,
+    "exploitability_bb": 0.002434,
+    "sb_value_bb": 0.054829
+   },
+   "8": {
+    "push_pct_combos": 63.17,
+    "call_pct_combos": 44.2,
+    "exploitability_bb": 0.003374,
+    "sb_value_bb": -0.004666
+   },
+   "10": {
+    "push_pct_combos": 57.09,
+    "call_pct_combos": 38.45,
+    "exploitability_bb": 0.005266,
+    "sb_value_bb": -0.047325
+   },
+   "12": {
+    "push_pct_combos": 52.29,
+    "call_pct_combos": 33.4,
+    "exploitability_bb": 0.006243,
+    "sb_value_bb": -0.086814
+   },
+   "15": {
+    "push_pct_combos": 46.29,
+    "call_pct_combos": 28.71,
+    "exploitability_bb": 0.008875,
+    "sb_value_bb": -0.132416
+   },
+   "20": {
+    "push_pct_combos": 39.28,
+    "call_pct_combos": 22.22,
+    "exploitability_bb": 0.007976,
+    "sb_value_bb": -0.184606
+   }
+  },
+  "mean_exploitability_bb": 0.005695
+ },
+ "elapsed_seconds": 107.77,
+ "peak_memory_mb": 23.34,
+ "throughput_per_second": 11134.9
+}

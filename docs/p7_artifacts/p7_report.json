@@ -1,0 +1,3996 @@
+{
+ "evaluation_run_id": "1246355d-dd9b-59ce-a2ff-871085ab32a9",
+ "protocol": {
+  "name": "p7-mtt-6max",
+  "seed": 20261027,
+  "candidates": [
+   {
+    "label": "random",
+    "spec": {
+     "algorithm": "random",
+     "version_label": "v1",
+     "params": {},
+     "checkpoint_path": null
+    },
+    "lineage": null
+   },
+   {
+    "label": "heuristic",
+    "spec": {
+     "algorithm": "heuristic",
+     "version_label": "v1",
+     "params": {},
+     "checkpoint_path": null
+    },
+    "lineage": null
+   },
+   {
+    "label": "equity",
+    "spec": {
+     "algorithm": "equity",
+     "version_label": "v1",
+     "params": {
+      "samples": 120
+     },
+     "checkpoint_path": null
+    },
+    "lineage": null
+   },
+   {
+    "label": "equity_icm_adaptive",
+    "spec": {
+     "algorithm": "equity",
+     "version_label": "icm_adaptive",
+     "params": {
+      "samples": 120,
+      "icm": true,
+      "adaptive": true
+     },
+     "checkpoint_path": null
+    },
+    "lineage": "equity_icm_adaptive"
+   },
+   {
+    "label": "pushfold_policy",
+    "spec": {
+     "algorithm": "policy",
+     "version_label": "p7",
+     "params": {
+      "fallback_samples": 120
+     },
+     "checkpoint_path": "artifacts/checkpoints/pushfold-p7.json"
+    },
+    "lineage": "pushfold"
+   }
+  ],
+  "scenarios": [
+   {
+    "label": "baseline",
+    "field_profile": "mixed",
+    "entrants": 12,
+    "starting_stack": 3000,
+    "hands_per_level": 8,
+    "blind_scale": 1.0,
+    "buy_in": 100,
+    "fee": 10,
+    "reentry_levels": 0,
+    "max_entries": 1,
+    "payout_percentages": [
+     50.0,
+     30.0,
+     20.0
+    ],
+    "n_tournaments": 400
+   },
+   {
+    "label": "field_lag",
+    "field_profile": "lag",
+    "entrants": 12,
+    "starting_stack": 3000,
+    "hands_per_level": 8,
+    "blind_scale": 1.0,
+    "buy_in": 100,
+    "fee": 10,
+    "reentry_levels": 0,
+    "max_entries": 1,
+    "payout_percentages": [
+     50.0,
+     30.0,
+     20.0
+    ],
+    "n_tournaments": 120
+   },
+   {
+    "label": "field_nit",
+    "field_profile": "nit",
+    "entrants": 12,
+    "starting_stack": 3000,
+    "hands_per_level": 8,
+    "blind_scale": 1.0,
+    "buy_in": 100,
+    "fee": 10,
+    "reentry_levels": 0,
+    "max_entries": 1,
+    "payout_percentages": [
+     50.0,
+     30.0,
+     20.0
+    ],
+    "n_tournaments": 120
+   },
+   {
+    "label": "field_station",
+    "field_profile": "station",
+    "entrants": 12,
+    "starting_stack": 3000,
+    "hands_per_level": 8,
+    "blind_scale": 1.0,
+    "buy_in": 100,
+    "fee": 10,
+    "reentry_levels": 0,
+    "max_entries": 1,
+    "payout_percentages": [
+     50.0,
+     30.0,
+     20.0
+    ],
+    "n_tournaments": 120
+   },
+   {
+    "label": "field_random",
+    "field_profile": "random",
+    "entrants": 12,
+    "starting_stack": 3000,
+    "hands_per_level": 8,
+    "blind_scale": 1.0,
+    "buy_in": 100,
+    "fee": 10,
+    "reentry_levels": 0,
+    "max_entries": 1,
+    "payout_percentages": [
+     50.0,
+     30.0,
+     20.0
+    ],
+    "n_tournaments": 60
+   },
+   {
+    "label": "turbo_short",
+    "field_profile": "mixed",
+    "entrants": 12,
+    "starting_stack": 1500,
+    "hands_per_level": 5,
+    "blind_scale": 1.0,
+    "buy_in": 100,
+    "fee": 10,
+    "reentry_levels": 0,
+    "max_entries": 1,
+    "payout_percentages": [
+     50.0,
+     30.0,
+     20.0
+    ],
+    "n_tournaments": 120
+   },
+   {
+    "label": "reentry",
+    "field_profile": "mixed",
+    "entrants": 12,
+    "starting_stack": 3000,
+    "hands_per_level": 8,
+    "blind_scale": 1.0,
+    "buy_in": 100,
+    "fee": 10,
+    "reentry_levels": 3,
+    "max_entries": 3,
+    "payout_percentages": [
+     50.0,
+     30.0,
+     20.0
+    ],
+    "n_tournaments": 120
+   },
+   {
+    "label": "top_heavy",
+    "field_profile": "mixed",
+    "entrants": 12,
+    "starting_stack": 3000,
+    "hands_per_level": 8,
+    "blind_scale": 1.0,
+    "buy_in": 100,
+    "fee": 10,
+    "reentry_levels": 0,
+    "max_entries": 1,
+    "payout_percentages": [
+     65.0,
+     35.0
+    ],
+    "n_tournaments": 120
+   }
+  ],
+  "progressive_n": [
+   25,
+   50,
+   100,
+   200,
+   400
+  ],
+  "bootstrap_resamples": 2000,
+  "min_n_claim": 200
+ },
+ "units": "simulated buy-in units (SIM); no real money",
+ "scenarios": {
+  "baseline": {
+   "random": {
+    "n_tournaments": 400,
+    "total_cost": 44000.0,
+    "total_payout": 23880.0,
+    "total_net": -20120.0,
+    "entries_total": 400,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.457273,
+     "ci_low": -0.596364,
+     "ci_high": -0.315455,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "mean_per_entry_roi": -0.457273,
+    "net_per_tournament": {
+     "estimate": -50.3,
+     "ci_low": -65.0,
+     "ci_high": -33.8,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.13,
+     "ci_low": 0.0975,
+     "ci_high": 0.1625,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 26,
+    "mean_relative_place": 0.7794,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 21920.0,
+     "final_cumulative": -20120.0,
+     "trough_index": 399
+    }
+   },
+   "heuristic": {
+    "n_tournaments": 400,
+    "total_cost": 44000.0,
+    "total_payout": 26760.0,
+    "total_net": -17240.0,
+    "entries_total": 400,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.391818,
+     "ci_low": -0.506364,
+     "ci_high": -0.282727,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "mean_per_entry_roi": -0.391818,
+    "net_per_tournament": {
+     "estimate": -43.1,
+     "ci_low": -54.8,
+     "ci_high": -30.5,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.2375,
+     "ci_low": 0.195,
+     "ci_high": 0.28,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 0,
+    "mean_relative_place": 0.5083,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 17350.0,
+     "final_cumulative": -17240.0,
+     "trough_index": 399
+    }
+   },
+   "equity": {
+    "n_tournaments": 400,
+    "total_cost": 44000.0,
+    "total_payout": 26760.0,
+    "total_net": -17240.0,
+    "entries_total": 400,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.391818,
+     "ci_low": -0.533636,
+     "ci_high": -0.247273,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "mean_per_entry_roi": -0.391818,
+    "net_per_tournament": {
+     "estimate": -43.1,
+     "ci_low": -58.7,
+     "ci_high": -26.6,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.16,
+     "ci_low": 0.1225,
+     "ci_high": 0.1975,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 24,
+    "mean_relative_place": 0.6713,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 17410.0,
+     "final_cumulative": -17240.0,
+     "trough_index": 394
+    }
+   },
+   "equity_icm_adaptive": {
+    "n_tournaments": 400,
+    "total_cost": 44000.0,
+    "total_payout": 32880.0,
+    "total_net": -11120.0,
+    "entries_total": 400,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.252727,
+     "ci_low": -0.391818,
+     "ci_high": -0.1,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "mean_per_entry_roi": -0.252727,
+    "net_per_tournament": {
+     "estimate": -27.8,
+     "ci_low": -43.7,
+     "ci_high": -11.3,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.22,
+     "ci_low": 0.18,
+     "ci_high": 0.2625,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 16,
+    "mean_relative_place": 0.6602,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 13440.0,
+     "final_cumulative": -11120.0,
+     "trough_index": 348
+    }
+   },
+   "pushfold_policy": {
+    "n_tournaments": 400,
+    "total_cost": 44000.0,
+    "total_payout": 39360.0,
+    "total_net": -4640.0,
+    "entries_total": 400,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.105455,
+     "ci_low": -0.271818,
+     "ci_high": 0.071818,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "inconclusive",
+    "mean_per_entry_roi": -0.105455,
+    "net_per_tournament": {
+     "estimate": -11.6,
+     "ci_low": -30.8,
+     "ci_high": 7.3,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.23,
+     "ci_low": 0.19,
+     "ci_high": 0.2725,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 41,
+    "mean_relative_place": 0.619,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 8240.0,
+     "final_cumulative": -4640.0,
+     "trough_index": 393
+    }
+   }
+  },
+  "field_lag": {
+   "random": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 2040.0,
+    "total_net": -11160.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.845455,
+     "ci_low": -0.954545,
+     "ci_high": -0.709091,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.845455,
+    "net_per_tournament": {
+     "estimate": -93.0,
+     "ci_low": -105.0,
+     "ci_high": -77.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.05,
+     "ci_low": 0.016667,
+     "ci_high": 0.091667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 1,
+    "mean_relative_place": 0.7889,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": -98.0
+    },
+    "drawdown": {
+     "max_drawdown": 11160.0,
+     "final_cumulative": -11160.0,
+     "trough_index": 119
+    }
+   },
+   "heuristic": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 5520.0,
+    "total_net": -7680.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.581818,
+     "ci_low": -0.745455,
+     "ci_high": -0.4,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.581818,
+    "net_per_tournament": {
+     "estimate": -64.0,
+     "ci_low": -82.0,
+     "ci_high": -45.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.158333,
+     "ci_low": 0.1,
+     "ci_high": 0.225,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 0,
+    "mean_relative_place": 0.5153,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 7700.0,
+     "final_cumulative": -7680.0,
+     "trough_index": 119
+    }
+   },
+   "equity": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 4920.0,
+    "total_net": -8280.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.627273,
+     "ci_low": -0.818182,
+     "ci_high": -0.418182,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.627273,
+    "net_per_tournament": {
+     "estimate": -69.0,
+     "ci_low": -89.0,
+     "ci_high": -46.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.116667,
+     "ci_low": 0.058333,
+     "ci_high": 0.175,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 3,
+    "mean_relative_place": 0.6014,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 8280.0,
+     "final_cumulative": -8280.0,
+     "trough_index": 119
+    }
+   },
+   "equity_icm_adaptive": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 6240.0,
+    "total_net": -6960.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.527273,
+     "ci_low": -0.718182,
+     "ci_high": -0.327273,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.527273,
+    "net_per_tournament": {
+     "estimate": -58.0,
+     "ci_low": -80.0,
+     "ci_high": -36.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.166667,
+     "ci_low": 0.108333,
+     "ci_high": 0.233333,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 2,
+    "mean_relative_place": 0.5882,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 7510.0,
+     "final_cumulative": -6960.0,
+     "trough_index": 107
+    }
+   },
+   "pushfold_policy": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 7920.0,
+    "total_net": -5280.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.4,
+     "ci_low": -0.636364,
+     "ci_high": -0.127273,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.4,
+    "net_per_tournament": {
+     "estimate": -44.0,
+     "ci_low": -70.0,
+     "ci_high": -15.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.183333,
+     "ci_low": 0.125,
+     "ci_high": 0.25,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 5,
+    "mean_relative_place": 0.5896,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 6070.0,
+     "final_cumulative": -5280.0,
+     "trough_index": 119
+    }
+   }
+  },
+  "field_nit": {
+   "random": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 41160.0,
+    "total_net": 27960.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 2.118182,
+     "ci_low": 1.636364,
+     "ci_high": 2.581818,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 2.118182,
+    "net_per_tournament": {
+     "estimate": 233.0,
+     "ci_low": 180.0,
+     "ci_high": 287.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.575,
+     "ci_low": 0.483333,
+     "ci_high": 0.666667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 68,
+    "mean_relative_place": 0.4583,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": 490.0,
+     "p75": 490.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 770.0,
+     "final_cumulative": 27960.0,
+     "trough_index": 6
+    }
+   },
+   "heuristic": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 44520.0,
+    "total_net": 31320.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 2.372727,
+     "ci_low": 1.954545,
+     "ci_high": 2.772727,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 2.372727,
+    "net_per_tournament": {
+     "estimate": 261.0,
+     "ci_low": 216.0,
+     "ci_high": 306.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.733333,
+     "ci_low": 0.65,
+     "ci_high": 0.816667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 59,
+    "mean_relative_place": 0.2674,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": 250.0,
+     "p75": 490.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 550.0,
+     "final_cumulative": 31320.0,
+     "trough_index": 30
+    }
+   },
+   "equity": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 35280.0,
+    "total_net": 22080.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 1.672727,
+     "ci_low": 1.190909,
+     "ci_high": 2.163636,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 1.672727,
+    "net_per_tournament": {
+     "estimate": 184.0,
+     "ci_low": 130.0,
+     "ci_high": 234.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.5,
+     "ci_low": 0.408333,
+     "ci_high": 0.583333,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 57,
+    "mean_relative_place": 0.4993,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": 70.0,
+     "p75": 490.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 440.0,
+     "final_cumulative": 22080.0,
+     "trough_index": 21
+    }
+   },
+   "equity_icm_adaptive": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 40560.0,
+    "total_net": 27360.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 2.072727,
+     "ci_low": 1.581818,
+     "ci_high": 2.545455,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 2.072727,
+    "net_per_tournament": {
+     "estimate": 228.0,
+     "ci_low": 175.0,
+     "ci_high": 278.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.566667,
+     "ci_low": 0.475,
+     "ci_high": 0.65,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 67,
+    "mean_relative_place": 0.4625,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": 490.0,
+     "p75": 490.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 440.0,
+     "final_cumulative": 27360.0,
+     "trough_index": 60
+    }
+   },
+   "pushfold_policy": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 52560.0,
+    "total_net": 39360.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 2.981818,
+     "ci_low": 2.554545,
+     "ci_high": 3.363636,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 2.981818,
+    "net_per_tournament": {
+     "estimate": 328.0,
+     "ci_low": 281.0,
+     "ci_high": 374.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.741667,
+     "ci_low": 0.658333,
+     "ci_high": 0.816667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 86,
+    "mean_relative_place": 0.3167,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": 490.0,
+     "p75": 490.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 220.0,
+     "final_cumulative": 39360.0,
+     "trough_index": 2
+    }
+   }
+  },
+  "field_station": {
+   "random": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 2640.0,
+    "total_net": -10560.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.8,
+     "ci_low": -0.936364,
+     "ci_high": -0.627273,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.8,
+    "net_per_tournament": {
+     "estimate": -88.0,
+     "ci_low": -103.0,
+     "ci_high": -69.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.058333,
+     "ci_low": 0.016667,
+     "ci_high": 0.108333,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 2,
+    "mean_relative_place": 0.7153,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 130.0
+    },
+    "drawdown": {
+     "max_drawdown": 10560.0,
+     "final_cumulative": -10560.0,
+     "trough_index": 119
+    }
+   },
+   "heuristic": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 20040.0,
+    "total_net": 6840.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 0.518182,
+     "ci_low": 0.263636,
+     "ci_high": 0.763636,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 0.518182,
+    "net_per_tournament": {
+     "estimate": 57.0,
+     "ci_low": 29.0,
+     "ci_high": 84.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.566667,
+     "ci_low": 0.475,
+     "ci_high": 0.658333,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 1,
+    "mean_relative_place": 0.3396,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": 130.0,
+     "p75": 130.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 910.0,
+     "final_cumulative": 6840.0,
+     "trough_index": 51
+    }
+   },
+   "equity": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 21240.0,
+    "total_net": 8040.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 0.609091,
+     "ci_low": 0.254545,
+     "ci_high": 0.972727,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 0.609091,
+    "net_per_tournament": {
+     "estimate": 67.0,
+     "ci_low": 27.0,
+     "ci_high": 109.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.441667,
+     "ci_low": 0.35,
+     "ci_high": 0.525,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 20,
+    "mean_relative_place": 0.4028,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": 250.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 1270.0,
+     "final_cumulative": 8040.0,
+     "trough_index": 27
+    }
+   },
+   "equity_icm_adaptive": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 22200.0,
+    "total_net": 9000.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 0.681818,
+     "ci_low": 0.327273,
+     "ci_high": 1.045455,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 0.681818,
+    "net_per_tournament": {
+     "estimate": 75.0,
+     "ci_low": 35.0,
+     "ci_high": 115.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.466667,
+     "ci_low": 0.375,
+     "ci_high": 0.55,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 19,
+    "mean_relative_place": 0.3944,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": 250.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 790.0,
+     "final_cumulative": 9000.0,
+     "trough_index": 27
+    }
+   },
+   "pushfold_policy": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 24960.0,
+    "total_net": 11760.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 0.890909,
+     "ci_low": 0.472727,
+     "ci_high": 1.3,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 0.890909,
+    "net_per_tournament": {
+     "estimate": 98.0,
+     "ci_low": 53.0,
+     "ci_high": 145.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.45,
+     "ci_low": 0.366667,
+     "ci_high": 0.541667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 31,
+    "mean_relative_place": 0.3757,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": 490.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 770.0,
+     "final_cumulative": 11760.0,
+     "trough_index": 93
+    }
+   }
+  },
+  "field_random": {
+   "random": {
+    "n_tournaments": 60,
+    "total_cost": 6600.0,
+    "total_payout": 4440.0,
+    "total_net": -2160.0,
+    "entries_total": 60,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.327273,
+     "ci_low": -0.636364,
+     "ci_high": 0.036364,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.327273,
+    "net_per_tournament": {
+     "estimate": -36.0,
+     "ci_low": -74.0,
+     "ci_high": 4.0,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.2,
+     "ci_low": 0.1,
+     "ci_high": 0.3,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 1,
+    "mean_relative_place": 0.5611,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 2550.0,
+     "final_cumulative": -2160.0,
+     "trough_index": 59
+    }
+   },
+   "heuristic": {
+    "n_tournaments": 60,
+    "total_cost": 6600.0,
+    "total_payout": 21360.0,
+    "total_net": 14760.0,
+    "entries_total": 60,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 2.236364,
+     "ci_low": 2.072727,
+     "ci_high": 2.4,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 2.236364,
+    "net_per_tournament": {
+     "estimate": 246.0,
+     "ci_low": 228.0,
+     "ci_high": 264.0,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.983333,
+     "ci_low": 0.95,
+     "ci_high": 1.0,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 2,
+    "mean_relative_place": 0.1792,
+    "net_quantiles": {
+     "p5": 130.0,
+     "p25": 250.0,
+     "p50": 250.0,
+     "p75": 250.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 110.0,
+     "final_cumulative": 14760.0,
+     "trough_index": 5
+    }
+   },
+   "equity": {
+    "n_tournaments": 60,
+    "total_cost": 6600.0,
+    "total_payout": 19800.0,
+    "total_net": 13200.0,
+    "entries_total": 60,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 2.0,
+     "ci_low": 1.454545,
+     "ci_high": 2.563636,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 2.0,
+    "net_per_tournament": {
+     "estimate": 220.0,
+     "ci_low": 160.0,
+     "ci_high": 280.0,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.716667,
+     "ci_low": 0.6,
+     "ci_high": 0.816667,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 21,
+    "mean_relative_place": 0.2431,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": 250.0,
+     "p75": 490.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 440.0,
+     "final_cumulative": 13200.0,
+     "trough_index": 11
+    }
+   },
+   "equity_icm_adaptive": {
+    "n_tournaments": 60,
+    "total_cost": 6600.0,
+    "total_payout": 17280.0,
+    "total_net": 10680.0,
+    "entries_total": 60,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 1.618182,
+     "ci_low": 1.163636,
+     "ci_high": 2.090909,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 1.618182,
+    "net_per_tournament": {
+     "estimate": 178.0,
+     "ci_low": 128.0,
+     "ci_high": 228.0,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.733333,
+     "ci_low": 0.616667,
+     "ci_high": 0.833333,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 9,
+    "mean_relative_place": 0.2569,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": 250.0,
+     "p75": 250.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 220.0,
+     "final_cumulative": 10680.0,
+     "trough_index": 11
+    }
+   },
+   "pushfold_policy": {
+    "n_tournaments": 60,
+    "total_cost": 6600.0,
+    "total_payout": 16680.0,
+    "total_net": 10080.0,
+    "entries_total": 60,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 1.527273,
+     "ci_low": 0.963636,
+     "ci_high": 2.090909,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 1.527273,
+    "net_per_tournament": {
+     "estimate": 168.0,
+     "ci_low": 104.0,
+     "ci_high": 226.0,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.633333,
+     "ci_low": 0.516667,
+     "ci_high": 0.75,
+     "n": 60,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 16,
+    "mean_relative_place": 0.2681,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": 250.0,
+     "p75": 490.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 440.0,
+     "final_cumulative": 10080.0,
+     "trough_index": 11
+    }
+   }
+  },
+  "turbo_short": {
+   "random": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 8400.0,
+    "total_net": -4800.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.363636,
+     "ci_low": -0.636364,
+     "ci_high": -0.063636,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.363636,
+    "net_per_tournament": {
+     "estimate": -40.0,
+     "ci_low": -71.0,
+     "ci_high": -7.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.15,
+     "ci_low": 0.091667,
+     "ci_high": 0.216667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 9,
+    "mean_relative_place": 0.7556,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 5010.0,
+     "final_cumulative": -4800.0,
+     "trough_index": 112
+    }
+   },
+   "heuristic": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 7200.0,
+    "total_net": -6000.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.454545,
+     "ci_low": -0.645455,
+     "ci_high": -0.254545,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.454545,
+    "net_per_tournament": {
+     "estimate": -50.0,
+     "ci_low": -71.0,
+     "ci_high": -26.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.2,
+     "ci_low": 0.133333,
+     "ci_high": 0.275,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 0,
+    "mean_relative_place": 0.5458,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 250.0
+    },
+    "drawdown": {
+     "max_drawdown": 6020.0,
+     "final_cumulative": -6000.0,
+     "trough_index": 117
+    }
+   },
+   "equity": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 11280.0,
+    "total_net": -1920.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.145455,
+     "ci_low": -0.454545,
+     "ci_high": 0.2,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.145455,
+    "net_per_tournament": {
+     "estimate": -16.0,
+     "ci_low": -49.0,
+     "ci_high": 22.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.2,
+     "ci_low": 0.133333,
+     "ci_high": 0.275,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 14,
+    "mean_relative_place": 0.6556,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 3380.0,
+     "final_cumulative": -1920.0,
+     "trough_index": 105
+    }
+   },
+   "equity_icm_adaptive": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 9960.0,
+    "total_net": -3240.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.245455,
+     "ci_low": -0.536364,
+     "ci_high": 0.045455,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.245455,
+    "net_per_tournament": {
+     "estimate": -27.0,
+     "ci_low": -57.0,
+     "ci_high": 8.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.191667,
+     "ci_low": 0.125,
+     "ci_high": 0.266667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 10,
+    "mean_relative_place": 0.6569,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 3860.0,
+     "final_cumulative": -3240.0,
+     "trough_index": 105
+    }
+   },
+   "pushfold_policy": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 15120.0,
+    "total_net": 1920.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 0.145455,
+     "ci_low": -0.190909,
+     "ci_high": 0.5,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 0.145455,
+    "net_per_tournament": {
+     "estimate": 16.0,
+     "ci_low": -22.0,
+     "ci_high": 59.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.275,
+     "ci_low": 0.2,
+     "ci_high": 0.358333,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 18,
+    "mean_relative_place": 0.6014,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": 130.0,
+     "p95": 490.0
+    },
+    "drawdown": {
+     "max_drawdown": 2060.0,
+     "final_cumulative": 1920.0,
+     "trough_index": 86
+    }
+   }
+  },
+  "reentry": {
+   "random": {
+    "n_tournaments": 120,
+    "total_cost": 26180.0,
+    "total_payout": 10760.0,
+    "total_net": -15420.0,
+    "entries_total": 238,
+    "reentries_total": 118,
+    "roi": {
+     "estimate": -0.588999,
+     "ci_low": -0.767303,
+     "ci_high": -0.382837,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.504167,
+    "net_per_tournament": {
+     "estimate": -128.5,
+     "ci_low": -170.25,
+     "ci_high": -86.166667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.15,
+     "ci_low": 0.091667,
+     "ci_high": 0.216667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 11,
+    "mean_relative_place": 0.7486,
+    "net_quantiles": {
+     "p5": -330.0,
+     "p25": -330.0,
+     "p50": -220.0,
+     "p75": -110.0,
+     "p95": 520.0
+    },
+    "drawdown": {
+     "max_drawdown": 15420.0,
+     "final_cumulative": -15420.0,
+     "trough_index": 119
+    }
+   },
+   "heuristic": {
+    "n_tournaments": 120,
+    "total_cost": 14300.0,
+    "total_payout": 9630.0,
+    "total_net": -4670.0,
+    "entries_total": 130,
+    "reentries_total": 10,
+    "roi": {
+     "estimate": -0.326573,
+     "ci_low": -0.54116,
+     "ci_high": -0.088811,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.2875,
+    "net_per_tournament": {
+     "estimate": -38.916667,
+     "ci_low": -65.25,
+     "ci_high": -11.5,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.241667,
+     "ci_low": 0.166667,
+     "ci_high": 0.316667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 0,
+    "mean_relative_place": 0.509,
+    "net_quantiles": {
+     "p5": -220.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 280.0
+    },
+    "drawdown": {
+     "max_drawdown": 4960.0,
+     "final_cumulative": -4670.0,
+     "trough_index": 119
+    }
+   },
+   "equity": {
+    "n_tournaments": 120,
+    "total_cost": 17710.0,
+    "total_payout": 13520.0,
+    "total_net": -4190.0,
+    "entries_total": 161,
+    "reentries_total": 41,
+    "roi": {
+     "estimate": -0.236589,
+     "ci_low": -0.503326,
+     "ci_high": 0.056604,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.151894,
+    "net_per_tournament": {
+     "estimate": -34.916667,
+     "ci_low": -74.916667,
+     "ci_high": 8.333333,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.216667,
+     "ci_low": 0.15,
+     "ci_high": 0.291667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 10,
+    "mean_relative_place": 0.6042,
+    "net_quantiles": {
+     "p5": -220.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 590.0
+    },
+    "drawdown": {
+     "max_drawdown": 4970.0,
+     "final_cumulative": -4190.0,
+     "trough_index": 119
+    }
+   },
+   "equity_icm_adaptive": {
+    "n_tournaments": 120,
+    "total_cost": 17710.0,
+    "total_payout": 15710.0,
+    "total_net": -2000.0,
+    "entries_total": 161,
+    "reentries_total": 41,
+    "roi": {
+     "estimate": -0.112931,
+     "ci_low": -0.375144,
+     "ci_high": 0.176252,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 0.077652,
+    "net_per_tournament": {
+     "estimate": -16.666667,
+     "ci_low": -55.833333,
+     "ci_high": 25.25,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.291667,
+     "ci_low": 0.216667,
+     "ci_high": 0.375,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 9,
+    "mean_relative_place": 0.6104,
+    "net_quantiles": {
+     "p5": -225.5,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": 170.0,
+     "p95": 540.0
+    },
+    "drawdown": {
+     "max_drawdown": 3110.0,
+     "final_cumulative": -2000.0,
+     "trough_index": 91
+    }
+   },
+   "pushfold_policy": {
+    "n_tournaments": 120,
+    "total_cost": 17050.0,
+    "total_payout": 10740.0,
+    "total_net": -6310.0,
+    "entries_total": 155,
+    "reentries_total": 35,
+    "roi": {
+     "estimate": -0.370088,
+     "ci_low": -0.621488,
+     "ci_high": -0.081306,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.233712,
+    "net_per_tournament": {
+     "estimate": -52.583333,
+     "ci_low": -91.5,
+     "ci_high": -11.916667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.183333,
+     "ci_low": 0.116667,
+     "ci_high": 0.258333,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 10,
+    "mean_relative_place": 0.6507,
+    "net_quantiles": {
+     "p5": -220.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 542.5
+    },
+    "drawdown": {
+     "max_drawdown": 7660.0,
+     "final_cumulative": -6310.0,
+     "trough_index": 113
+    }
+   }
+  },
+  "top_heavy": {
+   "random": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 6000.0,
+    "total_net": -7200.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.545455,
+     "ci_low": -0.813636,
+     "ci_high": -0.240909,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.545455,
+    "net_per_tournament": {
+     "estimate": -60.0,
+     "ci_low": -87.0,
+     "ci_high": -27.5,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.083333,
+     "ci_low": 0.041667,
+     "ci_high": 0.133333,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 5,
+    "mean_relative_place": 0.7882,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 310.0
+    },
+    "drawdown": {
+     "max_drawdown": 7960.0,
+     "final_cumulative": -7200.0,
+     "trough_index": 115
+    }
+   },
+   "heuristic": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 7140.0,
+    "total_net": -6060.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.459091,
+     "ci_low": -0.681818,
+     "ci_high": -0.204545,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.459091,
+    "net_per_tournament": {
+     "estimate": -50.5,
+     "ci_low": -75.0,
+     "ci_high": -22.5,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.141667,
+     "ci_low": 0.083333,
+     "ci_high": 0.2,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 0,
+    "mean_relative_place": 0.4986,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 310.0
+    },
+    "drawdown": {
+     "max_drawdown": 6060.0,
+     "final_cumulative": -6060.0,
+     "trough_index": 119
+    }
+   },
+   "equity": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 9180.0,
+    "total_net": -4020.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.304545,
+     "ci_low": -0.631818,
+     "ci_high": 0.054545,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.304545,
+    "net_per_tournament": {
+     "estimate": -33.5,
+     "ci_low": -70.0,
+     "ci_high": 6.5,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.125,
+     "ci_low": 0.075,
+     "ci_high": 0.191667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 8,
+    "mean_relative_place": 0.6833,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 670.0
+    },
+    "drawdown": {
+     "max_drawdown": 5190.0,
+     "final_cumulative": -4020.0,
+     "trough_index": 68
+    }
+   },
+   "equity_icm_adaptive": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 9660.0,
+    "total_net": -3540.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": -0.268182,
+     "ci_low": -0.590909,
+     "ci_high": 0.090909,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": -0.268182,
+    "net_per_tournament": {
+     "estimate": -29.5,
+     "ci_low": -65.0,
+     "ci_high": 10.5,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.141667,
+     "ci_low": 0.083333,
+     "ci_high": 0.2,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 7,
+    "mean_relative_place": 0.6806,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 670.0
+    },
+    "drawdown": {
+     "max_drawdown": 4690.0,
+     "final_cumulative": -3540.0,
+     "trough_index": 93
+    }
+   },
+   "pushfold_policy": {
+    "n_tournaments": 120,
+    "total_cost": 13200.0,
+    "total_payout": 15780.0,
+    "total_net": 2580.0,
+    "entries_total": 120,
+    "reentries_total": 0,
+    "roi": {
+     "estimate": 0.195455,
+     "ci_low": -0.222727,
+     "ci_high": 0.631818,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "mean_per_entry_roi": 0.195455,
+    "net_per_tournament": {
+     "estimate": 21.5,
+     "ci_low": -28.0,
+     "ci_high": 77.0,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "itm_rate": {
+     "estimate": 0.191667,
+     "ci_low": 0.125,
+     "ci_high": 0.266667,
+     "n": 120,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "wins": 17,
+    "mean_relative_place": 0.6236,
+    "net_quantiles": {
+     "p5": -110.0,
+     "p25": -110.0,
+     "p50": -110.0,
+     "p75": -110.0,
+     "p95": 670.0
+    },
+    "drawdown": {
+     "max_drawdown": 1870.0,
+     "final_cumulative": 2580.0,
+     "trough_index": 50
+    }
+   }
+  }
+ },
+ "progressive": {
+  "random": [
+   {
+    "n": 25,
+    "roi": {
+     "estimate": 0.352727,
+     "ci_low": -0.432727,
+     "ci_high": 1.225455,
+     "n": 25,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.32
+   },
+   {
+    "n": 50,
+    "roi": {
+     "estimate": -0.083636,
+     "ci_low": -0.52,
+     "ci_high": 0.418182,
+     "n": 50,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.22
+   },
+   {
+    "n": 100,
+    "roi": {
+     "estimate": -0.214545,
+     "ci_low": -0.541818,
+     "ci_high": 0.145455,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.18
+   },
+   {
+    "n": 200,
+    "roi": {
+     "estimate": -0.405455,
+     "ci_low": -0.623636,
+     "ci_high": -0.181818,
+     "n": 200,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "itm_rate": 0.135
+   },
+   {
+    "n": 400,
+    "roi": {
+     "estimate": -0.457273,
+     "ci_low": -0.596364,
+     "ci_high": -0.315455,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "itm_rate": 0.13
+   }
+  ],
+  "heuristic": [
+   {
+    "n": 25,
+    "roi": {
+     "estimate": -0.432727,
+     "ci_low": -0.869091,
+     "ci_high": 0.047273,
+     "n": 25,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.2
+   },
+   {
+    "n": 50,
+    "roi": {
+     "estimate": -0.258182,
+     "ci_low": -0.607273,
+     "ci_high": 0.090909,
+     "n": 50,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.26
+   },
+   {
+    "n": 100,
+    "roi": {
+     "estimate": -0.334545,
+     "ci_low": -0.574545,
+     "ci_high": -0.094545,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.25
+   },
+   {
+    "n": 200,
+    "roi": {
+     "estimate": -0.361818,
+     "ci_low": -0.52,
+     "ci_high": -0.203636,
+     "n": 200,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "itm_rate": 0.25
+   },
+   {
+    "n": 400,
+    "roi": {
+     "estimate": -0.391818,
+     "ci_low": -0.506364,
+     "ci_high": -0.282727,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "itm_rate": 0.2375
+   }
+  ],
+  "equity": [
+   {
+    "n": 25,
+    "roi": {
+     "estimate": -0.214545,
+     "ci_low": -0.781818,
+     "ci_high": 0.570909,
+     "n": 25,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.16
+   },
+   {
+    "n": 50,
+    "roi": {
+     "estimate": -0.170909,
+     "ci_low": -0.629091,
+     "ci_high": 0.330909,
+     "n": 50,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.2
+   },
+   {
+    "n": 100,
+    "roi": {
+     "estimate": -0.345455,
+     "ci_low": -0.650909,
+     "ci_high": -0.018182,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.16
+   },
+   {
+    "n": 200,
+    "roi": {
+     "estimate": -0.323636,
+     "ci_low": -0.530909,
+     "ci_high": -0.1,
+     "n": 200,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "itm_rate": 0.17
+   },
+   {
+    "n": 400,
+    "roi": {
+     "estimate": -0.391818,
+     "ci_low": -0.533636,
+     "ci_high": -0.247273,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "itm_rate": 0.16
+   }
+  ],
+  "equity_icm_adaptive": [
+   {
+    "n": 25,
+    "roi": {
+     "estimate": -0.258182,
+     "ci_low": -0.781818,
+     "ci_high": 0.396364,
+     "n": 25,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.2
+   },
+   {
+    "n": 50,
+    "roi": {
+     "estimate": -0.236364,
+     "ci_low": -0.607273,
+     "ci_high": 0.156364,
+     "n": 50,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.24
+   },
+   {
+    "n": 100,
+    "roi": {
+     "estimate": -0.072727,
+     "ci_low": -0.378182,
+     "ci_high": 0.243636,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.27
+   },
+   {
+    "n": 200,
+    "roi": {
+     "estimate": -0.345455,
+     "ci_low": -0.530909,
+     "ci_high": -0.149091,
+     "n": 200,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "itm_rate": 0.2
+   },
+   {
+    "n": 400,
+    "roi": {
+     "estimate": -0.252727,
+     "ci_low": -0.391818,
+     "ci_high": -0.1,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "evidence_negative",
+    "itm_rate": 0.22
+   }
+  ],
+  "pushfold_policy": [
+   {
+    "n": 25,
+    "roi": {
+     "estimate": 0.396364,
+     "ci_low": -0.389091,
+     "ci_high": 1.225455,
+     "n": 25,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.32
+   },
+   {
+    "n": 50,
+    "roi": {
+     "estimate": 0.243636,
+     "ci_low": -0.323636,
+     "ci_high": 0.854545,
+     "n": 50,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.3
+   },
+   {
+    "n": 100,
+    "roi": {
+     "estimate": 0.221818,
+     "ci_low": -0.181818,
+     "ci_high": 0.636364,
+     "n": 100,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "insufficient_sample",
+    "itm_rate": 0.29
+   },
+   {
+    "n": 200,
+    "roi": {
+     "estimate": -0.012727,
+     "ci_low": -0.258182,
+     "ci_high": 0.249091,
+     "n": 200,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "inconclusive",
+    "itm_rate": 0.25
+   },
+   {
+    "n": 400,
+    "roi": {
+     "estimate": -0.105455,
+     "ci_low": -0.271818,
+     "ci_high": 0.071818,
+     "n": 400,
+     "level": 0.95,
+     "method": "percentile_bootstrap"
+    },
+    "roi_verdict": "inconclusive",
+    "itm_rate": 0.23
+   }
+  ]
+ },
+ "paired_vs_baseline": {
+  "baseline": {
+   "random": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.065455,
+    "ci_low": -0.242727,
+    "ci_high": 0.12,
+    "n": 400,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "inconclusive"
+   },
+   "equity": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.0,
+    "ci_low": -0.174545,
+    "ci_high": 0.182727,
+    "n": 400,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "inconclusive"
+   },
+   "equity_icm_adaptive": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.139091,
+    "ci_low": -0.021818,
+    "ci_high": 0.310909,
+    "n": 400,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "inconclusive"
+   },
+   "pushfold_policy": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.286364,
+    "ci_low": 0.100909,
+    "ci_high": 0.48,
+    "n": 400,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "evidence_positive"
+   }
+  },
+  "field_lag": {
+   "random": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.263636,
+    "ci_low": -0.481818,
+    "ci_high": -0.027273,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.045455,
+    "ci_low": -0.290909,
+    "ci_high": 0.2,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity_icm_adaptive": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.054545,
+    "ci_low": -0.236364,
+    "ci_high": 0.345455,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "pushfold_policy": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.181818,
+    "ci_low": -0.118182,
+    "ci_high": 0.490909,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   }
+  },
+  "field_nit": {
+   "random": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.254545,
+    "ci_low": -0.881818,
+    "ci_high": 0.345455,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.7,
+    "ci_low": -1.336364,
+    "ci_high": -0.072727,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity_icm_adaptive": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.3,
+    "ci_low": -0.909091,
+    "ci_high": 0.3,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "pushfold_policy": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.609091,
+    "ci_low": 0.018182,
+    "ci_high": 1.190909,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   }
+  },
+  "field_station": {
+   "random": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -1.318182,
+    "ci_low": -1.618182,
+    "ci_high": -1.0,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.090909,
+    "ci_low": -0.318182,
+    "ci_high": 0.490909,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity_icm_adaptive": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.163636,
+    "ci_low": -0.227273,
+    "ci_high": 0.572727,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "pushfold_policy": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.372727,
+    "ci_low": -0.118182,
+    "ci_high": 0.836364,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   }
+  },
+  "field_random": {
+   "random": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -2.563636,
+    "ci_low": -2.963636,
+    "ci_high": -2.127273,
+    "n": 60,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.236364,
+    "ci_low": -0.745455,
+    "ci_high": 0.272727,
+    "n": 60,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity_icm_adaptive": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.618182,
+    "ci_low": -1.072727,
+    "ci_high": -0.181818,
+    "n": 60,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "pushfold_policy": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.709091,
+    "ci_low": -1.254545,
+    "ci_high": -0.181818,
+    "n": 60,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   }
+  },
+  "turbo_short": {
+   "random": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.090909,
+    "ci_low": -0.236364,
+    "ci_high": 0.409091,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.309091,
+    "ci_low": -0.054545,
+    "ci_high": 0.690909,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity_icm_adaptive": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.209091,
+    "ci_low": -0.127273,
+    "ci_high": 0.581818,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "pushfold_policy": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.6,
+    "ci_low": 0.209091,
+    "ci_high": 1.009091,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   }
+  },
+  "reentry": {
+   "random": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.814394,
+    "ci_low": -1.241667,
+    "ci_high": -0.358333,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.036364,
+    "ci_low": -0.371212,
+    "ci_high": 0.474242,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity_icm_adaptive": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.202273,
+    "ci_low": -0.209848,
+    "ci_high": 0.625,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "pushfold_policy": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.124242,
+    "ci_low": -0.529545,
+    "ci_high": 0.30303,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   }
+  },
+  "top_heavy": {
+   "random": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": -0.086364,
+    "ci_low": -0.445455,
+    "ci_high": 0.286364,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.154545,
+    "ci_low": -0.209091,
+    "ci_high": 0.568182,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "equity_icm_adaptive": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.190909,
+    "ci_low": -0.209091,
+    "ci_high": 0.618182,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   },
+   "pushfold_policy": {
+    "metric": "mean paired difference in net profit per tournament, in buy-ins (buy_in+fee)",
+    "estimate": 0.654545,
+    "ci_low": 0.168182,
+    "ci_high": 1.218182,
+    "n": 120,
+    "level": 0.95,
+    "method": "percentile_bootstrap",
+    "verdict": "insufficient_sample"
+   }
+  }
+ },
+ "breakdowns": {
+  "random": {
+   "phase": {
+    "early": {
+     "metric": "net bb per hand",
+     "hands": 2863,
+     "estimate": -2.171058,
+     "ci_low": -2.80686,
+     "ci_high": -1.547853,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "final_table": {
+     "metric": "net bb per hand",
+     "hands": 1422,
+     "estimate": 0.046304,
+     "ci_low": -0.209585,
+     "ci_high": 0.284121,
+     "n": 81,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "middle": {
+     "metric": "net bb per hand",
+     "hands": 6509,
+     "estimate": -0.123797,
+     "ci_low": -0.297124,
+     "ci_high": 0.026165,
+     "n": 305,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "position": {
+    "BB": {
+     "metric": "net bb per hand",
+     "hands": 2256,
+     "estimate": -0.610493,
+     "ci_low": -1.037413,
+     "ci_high": -0.208321,
+     "n": 364,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "BTN": {
+     "metric": "net bb per hand",
+     "hands": 2257,
+     "estimate": -0.677186,
+     "ci_low": -1.109729,
+     "ci_high": -0.289548,
+     "n": 369,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "CO": {
+     "metric": "net bb per hand",
+     "hands": 1902,
+     "estimate": -0.433647,
+     "ci_low": -0.984741,
+     "ci_high": 0.058757,
+     "n": 366,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "HJ": {
+     "metric": "net bb per hand",
+     "hands": 1468,
+     "estimate": -0.64918,
+     "ci_low": -1.13372,
+     "ci_high": -0.159413,
+     "n": 368,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "SB": {
+     "metric": "net bb per hand",
+     "hands": 2077,
+     "estimate": -0.737131,
+     "ci_low": -1.231413,
+     "ci_high": -0.312024,
+     "n": 370,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "UTG": {
+     "metric": "net bb per hand",
+     "hands": 834,
+     "estimate": -0.888722,
+     "ci_low": -1.747741,
+     "ci_high": -0.076999,
+     "n": 340,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    }
+   },
+   "stack_bucket": {
+    "10-20bb": {
+     "metric": "net bb per hand",
+     "hands": 1986,
+     "estimate": 0.137604,
+     "ci_low": -0.108922,
+     "ci_high": 0.364502,
+     "n": 244,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "20-40bb": {
+     "metric": "net bb per hand",
+     "hands": 3469,
+     "estimate": -0.167035,
+     "ci_low": -0.438184,
+     "ci_high": 0.067412,
+     "n": 264,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "40bb+": {
+     "metric": "net bb per hand",
+     "hands": 3710,
+     "estimate": -1.835164,
+     "ci_low": -2.436014,
+     "ci_high": -1.301227,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "<10bb": {
+     "metric": "net bb per hand",
+     "hands": 1629,
+     "estimate": 0.097563,
+     "ci_low": -0.041543,
+     "ci_high": 0.212232,
+     "n": 273,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   }
+  },
+  "equity": {
+   "phase": {
+    "early": {
+     "metric": "net bb per hand",
+     "hands": 3126,
+     "estimate": 0.084619,
+     "ci_low": -0.2685,
+     "ci_high": 0.438826,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "final_table": {
+     "metric": "net bb per hand",
+     "hands": 2211,
+     "estimate": -0.143237,
+     "ci_low": -0.28085,
+     "ci_high": -0.015249,
+     "n": 125,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "middle": {
+     "metric": "net bb per hand",
+     "hands": 11172,
+     "estimate": -0.065553,
+     "ci_low": -0.1553,
+     "ci_high": 0.010948,
+     "n": 380,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "position": {
+    "BB": {
+     "metric": "net bb per hand",
+     "hands": 3452,
+     "estimate": -0.134697,
+     "ci_low": -0.445778,
+     "ci_high": 0.139647,
+     "n": 395,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "BTN": {
+     "metric": "net bb per hand",
+     "hands": 3345,
+     "estimate": 0.021345,
+     "ci_low": -0.103831,
+     "ci_high": 0.143175,
+     "n": 390,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "CO": {
+     "metric": "net bb per hand",
+     "hands": 2960,
+     "estimate": 0.08188,
+     "ci_low": -0.053523,
+     "ci_high": 0.216818,
+     "n": 391,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "HJ": {
+     "metric": "net bb per hand",
+     "hands": 2391,
+     "estimate": 0.153112,
+     "ci_low": -0.043449,
+     "ci_high": 0.361934,
+     "n": 393,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "SB": {
+     "metric": "net bb per hand",
+     "hands": 3145,
+     "estimate": -0.356254,
+     "ci_low": -0.572523,
+     "ci_high": -0.168905,
+     "n": 388,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "UTG": {
+     "metric": "net bb per hand",
+     "hands": 1216,
+     "estimate": 0.099513,
+     "ci_low": -0.115426,
+     "ci_high": 0.324769,
+     "n": 372,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "stack_bucket": {
+    "10-20bb": {
+     "metric": "net bb per hand",
+     "hands": 4459,
+     "estimate": -0.122944,
+     "ci_low": -0.230164,
+     "ci_high": -0.019209,
+     "n": 313,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "20-40bb": {
+     "metric": "net bb per hand",
+     "hands": 5281,
+     "estimate": -0.111765,
+     "ci_low": -0.256318,
+     "ci_high": 0.023578,
+     "n": 372,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "40bb+": {
+     "metric": "net bb per hand",
+     "hands": 4188,
+     "estimate": 0.085997,
+     "ci_low": -0.186213,
+     "ci_high": 0.341496,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "<10bb": {
+     "metric": "net bb per hand",
+     "hands": 2581,
+     "estimate": -0.002421,
+     "ci_low": -0.119907,
+     "ci_high": 0.100549,
+     "n": 255,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   }
+  },
+  "pushfold_policy": {
+   "phase": {
+    "early": {
+     "metric": "net bb per hand",
+     "hands": 3133,
+     "estimate": -0.041286,
+     "ci_low": -0.343413,
+     "ci_high": 0.285441,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "final_table": {
+     "metric": "net bb per hand",
+     "hands": 3020,
+     "estimate": -0.025333,
+     "ci_low": -0.134182,
+     "ci_high": 0.065373,
+     "n": 149,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "middle": {
+     "metric": "net bb per hand",
+     "hands": 12171,
+     "estimate": 0.019128,
+     "ci_low": -0.057132,
+     "ci_high": 0.093889,
+     "n": 377,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "position": {
+    "BB": {
+     "metric": "net bb per hand",
+     "hands": 3939,
+     "estimate": -0.062711,
+     "ci_low": -0.326011,
+     "ci_high": 0.223296,
+     "n": 396,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "BTN": {
+     "metric": "net bb per hand",
+     "hands": 3875,
+     "estimate": 0.071256,
+     "ci_low": -0.034724,
+     "ci_high": 0.181706,
+     "n": 390,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "CO": {
+     "metric": "net bb per hand",
+     "hands": 3223,
+     "estimate": 0.098341,
+     "ci_low": -0.002829,
+     "ci_high": 0.209219,
+     "n": 390,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "HJ": {
+     "metric": "net bb per hand",
+     "hands": 2576,
+     "estimate": 0.104615,
+     "ci_low": -0.028361,
+     "ci_high": 0.237685,
+     "n": 395,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "SB": {
+     "metric": "net bb per hand",
+     "hands": 3522,
+     "estimate": -0.124152,
+     "ci_low": -0.287036,
+     "ci_high": 0.02866,
+     "n": 391,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "UTG": {
+     "metric": "net bb per hand",
+     "hands": 1189,
+     "estimate": -0.127265,
+     "ci_low": -0.395118,
+     "ci_high": 0.130577,
+     "n": 370,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "stack_bucket": {
+    "10-20bb": {
+     "metric": "net bb per hand",
+     "hands": 5574,
+     "estimate": 0.038843,
+     "ci_low": -0.043951,
+     "ci_high": 0.121162,
+     "n": 318,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "20-40bb": {
+     "metric": "net bb per hand",
+     "hands": 5557,
+     "estimate": -0.073284,
+     "ci_low": -0.216199,
+     "ci_high": 0.055944,
+     "n": 373,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "40bb+": {
+     "metric": "net bb per hand",
+     "hands": 4047,
+     "estimate": -0.074489,
+     "ci_low": -0.325594,
+     "ci_high": 0.17665,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "<10bb": {
+     "metric": "net bb per hand",
+     "hands": 3146,
+     "estimate": 0.165018,
+     "ci_low": 0.074016,
+     "ci_high": 0.251301,
+     "n": 277,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    }
+   }
+  },
+  "heuristic": {
+   "phase": {
+    "early": {
+     "metric": "net bb per hand",
+     "hands": 3170,
+     "estimate": -0.217479,
+     "ci_low": -0.414781,
+     "ci_high": -0.039301,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "final_table": {
+     "metric": "net bb per hand",
+     "hands": 3695,
+     "estimate": -0.175104,
+     "ci_low": -0.203891,
+     "ci_high": -0.145838,
+     "n": 234,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "middle": {
+     "metric": "net bb per hand",
+     "hands": 16835,
+     "estimate": -0.048442,
+     "ci_low": -0.080077,
+     "ci_high": -0.01714,
+     "n": 387,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    }
+   },
+   "position": {
+    "BB": {
+     "metric": "net bb per hand",
+     "hands": 4901,
+     "estimate": -0.320494,
+     "ci_low": -0.391622,
+     "ci_high": -0.253086,
+     "n": 397,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "BTN": {
+     "metric": "net bb per hand",
+     "hands": 4907,
+     "estimate": 0.085312,
+     "ci_low": 0.007349,
+     "ci_high": 0.157162,
+     "n": 396,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "CO": {
+     "metric": "net bb per hand",
+     "hands": 4361,
+     "estimate": 0.10536,
+     "ci_low": 0.024571,
+     "ci_high": 0.179976,
+     "n": 395,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "HJ": {
+     "metric": "net bb per hand",
+     "hands": 3314,
+     "estimate": 0.095377,
+     "ci_low": 0.009338,
+     "ci_high": 0.183512,
+     "n": 399,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_positive"
+    },
+    "SB": {
+     "metric": "net bb per hand",
+     "hands": 4764,
+     "estimate": -0.375908,
+     "ci_low": -0.440049,
+     "ci_high": -0.312934,
+     "n": 396,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "UTG": {
+     "metric": "net bb per hand",
+     "hands": 1453,
+     "estimate": 0.010638,
+     "ci_low": -0.174614,
+     "ci_high": 0.183388,
+     "n": 380,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "stack_bucket": {
+    "10-20bb": {
+     "metric": "net bb per hand",
+     "hands": 5983,
+     "estimate": -0.080324,
+     "ci_low": -0.118158,
+     "ci_high": -0.04078,
+     "n": 371,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "20-40bb": {
+     "metric": "net bb per hand",
+     "hands": 4725,
+     "estimate": -0.000509,
+     "ci_low": -0.082673,
+     "ci_high": 0.078399,
+     "n": 386,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "40bb+": {
+     "metric": "net bb per hand",
+     "hands": 3467,
+     "estimate": -0.192764,
+     "ci_low": -0.365969,
+     "ci_high": -0.027795,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "<10bb": {
+     "metric": "net bb per hand",
+     "hands": 9525,
+     "estimate": -0.105054,
+     "ci_low": -0.123975,
+     "ci_high": -0.085765,
+     "n": 359,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    }
+   }
+  },
+  "equity_icm_adaptive": {
+   "phase": {
+    "early": {
+     "metric": "net bb per hand",
+     "hands": 3126,
+     "estimate": 0.084619,
+     "ci_low": -0.262507,
+     "ci_high": 0.431947,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "final_table": {
+     "metric": "net bb per hand",
+     "hands": 3215,
+     "estimate": -0.126781,
+     "ci_low": -0.196315,
+     "ci_high": -0.053477,
+     "n": 123,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "middle": {
+     "metric": "net bb per hand",
+     "hands": 11257,
+     "estimate": -0.059353,
+     "ci_low": -0.141493,
+     "ci_high": 0.021195,
+     "n": 380,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "position": {
+    "BB": {
+     "metric": "net bb per hand",
+     "hands": 3884,
+     "estimate": -0.130958,
+     "ci_low": -0.392169,
+     "ci_high": 0.128809,
+     "n": 395,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "BTN": {
+     "metric": "net bb per hand",
+     "hands": 3785,
+     "estimate": -0.012453,
+     "ci_low": -0.126818,
+     "ci_high": 0.097363,
+     "n": 390,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "CO": {
+     "metric": "net bb per hand",
+     "hands": 3028,
+     "estimate": 0.102606,
+     "ci_low": -0.021113,
+     "ci_high": 0.229397,
+     "n": 391,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "HJ": {
+     "metric": "net bb per hand",
+     "hands": 2399,
+     "estimate": 0.163005,
+     "ci_low": -0.022729,
+     "ci_high": 0.386623,
+     "n": 393,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "SB": {
+     "metric": "net bb per hand",
+     "hands": 3298,
+     "estimate": -0.329793,
+     "ci_low": -0.52983,
+     "ci_high": -0.135735,
+     "n": 388,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "UTG": {
+     "metric": "net bb per hand",
+     "hands": 1204,
+     "estimate": 0.108366,
+     "ci_low": -0.132784,
+     "ci_high": 0.338419,
+     "n": 371,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   },
+   "stack_bucket": {
+    "10-20bb": {
+     "metric": "net bb per hand",
+     "hands": 4435,
+     "estimate": -0.105096,
+     "ci_low": -0.211614,
+     "ci_high": -0.006423,
+     "n": 317,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "evidence_negative"
+    },
+    "20-40bb": {
+     "metric": "net bb per hand",
+     "hands": 5323,
+     "estimate": -0.117066,
+     "ci_low": -0.273522,
+     "ci_high": 0.011606,
+     "n": 371,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "40bb+": {
+     "metric": "net bb per hand",
+     "hands": 4178,
+     "estimate": 0.080053,
+     "ci_low": -0.178831,
+     "ci_high": 0.336736,
+     "n": 400,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    },
+    "<10bb": {
+     "metric": "net bb per hand",
+     "hands": 3662,
+     "estimate": -0.015412,
+     "ci_low": -0.082951,
+     "ci_high": 0.04783,
+     "n": 262,
+     "level": 0.95,
+     "method": "cluster_bootstrap",
+     "flag": "inconclusive"
+    }
+   }
+  }
+ },
+ "allin_luck": {
+  "random": {
+   "allin_hands": 1458,
+   "luck_bb_total": -432.73,
+   "luck_bb_mean": {
+    "estimate": -0.296797,
+    "ci_low": -1.099417,
+    "ci_high": 0.607431,
+    "n": 1458,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "allin_ev_bb_total": -6966.51
+  },
+  "equity": {
+   "allin_hands": 1043,
+   "luck_bb_total": 108.51,
+   "luck_bb_mean": {
+    "estimate": 0.10404,
+    "ci_low": -0.533744,
+    "ci_high": 0.769279,
+    "n": 1043,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "allin_ev_bb_total": -55.69
+  },
+  "pushfold_policy": {
+   "allin_hands": 1187,
+   "luck_bb_total": 313.1,
+   "luck_bb_mean": {
+    "estimate": 0.263775,
+    "ci_low": -0.233566,
+    "ci_high": 0.762526,
+    "n": 1187,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "allin_ev_bb_total": 417.73
+  },
+  "heuristic": {
+   "allin_hands": 1036,
+   "luck_bb_total": -276.25,
+   "luck_bb_mean": {
+    "estimate": -0.266649,
+    "ci_low": -0.745541,
+    "ci_high": 0.166383,
+    "n": 1036,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "allin_ev_bb_total": 645.24
+  },
+  "equity_icm_adaptive": {
+   "allin_hands": 1163,
+   "luck_bb_total": 215.29,
+   "luck_bb_mean": {
+    "estimate": 0.185117,
+    "ci_low": -0.412596,
+    "ci_high": 0.782696,
+    "n": 1163,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "allin_ev_bb_total": 129.13
+  }
+ },
+ "decision_quality": {
+  "random": {
+   "decisions": 16045,
+   "action_mix": {
+    "bet": 0.1087,
+    "call": 0.2715,
+    "check": 0.1155,
+    "fold": 0.2778,
+    "raise": 0.2265
+   },
+   "by_pot_type": {
+    "limped": {
+     "check": 31,
+     "call": 5,
+     "raise": 30,
+     "fold": 9
+    },
+    "postflop_heads_up": {
+     "raise": 213,
+     "check": 1590,
+     "fold": 374,
+     "bet": 1555,
+     "call": 380
+    },
+    "postflop_multiway": {
+     "check": 195,
+     "bet": 189,
+     "fold": 67,
+     "call": 60,
+     "raise": 35
+    },
+    "single_raised": {
+     "call": 1604,
+     "fold": 1592,
+     "raise": 1285
+    },
+    "three_bet_plus": {
+     "fold": 246,
+     "raise": 69,
+     "call": 256
+    },
+    "unopened": {
+     "raise": 2002,
+     "fold": 2170,
+     "call": 2051,
+     "check": 37
+    }
+   },
+   "equity_basis_counts": {
+    "vs_uniform_random_hands_mc100": 16045
+   },
+   "calls": 4356,
+   "call_margin_mean": {
+    "estimate": 0.043443,
+    "ci_low": 0.0366,
+    "ci_high": 0.050303,
+    "n": 4356,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "calls_below_pot_odds_rate": 0.4945,
+   "flag": "ok"
+  },
+  "equity": {
+   "decisions": 24957,
+   "action_mix": {
+    "bet": 0.0432,
+    "call": 0.217,
+    "check": 0.2327,
+    "fold": 0.4564,
+    "raise": 0.0506
+   },
+   "by_pot_type": {
+    "limped": {
+     "check": 88,
+     "call": 11,
+     "fold": 10,
+     "raise": 3
+    },
+    "postflop_heads_up": {
+     "check": 5450,
+     "call": 1474,
+     "bet": 1024,
+     "fold": 409,
+     "raise": 179
+    },
+    "postflop_multiway": {
+     "check": 232,
+     "call": 31,
+     "bet": 55,
+     "raise": 9,
+     "fold": 44
+    },
+    "single_raised": {
+     "call": 1934,
+     "fold": 4277,
+     "raise": 89
+    },
+    "three_bet_plus": {
+     "call": 79,
+     "fold": 202,
+     "raise": 6
+    },
+    "unopened": {
+     "fold": 6449,
+     "call": 1887,
+     "raise": 977,
+     "check": 38
+    }
+   },
+   "equity_basis_counts": {
+    "agent_estimate": 24957
+   },
+   "calls": 5416,
+   "call_margin_mean": {
+    "estimate": 0.206119,
+    "ci_low": 0.202169,
+    "ci_high": 0.209817,
+    "n": 5416,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "calls_below_pot_odds_rate": 0.0,
+   "flag": "ok"
+  },
+  "pushfold_policy": {
+   "decisions": 23871,
+   "action_mix": {
+    "bet": 0.0356,
+    "call": 0.1712,
+    "check": 0.1734,
+    "fold": 0.5355,
+    "raise": 0.0843
+   },
+   "by_pot_type": {
+    "limped": {
+     "check": 115,
+     "fold": 20,
+     "raise": 6,
+     "call": 11
+    },
+    "postflop_heads_up": {
+     "check": 3737,
+     "call": 1188,
+     "bet": 784,
+     "fold": 283,
+     "raise": 148
+    },
+    "postflop_multiway": {
+     "check": 231,
+     "fold": 51,
+     "call": 35,
+     "bet": 66,
+     "raise": 11
+    },
+    "single_raised": {
+     "call": 1954,
+     "fold": 4442,
+     "raise": 97
+    },
+    "three_bet_plus": {
+     "fold": 204,
+     "call": 83,
+     "raise": 11
+    },
+    "unopened": {
+     "fold": 7783,
+     "call": 816,
+     "raise": 1739,
+     "check": 56
+    }
+   },
+   "equity_basis_counts": {
+    "agent_estimate": 22079,
+    "vs_uniform_random_hands_mc100": 1792
+   },
+   "calls": 4087,
+   "call_margin_mean": {
+    "estimate": 0.184094,
+    "ci_low": 0.179778,
+    "ci_high": 0.188417,
+    "n": 4087,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "calls_below_pot_odds_rate": 0.0,
+   "flag": "ok"
+  },
+  "heuristic": {
+   "decisions": 22926,
+   "action_mix": {
+    "bet": 0.0116,
+    "call": 0.0221,
+    "check": 0.031,
+    "fold": 0.8517,
+    "raise": 0.0836
+   },
+   "by_pot_type": {
+    "limped": {
+     "check": 70,
+     "fold": 34,
+     "raise": 20,
+     "call": 2
+    },
+    "postflop_heads_up": {
+     "check": 544,
+     "fold": 158,
+     "raise": 72,
+     "call": 55,
+     "bet": 242
+    },
+    "postflop_multiway": {
+     "fold": 22,
+     "bet": 23,
+     "check": 40,
+     "raise": 5,
+     "call": 3
+    },
+    "single_raised": {
+     "fold": 7442,
+     "call": 274,
+     "raise": 123
+    },
+    "three_bet_plus": {
+     "fold": 367,
+     "call": 28,
+     "raise": 20
+    },
+    "unopened": {
+     "fold": 11504,
+     "raise": 1677,
+     "call": 145,
+     "check": 56
+    }
+   },
+   "equity_basis_counts": {
+    "vs_uniform_random_hands_mc100": 22926
+   },
+   "calls": 507,
+   "call_margin_mean": {
+    "estimate": 0.321542,
+    "ci_low": 0.302457,
+    "ci_high": 0.340042,
+    "n": 507,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "calls_below_pot_odds_rate": 0.0927,
+   "flag": "ok"
+  },
+  "equity_icm_adaptive": {
+   "decisions": 26275,
+   "action_mix": {
+    "bet": 0.0427,
+    "call": 0.2168,
+    "check": 0.2325,
+    "fold": 0.4579,
+    "raise": 0.05
+   },
+   "by_pot_type": {
+    "limped": {
+     "check": 92,
+     "fold": 13,
+     "call": 13,
+     "raise": 5
+    },
+    "postflop_heads_up": {
+     "check": 5748,
+     "bet": 1066,
+     "call": 1508,
+     "fold": 469,
+     "raise": 187
+    },
+    "postflop_multiway": {
+     "check": 219,
+     "call": 29,
+     "fold": 45,
+     "bet": 55,
+     "raise": 6
+    },
+    "single_raised": {
+     "fold": 4646,
+     "call": 1872,
+     "raise": 83
+    },
+    "three_bet_plus": {
+     "fold": 204,
+     "call": 78,
+     "raise": 7
+    },
+    "unopened": {
+     "fold": 6655,
+     "raise": 1027,
+     "call": 2197,
+     "check": 51
+    }
+   },
+   "equity_basis_counts": {
+    "agent_estimate": 26275
+   },
+   "calls": 5697,
+   "call_margin_mean": {
+    "estimate": 0.209174,
+    "ci_low": 0.205462,
+    "ci_high": 0.212895,
+    "n": 5697,
+    "level": 0.95,
+    "method": "percentile_bootstrap"
+   },
+   "calls_below_pot_odds_rate": 0.0002,
+   "flag": "ok"
+  }
+ },
+ "merge_rows_added": {
+  "experiments": 1,
+  "artifacts": 0,
+  "agent_versions": 9,
+  "evaluation_runs": 1,
+  "tournaments": 5900,
+  "tournament_entries": 70800,
+  "tournament_events": 167945,
+  "hands": 765364,
+  "hand_players": 3534226,
+  "offline_hole_cards": 3534226,
+  "decisions": 337177,
+  "action_events": 0,
+  "financial_ledger": 161474,
+  "entry_reentries": 1387,
+  "decision_metrics": 0,
+  "training_runs": 0,
+  "evaluations": 0,
+  "explanations": 0,
+  "audit_issues": 0,
+  "notes": 0
+ },
+ "decision_metrics_rows": 114074,
+ "finalize_seconds": 291.0
+}

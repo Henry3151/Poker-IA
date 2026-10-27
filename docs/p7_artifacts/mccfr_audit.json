@@ -1,0 +1,132 @@
+{
+ "kuhn": {
+  "known_value_p1": -0.055556,
+  "convergence": [
+   {
+    "iterations": 1000,
+    "exploitability": 0.02439,
+    "value_p1": -0.042097
+   },
+   {
+    "iterations": 10000,
+    "exploitability": 0.007125,
+    "value_p1": -0.055052
+   },
+   {
+    "iterations": 100000,
+    "exploitability": 0.003381,
+    "value_p1": -0.055462
+   }
+  ],
+  "equilibrium_structure": {
+   "bet_J_alpha": 0.3019,
+   "bet_K_should_be_3alpha": 0.9058,
+   "bet_K_observed": 0.9473,
+   "call_Q_should_be_alpha_plus_1_3": 0.6353,
+   "call_Q_observed": 0.6583
+  }
+ },
+ "pushfold_10bb_convergence": [
+  {
+   "iterations": 2000,
+   "exploitability_bb": 0.15683
+  },
+  {
+   "iterations": 20000,
+   "exploitability_bb": 0.029656
+  },
+  {
+   "iterations": 100000,
+   "exploitability_bb": 0.00928
+  },
+  {
+   "iterations": 200000,
+   "exploitability_bb": 0.005297
+  }
+ ],
+ "equity_table_sensitivity_10bb": {
+  "table200": {
+   "push_pct": 59.39,
+   "call_pct": 37.61
+  },
+  "table600": {
+   "push_pct": 58.76,
+   "call_pct": 37.92
+  },
+  "mean_abs_prob_diff": 0.0309,
+  "max_abs_prob_diff": 0.7841,
+  "classes_with_diff_gt_0_5": 2,
+  "exploitability_of_table200_policy_in_table600_game_bb": 0.006152,
+  "exploitability_of_table600_policy_in_table600_game_bb": 0.00541
+ },
+ "published_comparison_10bb": {
+  "published": {
+   "source": "https://www.pokerstrategy.com/strategy/sit-and-go/1779/ (Table 1, ES=10, no ante, push-or-fold, 0% edge)",
+   "push_pct": 56.6,
+   "call_pct": 38.5,
+   "push_range": "22+, Kx+, Q2s+, Q7o+, J3s+, J8o+, T5s+, T8o+, 95s+, 97o+, 85s+, 87o, 74s+, 64s+, 53s+",
+   "call_range": "22+, Ax+, K2s+, K6o+, Q6s+, Q8o+, J8s+, J9o+, T9s",
+   "parsed_push_pct": 56.56,
+   "parsed_call_pct": 38.46
+  },
+  "table200": {
+   "push_pct_threshold_0_5": 59.28,
+   "call_pct_threshold_0_5": 36.65,
+   "push_overlap": {
+    "jaccard_combos": 0.9152,
+    "only_ours": [
+     "63s",
+     "93s",
+     "J7o",
+     "Q5o",
+     "T3s",
+     "T4s",
+     "T7o"
+    ],
+    "only_published": [
+     "85s",
+     "97o"
+    ]
+   },
+   "call_overlap": {
+    "jaccard_combos": 0.9529,
+    "only_ours": [],
+    "only_published": [
+     "J9o",
+     "Q8o"
+    ]
+   }
+  },
+  "table600": {
+   "push_pct_threshold_0_5": 56.86,
+   "call_pct_threshold_0_5": 37.56,
+   "push_overlap": {
+    "jaccard_combos": 0.9135,
+    "only_ours": [
+     "42s",
+     "63s",
+     "86o",
+     "Q6o",
+     "T4s"
+    ],
+    "only_published": [
+     "85s",
+     "97o",
+     "98o",
+     "T5s"
+    ]
+   },
+   "call_overlap": {
+    "jaccard_combos": 0.9309,
+    "only_ours": [
+     "K5o"
+    ],
+    "only_published": [
+     "J9o",
+     "Q8o"
+    ]
+   }
+  }
+ },
+ "elapsed_seconds": 109.3
+}
