@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import functools
 import time
 import tracemalloc
 from collections.abc import Callable
@@ -58,13 +59,7 @@ def train_pushfold(
         game = PushFoldGame(s, classes, table["equity"], table["weights"], ante_bb)
         state = MCCFRState.from_json(resume.solver_state[key]) if resume and key in resume.solver_state else None
         solver = ExternalSamplingMCCFR(game, derive_seed(seed, "stack", key), state)
-        cb: Callable[[int], None] | None = None
-        if progress is not None:
-            report = progress
-
-            def cb(it: int, s: float = s) -> None:
-                report(s, it)
-
+        cb: Callable[[int], None] | None = functools.partial(progress, s) if progress is not None else None
         solver.run(iterations, callback=cb)
         avg = solver.average_strategy()
         sb_push[key] = {c: round(avg.get(f"SB:{c}", [1.0, 0.0])[1], 6) for c in classes}

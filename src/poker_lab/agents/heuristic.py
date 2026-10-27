@@ -51,12 +51,29 @@ def made_hand_level(hole: tuple[int, int], board: tuple[int, ...]) -> int:
 class HeuristicAgent(Agent):
     algorithm = "heuristic"
 
-    def __init__(self, *args: object, bluff_freq: float = 0.08, **kwargs: object) -> None:
+    def __init__(
+        self,
+        *args: object,
+        bluff_freq: float = 0.08,
+        tightness: int = 0,
+        aggression: float = 0.5,
+        stickiness: float = 1.0,
+        **kwargs: object,
+    ) -> None:
         super().__init__(*args, **kwargs)  # type: ignore[arg-type]
         self.bluff_freq = bluff_freq
+        self.tightness = tightness  # added to every preflop Chen threshold (+ = tighter)
+        self.aggression = aggression  # bet/raise frequency with medium hands
+        self.stickiness = stickiness  # multiplies postflop call thresholds (> 1 = calls more)
 
     def config(self) -> dict[str, object]:
-        return {**super().config(), "bluff_freq": self.bluff_freq}
+        return {
+            **super().config(),
+            "bluff_freq": self.bluff_freq,
+            "tightness": self.tightness,
+            "aggression": self.aggression,
+            "stickiness": self.stickiness,
+        }
 
     def act(self, obs: Observation) -> Action:
         lg = obs.legal
@@ -66,22 +83,22 @@ class HeuristicAgent(Agent):
             eff_bb = obs.effective_stack / bb
             self.last_info = {"method": "chen_preflop", "chen": score, "effective_bb": round(eff_bb, 2)}
             if eff_bb <= 12:
-                push = 8 if obs.current_bet <= bb else 10
+                push = (8 if obs.current_bet <= bb else 10) + self.tightness
                 if score >= push:
                     return clamp_raise(lg, lg.max_raise_to) if lg.can_raise else passive(lg)
                 return give_up(lg)
             unopened = obs.current_bet <= bb
             if unopened:
-                if score >= OPEN_THRESHOLD.get(obs.position, 8):
+                if score >= OPEN_THRESHOLD.get(obs.position, 8) + self.tightness:
                     return clamp_raise(lg, int(2.5 * bb))
                 if lg.can_check:
                     return Action.check()
-                if obs.position == "SB" and score >= 6:
+                if obs.position == "SB" and score >= 6 + self.tightness:
                     return Action.call()
                 return Action.fold()
-            if score >= 12:
+            if score >= 12 + self.tightness:
                 return clamp_raise(lg, 3 * obs.current_bet)
-            if score >= 9 and obs.to_call <= 0.15 * obs.stack:
+            if score >= 9 + self.tightness and obs.to_call <= 0.15 * obs.stack * self.stickiness:
                 return Action.call()
             return give_up(lg)
 
@@ -92,16 +109,20 @@ class HeuristicAgent(Agent):
             return clamp_raise(lg, obs.current_bet + int(pot * 0.66)) if lg.can_raise else passive(lg)
         if level == 2:
             if lg.can_check:
-                if self.rng.random() < 0.5 and lg.can_raise:
+                if self.rng.random() < self.aggression and lg.can_raise:
                     return clamp_raise(lg, int(pot * 0.5))
                 return Action.check()
-            return Action.call() if obs.to_call <= pot * 0.6 else Action.fold()
+            if lg.can_raise and self.rng.random() < self.aggression * 0.3:
+                return clamp_raise(lg, obs.current_bet * 3)
+            return Action.call() if obs.to_call <= pot * 0.6 * self.stickiness else Action.fold()
         if level == 1:
             if lg.can_check:
                 return Action.check()
-            return Action.call() if obs.to_call <= pot * 0.25 else Action.fold()
+            return Action.call() if obs.to_call <= pot * 0.25 * self.stickiness else Action.fold()
         if lg.can_check:
             if lg.can_raise and self.rng.random() < self.bluff_freq:
                 return clamp_raise(lg, int(pot * 0.5))
             return Action.check()
+        if self.stickiness >= 2.0 and obs.to_call <= pot * 0.15 * self.stickiness:
+            return Action.call()  # calling-station behaviour: floats with nothing
         return Action.fold()

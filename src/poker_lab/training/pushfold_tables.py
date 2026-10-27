@@ -15,7 +15,7 @@ from typing import Any
 
 from poker_lab.domain.cards import RANK_CHARS, all_hand_classes, make_card
 from poker_lab.engine.evaluator import evaluate
-from poker_lab.persistence.db import file_sha256
+from poker_lab.util import file_sha256
 
 FORMAT = "poker_lab.hu_class_equity.v1"
 

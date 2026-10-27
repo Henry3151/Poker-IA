@@ -46,9 +46,9 @@ def tournament(conn):
 
 def test_migrations_idempotent_and_checksummed(tmp_path):
     c = dbmod.connect(tmp_path / "m.db")
-    assert dbmod.migrate(c) == ["0001_initial.sql"]
+    assert dbmod.migrate(c) == ["0001_initial.sql", "0002_financials_evaluation.sql"]
     assert dbmod.migrate(c) == []
-    assert dbmod.schema_version(c) == 1
+    assert dbmod.schema_version(c) == 2
     c.execute("UPDATE schema_migrations SET checksum='tampered'")
     with pytest.raises(dbmod.MigrationError):
         dbmod.migrate(c)

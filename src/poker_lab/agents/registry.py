@@ -25,8 +25,8 @@ class AgentSpec(BaseModel):
 
 _ALLOWED_PARAMS = {
     "random": set(),
-    "heuristic": {"bluff_freq"},
-    "equity": {"samples", "call_margin", "value_multiplier", "raised_range"},
+    "heuristic": {"bluff_freq", "tightness", "aggression", "stickiness"},
+    "equity": {"samples", "call_margin", "value_multiplier", "raised_range", "icm", "adaptive"},
     "policy": {"fallback_samples"},
 }
 
@@ -50,3 +50,15 @@ def create_agent(spec: AgentSpec, name: str, seed: int) -> Agent:
         raise ValueError("policy agent requires checkpoint_path")
     agent: Agent = PolicyAgent.from_checkpoint(spec.checkpoint_path, name, spec.version_label, seed, **spec.params)
     return agent
+
+
+# Opponent profiles for sensitivity tests (heuristic variants with documented parameters).
+OPPONENT_PROFILES: dict[str, AgentSpec] = {
+    "tag": AgentSpec(algorithm="heuristic", version_label="tag", params={"tightness": 1, "aggression": 0.7, "bluff_freq": 0.08}),
+    "lag": AgentSpec(algorithm="heuristic", version_label="lag", params={"tightness": -3, "aggression": 0.8, "bluff_freq": 0.25}),
+    "nit": AgentSpec(algorithm="heuristic", version_label="nit", params={"tightness": 3, "aggression": 0.3, "bluff_freq": 0.0}),
+    "station": AgentSpec(
+        algorithm="heuristic", version_label="station", params={"tightness": -3, "aggression": 0.1, "stickiness": 3.0, "bluff_freq": 0.02}
+    ),
+    "random": AgentSpec(algorithm="random", version_label="v1"),
+}

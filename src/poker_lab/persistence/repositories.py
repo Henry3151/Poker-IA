@@ -74,7 +74,7 @@ def get_or_create_agent_version(
         if checkpoint_sha256 and row["checkpoint_sha256"] and row["checkpoint_sha256"] != checkpoint_sha256:
             raise ValueError(f"agent version {name}@{version_label} already exists with a different checkpoint")
         return str(row["agent_version_id"])
-    vid = new_id()
+    vid = str(uuid.uuid5(uuid.NAMESPACE_URL, f"poker_lab/agent_version/{name}@{version_label}"))
     conn.execute(
         "INSERT INTO agent_versions(agent_version_id,name,algorithm,version_label,checkpoint_artifact_id,checkpoint_sha256,"
         "config_json,code_version,parent_version_id,status,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
@@ -172,6 +172,8 @@ def insert_hand(
     level_index: int | None,
     started_at: str,
     allin_estimates: dict[int, tuple[float, float]] | None = None,
+    phase: str | None = None,
+    players_remaining: int | None = None,
 ) -> None:
     """Write a complete hand (hand, players, offline cards, decisions, events) atomically."""
     e = rec.engine
@@ -184,8 +186,8 @@ def insert_hand(
     with transaction(conn):
         conn.execute(
             "INSERT INTO hands(hand_id,tournament_id,experiment_id,table_number,hand_number,round,level_index,small_blind,big_blind,"
-            "ante,button_seat,player_count,final_street,board_json,pot_total,chips_conserved,seed,started_at,completed_at)"
-            " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "ante,button_seat,player_count,final_street,board_json,pot_total,chips_conserved,seed,started_at,completed_at,"
+            "phase,players_remaining) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (
                 rec.hand_id,
                 tournament_id,
@@ -206,6 +208,8 @@ def insert_hand(
                 e.seed,
                 started_at,
                 completed,
+                phase,
+                players_remaining,
             ),
         )
         for i in range(e.n):
@@ -398,3 +402,76 @@ def insert_explanation(
         ),
     )
     return xid
+
+
+# ---------------------------------------------------------------- financial ledger
+def record_tournament_ledger(
+    conn: sqlite3.Connection,
+    tournament_id: str,
+    entries: list[dict[str, Any]],
+    buy_in: int,
+    fee: int,
+) -> int:
+    """Write buy-in/fee rows per entry (including re-entries) and one payout row.
+
+    Must be called inside a transaction. Uses plain INSERTs on a UNIQUE idempotency key, so
+    a second call for the same tournament fails instead of double counting.
+    """
+    ts = now_iso()
+    n = 0
+    for e in entries:
+        for k in range(1, int(e["entries_count"]) + 1):
+            rows = [("buy_in", -buy_in)]
+            if fee:
+                rows.append(("fee", -fee))
+            for kind, amount in rows:
+                conn.execute(
+                    "INSERT INTO financial_ledger(ledger_id,tournament_id,entry_id,agent_version_id,kind,entry_number,amount,"
+                    "idempotency_key,created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+                    (new_id(), tournament_id, e["entry_id"], e["agent_version_id"], kind, k, amount,
+                     f"{tournament_id}:{e['entry_id']}:{kind}:{k}", ts),
+                )
+                n += 1
+        if e["payout"] > 0:
+            conn.execute(
+                "INSERT INTO financial_ledger(ledger_id,tournament_id,entry_id,agent_version_id,kind,entry_number,amount,"
+                "idempotency_key,created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+                (new_id(), tournament_id, e["entry_id"], e["agent_version_id"], "payout", 1, int(e["payout"]),
+                 f"{tournament_id}:{e['entry_id']}:payout:1", ts),
+            )
+            n += 1
+    return n
+
+
+def reconcile_tournament_ledger(conn: sqlite3.Connection, tournament_id: str) -> list[str]:
+    """Return a list of mismatches between the ledger and the tournament record (empty = ok)."""
+    t = conn.execute("SELECT * FROM tournaments WHERE tournament_id=?", (tournament_id,)).fetchone()
+    problems: list[str] = []
+    if t is None:
+        return ["tournament not found"]
+    led = conn.execute(
+        "SELECT COALESCE(SUM(CASE WHEN kind='buy_in' THEN -amount END),0) AS buy_ins,"
+        " COALESCE(SUM(CASE WHEN kind='fee' THEN -amount END),0) AS fees,"
+        " COALESCE(SUM(CASE WHEN kind='payout' THEN amount END),0) AS payouts,"
+        " COUNT(DISTINCT CASE WHEN kind='buy_in' THEN entry_id || ':' || entry_number END) AS entries"
+        " FROM financial_ledger WHERE tournament_id=?",
+        (tournament_id,),
+    ).fetchone()
+    total_entries = t["total_entries"] or t["entrant_count"]
+    if led["entries"] != total_entries:
+        problems.append(f"ledger entries {led['entries']} != total_entries {total_entries}")
+    if led["buy_ins"] != t["buy_in"] * total_entries:
+        problems.append(f"ledger buy-ins {led['buy_ins']} != buy_in*entries {t['buy_in'] * total_entries}")
+    if led["fees"] != t["fee_per_entry"] * total_entries:
+        problems.append(f"ledger fees {led['fees']} != fee*entries {t['fee_per_entry'] * total_entries}")
+    if led["payouts"] != t["prize_pool"]:
+        problems.append(f"ledger payouts {led['payouts']} != prize_pool {t['prize_pool']}")
+    ent = conn.execute(
+        "SELECT COALESCE(SUM(simulated_payout),0), COALESCE(SUM(entries_count),0) FROM tournament_entries WHERE tournament_id=?",
+        (tournament_id,),
+    ).fetchone()
+    if ent[0] != led["payouts"]:
+        problems.append("entries payouts differ from ledger")
+    if ent[1] != total_entries:
+        problems.append("entries_count sum differs from total_entries")
+    return problems

@@ -7,6 +7,7 @@ real table would do on a timeout. The agent only ever receives an ``Observation`
 
 from __future__ import annotations
 
+import dataclasses
 import time
 import uuid
 from collections.abc import Callable, Sequence
@@ -15,6 +16,7 @@ from typing import Any
 
 from poker_lab.agents.base import Agent
 from poker_lab.domain.actions import Action
+from poker_lab.domain.observation import TournamentInfo
 from poker_lab.engine.hand import HandEngine, HandResult
 
 
@@ -64,6 +66,7 @@ def play_hand(
     *,
     latency_budget_ms: float = 2000.0,
     on_decision: DecisionHook | None = None,
+    tournament_info: TournamentInfo | None = None,
 ) -> HandRecord:
     if len(seat_agents) != engine.n:
         raise ValueError("one agent per seat required")
@@ -76,6 +79,8 @@ def play_hand(
         seat = engine.to_act
         assert seat is not None
         obs = engine.observation(seat)
+        if tournament_info is not None:
+            obs = dataclasses.replace(obs, tournament=tournament_info)
         agent = seat_agents[seat]
         requested: Action | None = None
         issue: str | None = None

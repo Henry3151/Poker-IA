@@ -24,8 +24,10 @@ from typing import Any
 
 from poker_lab.agents.base import Agent
 from poker_lab.application.hand_runner import HandRecord, play_hand
+from poker_lab.domain.observation import TournamentInfo
 from poker_lab.domain.seeds import derive_seed
 from poker_lab.engine.hand import HandEngine
+from poker_lab.strategy.icm import tournament_phase
 from poker_lab.tournament.config import BlindLevel, TournamentConfig, compute_payouts
 
 
@@ -46,6 +48,8 @@ class Entry:
     hands_played: int = 0
     eliminated_round: int | None = None
     eliminated_hand_id: str | None = None
+    entries_count: int = 1
+    reentries: list[dict[str, Any]] = field(default_factory=list)
 
 
 @dataclass(slots=True)
@@ -79,6 +83,8 @@ class HandContext:
     level: BlindLevel
     seat_entry_ids: list[str]  # compact seat order used by the engine
     physical_seats: list[int]
+    phase: str = "middle"
+    players_remaining: int = 0
 
 
 @dataclass(slots=True)
@@ -91,6 +97,7 @@ class TournamentResult:
     prize_pool: int
     payouts: list[int]
     events: list[TournamentEvent] = field(default_factory=list)
+    total_entries: int = 0
 
     def standings(self) -> list[Entry]:
         return sorted(self.entries, key=lambda e: e.place or 10**9)
@@ -150,6 +157,8 @@ class TournamentDirector:
         self.round = 0
         self.hand_counter = 0
         self.next_place = len(entrants)
+        self.payouts: list[int] = []
+        self.prize_pool = 0
 
     # ------------------------------------------------------------------ events
     def _event(self, etype: str, payload: dict[str, Any]) -> None:
@@ -231,6 +240,21 @@ class TournamentDirector:
         self._check_chips("rebalance")
 
     # ------------------------------------------------------------------ play
+    def _public_info(self, t: Table, level_index: int, level: BlindLevel) -> TournamentInfo:
+        alive = [e for e in self.entries_list if e.place is None]
+        avg = sum(e.stack for e in alive) / max(1, len(alive))
+        others = tuple(sorted((e.stack for e in alive if e.table != t.number), reverse=True))
+        return TournamentInfo(
+            entrants=len(self.entries_list),
+            players_remaining=len(alive),
+            paid_places=len(self.payouts),
+            payouts=tuple(self.payouts),
+            level=level_index + 1,
+            phase=tournament_phase(len(alive), len(self.entries_list), len(self.payouts), avg / level.big_blind, self.cfg.table_size),
+            average_stack=round(avg, 1),
+            other_table_stacks=others,
+        )
+
     def _play_table_hand(self, t: Table, level_index: int, level: BlindLevel) -> list[tuple[Entry, int]]:
         occ = t.occupied()
         nxt = [s for s in occ if s > t.button_seat] + [s for s in occ if s <= t.button_seat]
@@ -250,7 +274,13 @@ class TournamentDirector:
             seed=derive_seed(self.seed, "hand", self.hand_counter),
             hand_id=hand_id,
         )
-        rec = play_hand(engine, [e.agent for e in entries], latency_budget_ms=self.cfg.latency_budget_ms)
+        info = self._public_info(t, level_index, level)
+        rec = play_hand(
+            engine,
+            [e.agent for e in entries],
+            latency_budget_ms=self.cfg.latency_budget_ms,
+            tournament_info=info,
+        )
         start = [e.stack for e in entries]
         for e, s in zip(entries, rec.result.ending_stacks, strict=True):
             e.stack = s
@@ -264,6 +294,8 @@ class TournamentDirector:
             level,
             [e.entry_id for e in entries],
             seats_in_order,
+            info.phase,
+            info.players_remaining,
         )
         if self.on_hand:
             self.on_hand(ctx, rec)
@@ -277,11 +309,38 @@ class TournamentDirector:
             t.seats[e.seat] = None
         return busted
 
+    def _total_entries(self) -> int:
+        return sum(e.entries_count for e in self.entries_list)
+
+    def _recompute_payouts(self) -> None:
+        self.prize_pool = self.cfg.buy_in * self._total_entries()
+        self.payouts = compute_payouts(self.prize_pool, self.cfg.payout_percentages, len(self.entries_list))
+
+    def _reenter(self, e: Entry, level_index: int) -> None:
+        e.entries_count += 1
+        e.stack = self.cfg.starting_stack
+        self.total_chips += self.cfg.starting_stack
+        e.reentries.append({"entry_number": e.entries_count, "round": self.round, "level": level_index + 1, "hand_id": e.eliminated_hand_id})
+        e.eliminated_hand_id = None
+        candidates = [t for t in self.tables.values() if t.count() < self.cfg.table_size]
+        if candidates:
+            dst = min(candidates, key=lambda t: (t.count(), t.number))
+        else:
+            num = max(self.tables) + 1 if self.tables else 1
+            dst = self.tables[num] = Table(num, [None] * self.cfg.table_size)
+        free = [s for s, x in enumerate(dst.seats) if x is None]
+        seat = self.rng.choice(free)
+        dst.seats[seat] = e.entry_id
+        e.table, e.seat = dst.number, seat
+        if dst.button_seat < 0:
+            dst.button_seat = seat
+        self._recompute_payouts()
+        self._event("player_reentered", {"entry": e.label, "entry_number": e.entries_count, "to_table": dst.number, "to_seat": seat})
+
     def run(self) -> TournamentResult:
         self._seat_initial()
         self._check_chips("start")
-        prize_pool = self.cfg.buy_in * len(self.entries_list)
-        payouts = compute_payouts(prize_pool, self.cfg.payout_percentages, len(self.entries_list))
+        self._recompute_payouts()
         current_level = -1
         while sum(1 for e in self.entries_list if e.place is None) > 1:
             if self.round >= self.cfg.max_rounds:
@@ -300,6 +359,9 @@ class TournamentDirector:
             # finishing order for this round: smaller starting stack busts first (worse place)
             tiebreak = {e.entry_id: self.rng.random() for e, _ in busted_round}
             for e, st in sorted(busted_round, key=lambda x: (x[1], tiebreak[x[0].entry_id])):
+                if level_index < self.cfg.reentry_levels and e.entries_count < self.cfg.max_entries:
+                    self._reenter(e, level_index)
+                    continue
                 e.place = self.next_place
                 e.eliminated_round = self.round
                 self.next_place -= 1
@@ -312,6 +374,8 @@ class TournamentDirector:
                 self._rebalance()
         winner = next(e for e in self.entries_list if e.place is None)
         winner.place = 1
+        payouts = self.payouts
+        prize_pool = self.prize_pool
         for e in self.entries_list:
             assert e.place is not None
             e.payout = payouts[e.place - 1] if e.place <= len(payouts) else 0
@@ -325,5 +389,13 @@ class TournamentDirector:
             {"winner": winner.label, "rounds": self.round, "hands": self.hand_counter, "prize_pool": prize_pool},
         )
         return TournamentResult(
-            self.tournament_id, self.seed, self.entries_list, self.round, self.hand_counter, prize_pool, payouts, self.events
+            self.tournament_id,
+            self.seed,
+            self.entries_list,
+            self.round,
+            self.hand_counter,
+            prize_pool,
+            payouts,
+            self.events,
+            self._total_entries(),
         )

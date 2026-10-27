@@ -3,50 +3,15 @@
 from __future__ import annotations
 
 import hashlib
-import json
 import sqlite3
-import subprocess
 from collections.abc import Iterator
 from contextlib import contextmanager
-from datetime import UTC, datetime
 from importlib import resources
 from pathlib import Path
-from typing import Any
 
-from poker_lab import __version__
+from poker_lab.util import code_version, dumps, file_sha256, now_iso
 
-
-def now_iso() -> str:
-    return datetime.now(UTC).isoformat(timespec="milliseconds").replace("+00:00", "Z")
-
-
-def code_version() -> str:
-    """Package version plus git commit when available (never fails)."""
-    try:
-        out = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
-            capture_output=True,
-            text=True,
-            timeout=2,
-            cwd=Path(__file__).resolve().parent,
-        )
-        sha = out.stdout.strip()
-        dirty = subprocess.run(
-            ["git", "status", "--porcelain", "--untracked-files=no"],
-            capture_output=True,
-            text=True,
-            timeout=2,
-            cwd=Path(__file__).resolve().parent,
-        ).stdout.strip()
-        if sha:
-            return f"{__version__}+g{sha}{'.dirty' if dirty else ''}"
-    except (OSError, subprocess.SubprocessError):
-        pass
-    return __version__
-
-
-def dumps(obj: Any) -> str:
-    return json.dumps(obj, separators=(",", ":"), sort_keys=True, default=str)
+__all__ = ["code_version", "dumps", "file_sha256", "now_iso"]
 
 
 def connect(path: str | Path) -> sqlite3.Connection:
@@ -89,8 +54,17 @@ class MigrationError(RuntimeError):
     pass
 
 
-def migrate(conn: sqlite3.Connection) -> list[str]:
-    """Apply pending migrations; verify checksums of applied ones. Returns names applied."""
+def pending_migrations(conn: sqlite3.Connection) -> list[str]:
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS schema_migrations ("
+        "version INTEGER PRIMARY KEY, name TEXT NOT NULL, checksum TEXT NOT NULL, applied_at TEXT NOT NULL)"
+    )
+    applied = {r["version"] for r in conn.execute("SELECT version FROM schema_migrations")}
+    return [name for version, name, _ in _migration_files() if version not in applied]
+
+
+def migrate(conn: sqlite3.Connection, target: int | None = None) -> list[str]:
+    """Apply pending migrations up to ``target`` (default: all); verify checksums of applied ones."""
     conn.execute(
         "CREATE TABLE IF NOT EXISTS schema_migrations ("
         "version INTEGER PRIMARY KEY, name TEXT NOT NULL, checksum TEXT NOT NULL, applied_at TEXT NOT NULL)"
@@ -98,6 +72,8 @@ def migrate(conn: sqlite3.Connection) -> list[str]:
     applied = {r["version"]: r for r in conn.execute("SELECT * FROM schema_migrations")}
     done: list[str] = []
     for version, name, sql in _migration_files():
+        if target is not None and version > target:
+            break
         checksum = hashlib.sha256(sql.encode()).hexdigest()
         if version in applied:
             if applied[version]["checksum"] != checksum:
@@ -143,11 +119,3 @@ def backup(conn: sqlite3.Connection, dest: str | Path) -> Path:
         conn.backup(target)
     target.close()
     return d
-
-
-def file_sha256(path: str | Path) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            h.update(chunk)
-    return h.hexdigest()

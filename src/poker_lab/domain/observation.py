@@ -53,6 +53,20 @@ class PublicAction:
 
 
 @dataclass(frozen=True, slots=True)
+class TournamentInfo:
+    """Public tournament state (chip counts and payouts are public in a live MTT)."""
+
+    entrants: int
+    players_remaining: int
+    paid_places: int
+    payouts: tuple[int, ...]
+    level: int
+    phase: str
+    average_stack: float
+    other_table_stacks: tuple[int, ...]  # stacks of remaining players at other tables
+
+
+@dataclass(frozen=True, slots=True)
 class Observation:
     hand_id: str
     seat: int
@@ -72,6 +86,7 @@ class Observation:
     seats: tuple[PublicSeat, ...]
     history: tuple[PublicAction, ...]
     legal: LegalActions
+    tournament: TournamentInfo | None = None
 
     @property
     def n_active(self) -> int:

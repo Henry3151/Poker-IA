@@ -12,7 +12,7 @@ from typing import Any
 
 from pydantic import BaseModel, Field, field_validator
 
-from poker_lab.persistence.db import code_version, file_sha256, now_iso
+from poker_lab.util import code_version, file_sha256, now_iso
 
 FORMAT = "poker_lab.checkpoint.v1"
 SCHEMA_VERSION = 1
