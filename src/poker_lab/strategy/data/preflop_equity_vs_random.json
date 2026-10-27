@@ -1,0 +1,685 @@
+{
+ "description": "Preflop all-in equity of each 169 class vs one uniformly random hand (Monte Carlo).",
+ "method": "monte_carlo",
+ "samples_per_class": 10000,
+ "seed": 20261026,
+ "elapsed_seconds": 28.9,
+ "classes": {
+  "AA": {
+   "equity": 0.8458,
+   "stderr": 0.00359
+  },
+  "AKs": {
+   "equity": 0.66995,
+   "stderr": 0.00465
+  },
+  "AKo": {
+   "equity": 0.6516,
+   "stderr": 0.00472
+  },
+  "AQs": {
+   "equity": 0.65955,
+   "stderr": 0.00469
+  },
+  "AQo": {
+   "equity": 0.64425,
+   "stderr": 0.00474
+  },
+  "AJs": {
+   "equity": 0.65515,
+   "stderr": 0.00469
+  },
+  "AJo": {
+   "equity": 0.6385,
+   "stderr": 0.00475
+  },
+  "ATs": {
+   "equity": 0.64785,
+   "stderr": 0.00472
+  },
+  "ATo": {
+   "equity": 0.62975,
+   "stderr": 0.00477
+  },
+  "A9s": {
+   "equity": 0.6259,
+   "stderr": 0.00478
+  },
+  "A9o": {
+   "equity": 0.61435,
+   "stderr": 0.0048
+  },
+  "A8s": {
+   "equity": 0.6204,
+   "stderr": 0.00478
+  },
+  "A8o": {
+   "equity": 0.60015,
+   "stderr": 0.00482
+  },
+  "A7s": {
+   "equity": 0.6158,
+   "stderr": 0.00478
+  },
+  "A7o": {
+   "equity": 0.5908,
+   "stderr": 0.00483
+  },
+  "A6s": {
+   "equity": 0.60125,
+   "stderr": 0.0048
+  },
+  "A6o": {
+   "equity": 0.58315,
+   "stderr": 0.00483
+  },
+  "A5s": {
+   "equity": 0.60385,
+   "stderr": 0.00479
+  },
+  "A5o": {
+   "equity": 0.57865,
+   "stderr": 0.00483
+  },
+  "A4s": {
+   "equity": 0.59595,
+   "stderr": 0.0048
+  },
+  "A4o": {
+   "equity": 0.56595,
+   "stderr": 0.00486
+  },
+  "A3s": {
+   "equity": 0.58065,
+   "stderr": 0.00484
+  },
+  "A3o": {
+   "equity": 0.55525,
+   "stderr": 0.00487
+  },
+  "A2s": {
+   "equity": 0.57485,
+   "stderr": 0.00485
+  },
+  "A2o": {
+   "equity": 0.53585,
+   "stderr": 0.00489
+  },
+  "KK": {
+   "equity": 0.8196,
+   "stderr": 0.00383
+  },
+  "KQs": {
+   "equity": 0.6272,
+   "stderr": 0.00478
+  },
+  "KQo": {
+   "equity": 0.61275,
+   "stderr": 0.00481
+  },
+  "KJs": {
+   "equity": 0.62355,
+   "stderr": 0.00479
+  },
+  "KJo": {
+   "equity": 0.60605,
+   "stderr": 0.00483
+  },
+  "KTs": {
+   "equity": 0.61785,
+   "stderr": 0.00479
+  },
+  "KTo": {
+   "equity": 0.5965,
+   "stderr": 0.00484
+  },
+  "K9s": {
+   "equity": 0.607,
+   "stderr": 0.00482
+  },
+  "K9o": {
+   "equity": 0.5702,
+   "stderr": 0.00488
+  },
+  "K8s": {
+   "equity": 0.5839,
+   "stderr": 0.00485
+  },
+  "K8o": {
+   "equity": 0.5616,
+   "stderr": 0.00488
+  },
+  "K7s": {
+   "equity": 0.5783,
+   "stderr": 0.00485
+  },
+  "K7o": {
+   "equity": 0.5563,
+   "stderr": 0.00488
+  },
+  "K6s": {
+   "equity": 0.56135,
+   "stderr": 0.00487
+  },
+  "K6o": {
+   "equity": 0.54375,
+   "stderr": 0.00488
+  },
+  "K5s": {
+   "equity": 0.5585,
+   "stderr": 0.00486
+  },
+  "K5o": {
+   "equity": 0.5347,
+   "stderr": 0.00489
+  },
+  "K4s": {
+   "equity": 0.5471,
+   "stderr": 0.00488
+  },
+  "K4o": {
+   "equity": 0.53145,
+   "stderr": 0.00489
+  },
+  "K3s": {
+   "equity": 0.5444,
+   "stderr": 0.00488
+  },
+  "K3o": {
+   "equity": 0.5171,
+   "stderr": 0.00489
+  },
+  "K2s": {
+   "equity": 0.5283,
+   "stderr": 0.00489
+  },
+  "K2o": {
+   "equity": 0.4978,
+   "stderr": 0.00489
+  },
+  "QQ": {
+   "equity": 0.80015,
+   "stderr": 0.00398
+  },
+  "QJs": {
+   "equity": 0.60545,
+   "stderr": 0.00482
+  },
+  "QJo": {
+   "equity": 0.57445,
+   "stderr": 0.00487
+  },
+  "QTs": {
+   "equity": 0.5956,
+   "stderr": 0.00484
+  },
+  "QTo": {
+   "equity": 0.581,
+   "stderr": 0.00486
+  },
+  "Q9s": {
+   "equity": 0.58805,
+   "stderr": 0.00484
+  },
+  "Q9o": {
+   "equity": 0.54515,
+   "stderr": 0.0049
+  },
+  "Q8s": {
+   "equity": 0.56305,
+   "stderr": 0.00488
+  },
+  "Q8o": {
+   "equity": 0.53435,
+   "stderr": 0.0049
+  },
+  "Q7s": {
+   "equity": 0.5427,
+   "stderr": 0.00488
+  },
+  "Q7o": {
+   "equity": 0.5157,
+   "stderr": 0.0049
+  },
+  "Q6s": {
+   "equity": 0.53935,
+   "stderr": 0.00489
+  },
+  "Q6o": {
+   "equity": 0.5101,
+   "stderr": 0.00491
+  },
+  "Q5s": {
+   "equity": 0.52415,
+   "stderr": 0.00489
+  },
+  "Q5o": {
+   "equity": 0.5013,
+   "stderr": 0.00489
+  },
+  "Q4s": {
+   "equity": 0.51375,
+   "stderr": 0.00489
+  },
+  "Q4o": {
+   "equity": 0.4928,
+   "stderr": 0.00488
+  },
+  "Q3s": {
+   "equity": 0.50865,
+   "stderr": 0.0049
+  },
+  "Q3o": {
+   "equity": 0.4715,
+   "stderr": 0.00488
+  },
+  "Q2s": {
+   "equity": 0.5021,
+   "stderr": 0.0049
+  },
+  "Q2o": {
+   "equity": 0.47435,
+   "stderr": 0.00489
+  },
+  "JJ": {
+   "equity": 0.7788,
+   "stderr": 0.00413
+  },
+  "JTs": {
+   "equity": 0.58025,
+   "stderr": 0.00487
+  },
+  "JTo": {
+   "equity": 0.554,
+   "stderr": 0.00491
+  },
+  "J9s": {
+   "equity": 0.5608,
+   "stderr": 0.00488
+  },
+  "J9o": {
+   "equity": 0.5378,
+   "stderr": 0.00491
+  },
+  "J8s": {
+   "equity": 0.53345,
+   "stderr": 0.0049
+  },
+  "J8o": {
+   "equity": 0.52,
+   "stderr": 0.00491
+  },
+  "J7s": {
+   "equity": 0.52195,
+   "stderr": 0.0049
+  },
+  "J7o": {
+   "equity": 0.495,
+   "stderr": 0.00491
+  },
+  "J6s": {
+   "equity": 0.51,
+   "stderr": 0.0049
+  },
+  "J6o": {
+   "equity": 0.4752,
+   "stderr": 0.00488
+  },
+  "J5s": {
+   "equity": 0.49055,
+   "stderr": 0.00489
+  },
+  "J5o": {
+   "equity": 0.4786,
+   "stderr": 0.00487
+  },
+  "J4s": {
+   "equity": 0.4947,
+   "stderr": 0.0049
+  },
+  "J4o": {
+   "equity": 0.4644,
+   "stderr": 0.00487
+  },
+  "J3s": {
+   "equity": 0.47965,
+   "stderr": 0.00489
+  },
+  "J3o": {
+   "equity": 0.45265,
+   "stderr": 0.00486
+  },
+  "J2s": {
+   "equity": 0.4736,
+   "stderr": 0.00489
+  },
+  "J2o": {
+   "equity": 0.4466,
+   "stderr": 0.00486
+  },
+  "TT": {
+   "equity": 0.74685,
+   "stderr": 0.00433
+  },
+  "T9s": {
+   "equity": 0.54105,
+   "stderr": 0.0049
+  },
+  "T9o": {
+   "equity": 0.5174,
+   "stderr": 0.00491
+  },
+  "T8s": {
+   "equity": 0.50855,
+   "stderr": 0.00491
+  },
+  "T8o": {
+   "equity": 0.49145,
+   "stderr": 0.00491
+  },
+  "T7s": {
+   "equity": 0.50965,
+   "stderr": 0.0049
+  },
+  "T7o": {
+   "equity": 0.4694,
+   "stderr": 0.00488
+  },
+  "T6s": {
+   "equity": 0.48705,
+   "stderr": 0.00488
+  },
+  "T6o": {
+   "equity": 0.45855,
+   "stderr": 0.00487
+  },
+  "T5s": {
+   "equity": 0.47075,
+   "stderr": 0.00487
+  },
+  "T5o": {
+   "equity": 0.4389,
+   "stderr": 0.00485
+  },
+  "T4s": {
+   "equity": 0.45765,
+   "stderr": 0.00487
+  },
+  "T4o": {
+   "equity": 0.4392,
+   "stderr": 0.00485
+  },
+  "T3s": {
+   "equity": 0.44865,
+   "stderr": 0.00486
+  },
+  "T3o": {
+   "equity": 0.4211,
+   "stderr": 0.0048
+  },
+  "T2s": {
+   "equity": 0.4439,
+   "stderr": 0.00486
+  },
+  "T2o": {
+   "equity": 0.4186,
+   "stderr": 0.0048
+  },
+  "99": {
+   "equity": 0.72545,
+   "stderr": 0.00444
+  },
+  "98s": {
+   "equity": 0.5062,
+   "stderr": 0.00491
+  },
+  "98o": {
+   "equity": 0.47975,
+   "stderr": 0.00489
+  },
+  "97s": {
+   "equity": 0.49455,
+   "stderr": 0.00489
+  },
+  "97o": {
+   "equity": 0.4654,
+   "stderr": 0.00487
+  },
+  "96s": {
+   "equity": 0.47765,
+   "stderr": 0.00488
+  },
+  "96o": {
+   "equity": 0.45115,
+   "stderr": 0.00485
+  },
+  "95s": {
+   "equity": 0.46075,
+   "stderr": 0.00486
+  },
+  "95o": {
+   "equity": 0.4311,
+   "stderr": 0.00482
+  },
+  "94s": {
+   "equity": 0.43935,
+   "stderr": 0.00483
+  },
+  "94o": {
+   "equity": 0.41095,
+   "stderr": 0.00479
+  },
+  "93s": {
+   "equity": 0.4329,
+   "stderr": 0.00482
+  },
+  "93o": {
+   "equity": 0.396,
+   "stderr": 0.00476
+  },
+  "92s": {
+   "equity": 0.4185,
+   "stderr": 0.00481
+  },
+  "92o": {
+   "equity": 0.39315,
+   "stderr": 0.00475
+  },
+  "88": {
+   "equity": 0.69265,
+   "stderr": 0.00459
+  },
+  "87s": {
+   "equity": 0.484,
+   "stderr": 0.00489
+  },
+  "87o": {
+   "equity": 0.44595,
+   "stderr": 0.00485
+  },
+  "86s": {
+   "equity": 0.45715,
+   "stderr": 0.00485
+  },
+  "86o": {
+   "equity": 0.43495,
+   "stderr": 0.00483
+  },
+  "85s": {
+   "equity": 0.44145,
+   "stderr": 0.00484
+  },
+  "85o": {
+   "equity": 0.40745,
+   "stderr": 0.00476
+  },
+  "84s": {
+   "equity": 0.42675,
+   "stderr": 0.00481
+  },
+  "84o": {
+   "equity": 0.39445,
+   "stderr": 0.00476
+  },
+  "83s": {
+   "equity": 0.41025,
+   "stderr": 0.00478
+  },
+  "83o": {
+   "equity": 0.37105,
+   "stderr": 0.00468
+  },
+  "82s": {
+   "equity": 0.4009,
+   "stderr": 0.00476
+  },
+  "82o": {
+   "equity": 0.36945,
+   "stderr": 0.00469
+  },
+  "77": {
+   "equity": 0.6591,
+   "stderr": 0.00471
+  },
+  "76s": {
+   "equity": 0.4545,
+   "stderr": 0.00485
+  },
+  "76o": {
+   "equity": 0.42665,
+   "stderr": 0.00481
+  },
+  "75s": {
+   "equity": 0.45,
+   "stderr": 0.00484
+  },
+  "75o": {
+   "equity": 0.3956,
+   "stderr": 0.00474
+  },
+  "74s": {
+   "equity": 0.4203,
+   "stderr": 0.0048
+  },
+  "74o": {
+   "equity": 0.38405,
+   "stderr": 0.00472
+  },
+  "73s": {
+   "equity": 0.4048,
+   "stderr": 0.00476
+  },
+  "73o": {
+   "equity": 0.36865,
+   "stderr": 0.00466
+  },
+  "72s": {
+   "equity": 0.38695,
+   "stderr": 0.00473
+  },
+  "72o": {
+   "equity": 0.34685,
+   "stderr": 0.0046
+  },
+  "66": {
+   "equity": 0.63455,
+   "stderr": 0.00479
+  },
+  "65s": {
+   "equity": 0.43625,
+   "stderr": 0.0048
+  },
+  "65o": {
+   "equity": 0.4028,
+   "stderr": 0.00475
+  },
+  "64s": {
+   "equity": 0.41725,
+   "stderr": 0.00477
+  },
+  "64o": {
+   "equity": 0.3828,
+   "stderr": 0.0047
+  },
+  "63s": {
+   "equity": 0.4038,
+   "stderr": 0.00476
+  },
+  "63o": {
+   "equity": 0.3561,
+   "stderr": 0.00463
+  },
+  "62s": {
+   "equity": 0.3701,
+   "stderr": 0.00468
+  },
+  "62o": {
+   "equity": 0.3496,
+   "stderr": 0.00461
+  },
+  "55": {
+   "equity": 0.61155,
+   "stderr": 0.00484
+  },
+  "54s": {
+   "equity": 0.4207,
+   "stderr": 0.00479
+  },
+  "54o": {
+   "equity": 0.3877,
+   "stderr": 0.00471
+  },
+  "53s": {
+   "equity": 0.39435,
+   "stderr": 0.00474
+  },
+  "53o": {
+   "equity": 0.36685,
+   "stderr": 0.00465
+  },
+  "52s": {
+   "equity": 0.38155,
+   "stderr": 0.0047
+  },
+  "52o": {
+   "equity": 0.34445,
+   "stderr": 0.00459
+  },
+  "44": {
+   "equity": 0.56985,
+   "stderr": 0.00491
+  },
+  "43s": {
+   "equity": 0.3833,
+   "stderr": 0.00471
+  },
+  "43o": {
+   "equity": 0.35795,
+   "stderr": 0.00463
+  },
+  "42s": {
+   "equity": 0.36825,
+   "stderr": 0.00467
+  },
+  "42o": {
+   "equity": 0.33935,
+   "stderr": 0.00457
+  },
+  "33": {
+   "equity": 0.5342,
+   "stderr": 0.00494
+  },
+  "32s": {
+   "equity": 0.35155,
+   "stderr": 0.00462
+  },
+  "32o": {
+   "equity": 0.32005,
+   "stderr": 0.0045
+  },
+  "22": {
+   "equity": 0.51055,
+   "stderr": 0.00494
+  }
+ }
+}

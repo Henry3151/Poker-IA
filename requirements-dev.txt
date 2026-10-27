@@ -1,0 +1,10 @@
+# Development / test dependencies (includes runtime).
+-r requirements.txt
+pytest==9.1.1
+hypothesis==6.170.12
+mypy==2.4.0
+ruff==0.17.3
+treys==0.1.8        # test-only cross-check of the hand evaluator (MIT)
+jsonschema==4.26.0
+httpx==0.28.1
+pandas==3.1.0

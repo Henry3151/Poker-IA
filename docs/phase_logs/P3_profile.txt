@@ -1,0 +1,6 @@
+MC equity preflop opp=1 samples=100: 1.4 ms/decision
+MC equity preflop opp=1 samples=300: 4.0 ms/decision
+MC equity preflop opp=3 samples=100: 2.0 ms/decision
+MC equity preflop opp=3 samples=300: 6.4 ms/decision
+MC equity preflop opp=5 samples=100: 3.2 ms/decision
+MC equity preflop opp=5 samples=300: 9.6 ms/decision
