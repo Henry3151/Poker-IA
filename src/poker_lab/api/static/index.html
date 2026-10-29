@@ -24,6 +24,8 @@
 
 <nav class="tabs" aria-label="Seções">
   <a href="#inicio" data-route="inicio">Início</a>
+  <a href="#simulacao" data-route="simulacao">Simulação</a>
+  <a href="#sessoes" data-route="sessoes">Sessões</a>
   <a href="#historico" data-route="historico">Histórico</a>
   <a href="#analise" data-route="analise">Análise</a>
   <a href="#config" data-route="config">Configurar</a>
@@ -40,24 +42,29 @@
     <h1>O que você quer fazer?</h1>
     <p class="lead">Champion atual: <b id="home-champion">—</b>. Use as opções abaixo; as marcadas como etapa futura ainda não estão habilitadas.</p>
     <div class="tiles">
-      <a class="tile disabled" href="#inicio" data-stage="C" aria-disabled="true">
+      <a class="tile" href="#simulacao">
         <span class="t-title">Iniciar simulação local</span>
-        <span class="t-desc">Torneios e sessões simuladas com o agente jogando sozinho.</span>
-        <span class="t-badge">etapa C</span>
+        <span class="t-desc">Sessão 6-max com o champion jogando sozinho contra perfis simulados.</span>
+        <span class="t-badge ok">disponível</span>
       </a>
       <a class="tile disabled" href="#inicio" data-stage="E" aria-disabled="true">
         <span class="t-title">Iniciar sessão online autorizada</span>
         <span class="t-desc">Fichas virtuais, com confirmação explícita e controles de pausa e parada.</span>
         <span class="t-badge">desativada · etapa E</span>
       </a>
-      <a class="tile disabled" href="#inicio" data-stage="C" aria-disabled="true">
+      <a class="tile" href="#simulacao">
         <span class="t-title">Acompanhar sessão ativa</span>
         <span class="t-desc">Estado do agente, decisões ao vivo e botões Pausar, Retomar e Parada de emergência.</span>
-        <span class="t-badge">nenhuma sessão · etapa C</span>
+        <span class="t-badge ok">disponível</span>
+      </a>
+      <a class="tile" href="#sessoes">
+        <span class="t-title">Sessões e mãos</span>
+        <span class="t-desc">Histórico das sessões locais, mão a mão, com a classificação de cada decisão.</span>
+        <span class="t-badge ok">disponível</span>
       </a>
       <a class="tile" href="#historico">
-        <span class="t-title">Consultar histórico</span>
-        <span class="t-desc">Avaliações registradas (P7, P7b, P7c) e bancos locais. Mãos e sessões novas chegam na etapa C.</span>
+        <span class="t-title">Consultar avaliações</span>
+        <span class="t-desc">Avaliações registradas (P7, P7b, P7c) e bancos locais.</span>
         <span class="t-badge ok">disponível</span>
       </a>
       <a class="tile" href="#analise">
@@ -79,6 +86,85 @@
     <div class="card">
       <h2>Resumo rápido</h2>
       <dl class="kv" id="home-summary"><dt>Carregando</dt><dd>—</dd></dl>
+    </div>
+  </section>
+
+  <!-- SIMULAÇÃO -->
+  <section data-page="simulacao" class="page" hidden>
+    <h1>Simulação local</h1>
+    <p class="lead">O champion <b>hybrid-v1</b> joga sozinho numa mesa 6-max contra perfis simulados (stacks reiniciados a cada mão). Nada sai deste computador e nenhuma conexão online é usada.</p>
+    <div class="card" id="sim-new">
+      <h2>Nova sessão</h2>
+      <div class="form">
+        <label for="s-hands">Mãos (1–20000)</label><input id="s-hands" type="number" min="1" max="20000" value="500">
+        <label for="s-seed">Seed (reprodutível)</label><input id="s-seed" type="number" min="0" value="1">
+        <label for="s-stack">Stack inicial em big blinds (5–200)</label><input id="s-stack" type="number" min="5" max="200" value="15">
+        <label for="s-ante">Ante em big blinds (0–0,5)</label><input id="s-ante" type="number" min="0" max="0.5" step="0.125" value="0">
+        <label for="s-min">Limite de duração, em minutos</label><input id="s-min" type="number" min="1" max="1440" value="60">
+      </div>
+      <p class="note">Adversários (até 5): <span id="s-profiles"></span></p>
+      <label class="check"><input type="checkbox" id="s-confirm"> Entendo que o agente vai jogar de forma autônoma até o limite ou até eu pausar/parar.</label>
+      <div class="row"><button id="s-start" class="primary" disabled>Iniciar sessão</button><span id="s-msg" class="msg" role="status"></span></div>
+    </div>
+    <div class="card" id="sim-live" hidden>
+      <h2>Sessão <span id="l-id">—</span> <span class="pill" id="l-state" data-state="">—</span></h2>
+      <div class="row controls">
+        <button id="b-pause">Pausar bot</button>
+        <button id="b-resume">Retomar bot</button>
+        <button id="b-finish">Encerrar após a mão</button>
+        <button id="b-emergency" class="danger">Parada de emergência</button>
+      </div>
+      <div class="bar" aria-hidden="true"><span id="l-bar"></span></div>
+      <dl class="kv" id="l-kv"></dl>
+      <div class="banner warn" id="l-quality-stop" hidden>
+        <b>Sessão parada pelo controle de qualidade.</b> <span id="l-qs-reason"></span>
+        <p class="note">Revise as decisões em <a href="#sessoes">Sessões</a>. Para retomar, confirme a revisão e escreva uma nota.</p>
+        <div class="row"><input id="q-note" type="text" maxlength="200" placeholder="nota da revisão"><label class="check"><input type="checkbox" id="q-confirm"> Revisei o relatório</label><button id="b-ack">Confirmar e retomar</button></div>
+      </div>
+    </div>
+    <div class="grid2" id="sim-metrics" hidden>
+      <div class="card">
+        <h2>Qualidade das decisões</h2>
+        <p class="note">Janela móvel de até 100 decisões avaliáveis; mínimo de 50. Meta operacional experimental: 75% adequadas (não é garantia de lucro). Parada se o limite inferior unilateral de 99% do erro passar de 25%.</p>
+        <dl class="kv" id="q-kv"></dl>
+      </div>
+      <div class="card">
+        <h2>Resultado (bb/100, IC 95%)</h2>
+        <p class="note">Amostras pequenas têm variância enorme; leia o intervalo.</p>
+        <div class="scroll"><table class="tbl" id="r-pos"><thead><tr><th>Recorte</th><th class="num">n</th><th class="num">bb/100</th><th class="num">IC 95%</th></tr></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+    <div class="card" id="sim-recent" hidden>
+      <h2>Últimas decisões</h2>
+      <div class="scroll"><table class="tbl" id="r-dec"><thead><tr><th class="num">Mão</th><th>Rua</th><th>Posição</th><th>Ação</th><th>Classificação</th><th>Motivo</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- SESSÕES -->
+  <section data-page="sessoes" class="page" hidden>
+    <h1>Sessões e mãos</h1>
+    <div class="card">
+      <h2>Sessões locais</h2>
+      <div class="scroll"><table class="tbl" id="ss-table">
+        <thead><tr><th>Início</th><th>Sessão</th><th>Estado</th><th class="num">Mãos</th><th class="num">bb/100</th><th>Classificações</th><th>Motivo de fim</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="card" id="ss-hands-card" hidden>
+      <h2>Mãos da sessão <span id="ss-id"></span></h2>
+      <div class="scroll"><table class="tbl" id="ss-hands">
+        <thead><tr><th class="num">#</th><th>Posição</th><th class="num">Resultado (bb)</th><th>Rua final</th><th>Decisões</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div class="row"><button id="ss-more">Mais mãos</button></div>
+    </div>
+    <div class="card" id="hand-card" hidden>
+      <h2>Mão <span id="h-no"></span></h2>
+      <p class="note">Esquerda: o que o agente sabia no momento de cada decisão. Direita: cartas reveladas depois da mão — nunca usadas para julgar a decisão.</p>
+      <div class="grid2">
+        <div><h3>No momento da decisão</h3><div id="h-dec"></div></div>
+        <div><h3>Revelado após a mão</h3><dl class="kv" id="h-rev"></dl><dl class="kv" id="h-res"></dl></div>
+      </div>
     </div>
   </section>
 

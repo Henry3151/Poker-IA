@@ -85,6 +85,24 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 .chart .ci.champ { stroke: var(--accent); }
 .chart .pt { fill: var(--muted); stroke: var(--panel); stroke-width: 2; }
 .chart .pt.champ { fill: var(--accent); }
+.danger { background: var(--bad); color: #fff; border-color: var(--bad); }
+.banner.warn { border-color: var(--warn); }
+.check { display: flex; gap: 8px; align-items: center; margin: 8px 0; font-size: 14px; }
+input[type=text] { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); min-width: 220px; }
+.controls { margin: 6px 0 12px; }
+.bar { height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; margin-bottom: 12px; }
+.bar span { display: block; height: 100%; width: 0; background: var(--accent); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 12.5px; padding: 2px 8px; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; background: var(--panel); color: var(--ink-2); }
+.chip[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: var(--bg); }
+.lbl-adequada { color: var(--ok); } .lbl-provavel_erro_estrategico { color: var(--bad); } .lbl-erro_tecnico { color: var(--warn); } .lbl-inconclusiva { color: var(--muted); }
+.dec { border-top: 1px solid var(--line); padding: 8px 0; font-size: 13.5px; }
+.dec .meta { color: var(--muted); font-size: 12.5px; }
+h3 { margin: 0 0 6px; font-size: 14px; font-weight: 600; }
+.tbl tr.click { cursor: pointer; } .tbl tr.click:hover td { background: var(--bg); }
+.pill[data-state="autonomo"]::before { background: var(--ok); }
+.pill[data-state="supervisionado"]::before, .pill[data-state="pausando"]::before, .pill[data-state="sincronizando"]::before, .pill[data-state="saindo_apos_mao"]::before { background: var(--warn); }
+.pill[data-state="parado_qualidade"]::before, .pill[data-state="emergencia"]::before { background: var(--bad); }
 .foot { text-align: center; color: var(--muted); font-size: 12px; padding: 12px; }
 @media (max-width: 520px) { .form, .kv { grid-template-columns: 1fr; } .kv dd { margin-bottom: 6px; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

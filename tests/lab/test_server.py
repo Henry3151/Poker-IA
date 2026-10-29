@@ -64,8 +64,7 @@ def test_rate_limit(lab_root):
     assert codes[:3] == [200, 200, 200] and codes[3:] == [429, 429]
 
 
-def test_simulation_and_online_are_not_available_in_stage_b(client):
-    assert client.post("/api/simulation/start", headers=AUTH).status_code == 501
+def test_online_is_not_available(client):
     r = client.post("/api/online/start", headers=AUTH)
     assert r.status_code == 403 and "desativada" in r.json()["error"]
 

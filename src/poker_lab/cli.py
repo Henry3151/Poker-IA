@@ -31,6 +31,10 @@ config_app = typer.Typer(no_args_is_help=True, help="Limites e parâmetros (sem 
 app.add_typer(runs_app, name="runs")
 app.add_typer(export_app, name="export")
 app.add_typer(config_app, name="config")
+sim_app = typer.Typer(no_args_is_help=True, help="Sessões autônomas de simulação local (sem conexão online).")
+sessions_app = typer.Typer(no_args_is_help=True, help="Histórico das sessões locais e mãos (somente leitura).")
+app.add_typer(sim_app, name="sim")
+app.add_typer(sessions_app, name="sessions")
 
 ROOT = Path(__file__).resolve().parents[2]
 FROZEN_DIRS = ("artifacts/p7", "artifacts/p7b", "artifacts/p7c", "artifacts/checkpoints", "artifacts/tables", "docs", "src")
@@ -261,6 +265,117 @@ def export_powerbi_cmd(
         raise typer.BadParameter("nenhum banco de execução encontrado em artifacts/")
     manifest = export_powerbi(sources, out, fmt)
     typer.echo(json.dumps({"out": str(out), "files": len(manifest["files"]), "reconciliation": manifest["reconciliation"]}))
+
+
+# ------------------------------------------------------------------ local simulation (P9-C)
+DbOpt = Annotated[Path | None, typer.Option("--db", help="Banco de sessões (padrão: artifacts/lab/sessions.db).")]
+
+
+def _manager(db: Path | None) -> Any:
+    from poker_lab.lab.manager import SessionManager
+
+    return SessionManager(ROOT, db)
+
+
+@sim_app.command("run")
+def sim_run(
+    hands: Annotated[int, typer.Option(help="Número de mãos.")] = 500,
+    seed: Annotated[int, typer.Option(help="Seed (reprodutível).")] = 1,
+    stack_bb: Annotated[float, typer.Option("--stack-bb", help="Stack inicial em big blinds.")] = 15.0,
+    ante_bb: Annotated[float, typer.Option("--ante-bb", help="Ante em big blinds.")] = 0.0,
+    opponents: Annotated[str, typer.Option(help="Perfis separados por vírgula (até 5).")] = "tag,lag,nit,station,adaptive_tag",
+    max_minutes: Annotated[int, typer.Option("--max-minutes", help="Limite de duração.")] = 60,
+    yes: Annotated[bool, typer.Option("--yes", help="Confirma o início da sessão autônoma.")] = False,
+    db: DbOpt = None,
+    as_json: JsonOpt = False,
+) -> None:
+    """Roda uma sessão autônoma local com o champion. Ctrl+C = parada de emergência."""
+    import time
+
+    from poker_lab.lab.session import SimConfig
+
+    _utf8()
+    try:
+        conf = SimConfig(hands=hands, seed=seed, stack_bb=stack_bb, ante_bb=ante_bb, max_minutes=max_minutes,
+                         opponents=[o.strip() for o in opponents.split(",") if o.strip()])
+    except ValueError as exc:
+        typer.echo(f"configuração inválida: {str(exc).splitlines()[0]}", err=True)
+        raise typer.Exit(2) from exc
+    if not yes and not typer.confirm(f"Iniciar sessão autônoma de {hands} mãos (seed {seed})?", default=True):
+        raise typer.Exit(2)
+    mgr = _manager(db)
+    s = mgr.start(conf)
+    try:
+        while s.running:
+            time.sleep(0.5)
+            if not as_json:
+                st = s.status()
+                typer.echo(f"\r[{st['control']['state']}] mão {st['summary']['hands_played']}/{s.hands_target}"
+                           f" · decisões {st['summary']['decisions']}", nl=False)
+    except KeyboardInterrupt:
+        s.emergency()
+        s.join(10)
+        typer.echo("\nparada de emergência confirmada", err=True)
+    st = s.status()
+    mgr.close()
+    if as_json:
+        typer.echo(json.dumps(st, ensure_ascii=False, indent=1, default=str))
+        return
+    sm = st["summary"]
+    b = sm["bb_per_100"]
+    typer.echo("")
+    typer.echo(f"sessão {st['session_id']} · estado {st['control']['state']} · motivo: {st['control']['stop_reason'] or st['history'][-1]['reason']}")
+    typer.echo(f"mãos {sm['hands_played']} · bb/100 {b['mean']} (IC 95% {b['low']} a {b['high']})")
+    typer.echo(f"decisões {sm['decisions']}: " + ", ".join(f"{k} {v}" for k, v in sm["labels"].items()))
+    q = st["quality"]
+    typer.echo(f"qualidade: {q['evaluable']} avaliáveis na janela; adequação {q['adequacy']}; IC {q['adequacy_ci']}")
+    typer.echo(f"detalhes: poker-lab sessions show {st['session_id']}")
+
+
+@sessions_app.command("list")
+def sessions_list(db: DbOpt = None, as_json: JsonOpt = False) -> None:
+    """Sessões locais registradas."""
+    _utf8()
+    mgr = _manager(db)
+    rows = mgr.list_sessions()
+
+    def render(rows: list[dict[str, Any]]) -> None:
+        _table([[r["created_at"][:19], r["session_id"], r["state"], f"{r['hands_played']}/{r['hands_target']}",
+                 (r["bb_per_100"] or {}).get("mean", "—"), r["stop_reason"] or "—"] for r in rows],
+               ["início", "sessão", "estado", "mãos", "bb/100", "motivo"])
+
+    _emit(rows, as_json, render)
+    mgr.close()
+
+
+@sessions_app.command("show")
+def sessions_show(session_id: str, db: DbOpt = None, as_json: JsonOpt = False) -> None:
+    """Resumo, eventos de controle e métricas de uma sessão."""
+    _utf8()
+    mgr = _manager(db)
+    r = mgr.get_session(session_id)
+    mgr.close()
+    if r is None:
+        typer.echo("sessão não encontrada", err=True)
+        raise typer.Exit(2)
+
+    def render(r: dict[str, Any]) -> None:
+        sm = r["summary"] or {}
+        typer.echo(f"sessão {r['session_id']} · {r['state']} · política {r['policy_label']} ({r['policy_sha256'][:12]}…)")
+        typer.echo(f"config: {json.dumps(r['config'], ensure_ascii=False)}")
+        typer.echo(f"mãos {r['hands_played']}/{r['hands_target']} · motivo: {r['stop_reason'] or '—'}")
+        if sm:
+            typer.echo(f"bb/100: {sm['bb_per_100']}")
+            typer.echo(f"classificações: {sm['labels']} · perda de EV estimada: {sm['ev_loss_bb']}")
+            for k, v in sm["by_position"].items():
+                typer.echo(f"  posição {k}: n={v['n']} média={v['mean']} IC=({v['low']}, {v['high']})")
+            for k, v in sm["by_opponent"].items():
+                typer.echo(f"  vs {k}: n={v['n']} média={v['mean']} IC=({v['low']}, {v['high']})")
+        typer.echo("eventos:")
+        for e in r["events"]:
+            typer.echo(f"  {e['at']}  {e['from_state']} -> {e['to_state']}  [{e['command']}] {e['reason']} ({e['actor']})")
+
+    _emit(r, as_json, render)
 
 
 @app.command()

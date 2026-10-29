@@ -42,14 +42,14 @@
   }
 
   // ---------- routing ----------
-  const pages = ["inicio", "historico", "analise", "config", "verificar"];
+  const pages = ["inicio", "simulacao", "sessoes", "historico", "analise", "config", "verificar"];
   const loaded = new Set();
   function route() {
     const name = pages.includes(location.hash.slice(1)) ? location.hash.slice(1) : "inicio";
     $$("[data-page]").forEach((s) => { s.hidden = s.dataset.page !== name; });
     $$("[data-route]").forEach((a) => a.setAttribute("aria-current", a.dataset.route === name ? "page" : "false"));
-    const loaders = { inicio: loadHome, historico: loadHistory, analise: loadAnalysis, config: loadConfig, verificar: loadVerify };
-    if (!loaded.has(name) || name === "verificar") { loaded.add(name); loaders[name]().catch(showErr); }
+    const loaders = { inicio: loadHome, simulacao: loadSim, sessoes: loadSessions, historico: loadHistory, analise: loadAnalysis, config: loadConfig, verificar: loadVerify };
+    if (!loaded.has(name) || name === "verificar" || name === "sessoes") { loaded.add(name); loaders[name]().catch(showErr); }
   }
   function showErr(e) { console.warn(e); }
   window.addEventListener("hashchange", route);
@@ -58,8 +58,11 @@
   // ---------- status polling ----------
   const STATE_LABEL = {
     desconectado: "Desconectado", conectado: "Conectado", aguardando: "Aguardando mão", jogando: "Jogando",
-    pausado: "Pausado", encerrado: "Encerrado", erro: "Erro",
+    pausado: "Pausado", encerrado: "Encerrado", erro: "Erro", ocioso: "Ocioso", autonomo: "Autônomo",
+    pausando: "Pausando…", supervisionado: "Pausado (supervisionado)", sincronizando: "Sincronizando",
+    parado_qualidade: "Parado por qualidade", saindo_apos_mao: "Encerrando após a mão", emergencia: "Emergência",
   };
+  const LABEL = { adequada: "adequada", provavel_erro_estrategico: "provável erro", erro_tecnico: "erro técnico", inconclusiva: "inconclusiva" };
   async function pollStatus() {
     try {
       const s = await api("/api/status");
@@ -70,6 +73,169 @@
       $("#job-state").hidden = !s.active_job;
       $("#app-version").textContent = s.app_version;
     } catch (e) { showErr(e); }
+  }
+
+
+  // ---------- simulation (stage C) ----------
+  const PROFILES = ["tag", "lag", "nit", "station", "random", "adaptive_tag", "adaptive_lag", "bluffer40", "bluffer60", "maniac"];
+  const chosen = new Set(["tag", "lag", "nit", "station", "adaptive_tag"]);
+  let simTimer = null;
+  const ci = (c) => (c && c.low !== null && c.low !== undefined ? `${c.low.toFixed(1)} a ${c.high.toFixed(1)}` : "amostra pequena");
+  const bb = (x) => (x === null || x === undefined ? "—" : `${x >= 0 ? "+" : ""}${Number(x).toFixed(1)}`);
+  function actionText(a) { return a ? (a.amount ? `${a.kind} ${a.amount}` : a.kind) : "—"; }
+
+  async function loadSim() {
+    const box = $("#s-profiles");
+    if (!box.childElementCount) {
+      box.className = "chips";
+      for (const p of PROFILES) {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "chip"; b.textContent = p; b.setAttribute("aria-pressed", chosen.has(p));
+        b.addEventListener("click", () => {
+          if (chosen.has(p)) chosen.delete(p); else if (chosen.size < 5) chosen.add(p);
+          b.setAttribute("aria-pressed", chosen.has(p));
+        });
+        box.append(b);
+      }
+      $("#s-confirm").addEventListener("change", (e) => { $("#s-start").disabled = !e.target.checked; });
+      $("#s-start").addEventListener("click", startSim);
+      $("#b-pause").addEventListener("click", () => simCmd("pause"));
+      $("#b-resume").addEventListener("click", () => simCmd("resume"));
+      $("#b-finish").addEventListener("click", () => simCmd("finish", { mode: "after_hand" }));
+      $("#b-emergency").addEventListener("click", () => simCmd("emergency"));
+      $("#b-ack").addEventListener("click", () => simCmd("ack-quality", { confirm: $("#q-confirm").checked, note: $("#q-note").value }));
+    }
+    await refreshSim();
+  }
+
+  async function startSim() {
+    const msg = $("#s-msg");
+    if (!chosen.size) { msg.textContent = "Escolha ao menos um adversário."; return; }
+    const body = {
+      confirm: $("#s-confirm").checked, hands: Number($("#s-hands").value), seed: Number($("#s-seed").value),
+      stack_bb: Number($("#s-stack").value), ante_bb: Number($("#s-ante").value), max_minutes: Number($("#s-min").value),
+      opponents: [...chosen],
+    };
+    $("#s-start").disabled = true;
+    try { await api("/api/simulation/start", { method: "POST", body: JSON.stringify(body) }); msg.textContent = "Sessão iniciada."; }
+    catch (e) { msg.textContent = e.message; }
+    $("#s-confirm").checked = false;
+    await refreshSim();
+  }
+
+  async function simCmd(cmd, body) {
+    try { await api(`/api/simulation/${cmd}`, { method: "POST", body: JSON.stringify(body || {}) }); }
+    catch (e) { $("#s-msg").textContent = e.message; }
+    await refreshSim();
+    pollStatus();
+  }
+
+  async function refreshSim() {
+    const { session: s } = await api("/api/simulation/current");
+    const has = !!s;
+    $("#sim-live").hidden = !has; $("#sim-metrics").hidden = !has; $("#sim-recent").hidden = !has;
+    if (!has) return;
+    const st = s.control.state;
+    $("#l-id").textContent = s.session_id;
+    const pill = $("#l-state"); pill.dataset.state = st; pill.textContent = STATE_LABEL[st] || st;
+    const done = s.summary.hands_played;
+    $("#l-bar").style.width = `${Math.min(100, (100 * done) / s.hands_target)}%`;
+    kv($("#l-kv"), [
+      ["Mãos", `${int(done)} de ${int(s.hands_target)}${s.summary.hands_aborted ? ` · ${s.summary.hands_aborted} interrompida` : ""}`],
+      ["Tempo", `${Math.round(s.elapsed_s)} s`],
+      ["Decisões", `${int(s.summary.decisions)} (${int(s.control.committed)} enviadas · ${int(s.control.discarded)} descartadas)`],
+      ["Política", `${s.policy} · sha256 ${s.policy_sha256.slice(0, 12)}…`],
+      ["Adversários", s.config.opponents.join(", ")],
+      ["Motivo de parada", s.control.stop_reason || (s.error || "—")],
+    ]);
+    const running = s.running, terminal = ["encerrado", "emergencia", "erro"].includes(st);
+    $("#b-pause").disabled = !running || !["autonomo", "saindo_apos_mao"].includes(st);
+    $("#b-resume").disabled = !running || st !== "supervisionado";
+    $("#b-finish").disabled = !running || terminal || st === "saindo_apos_mao";
+    $("#b-emergency").disabled = !running || terminal;
+    $("#l-quality-stop").hidden = st !== "parado_qualidade";
+    $("#l-qs-reason").textContent = s.control.stop_reason || "";
+    const q = s.quality;
+    kv($("#q-kv"), [
+      ["Avaliáveis na janela", `${q.evaluable}${q.sample_ok ? "" : " (abaixo do mínimo de 50)"}`],
+      ["Adequadas", q.adequacy === null ? "—" : `${pct0(q.adequacy)} (IC 95% ${pct0(q.adequacy_ci[0])} a ${pct0(q.adequacy_ci[1])})`, q.target_reached ? "good" : ""],
+      ["Prováveis erros", q.error_rate === null ? "—" : `${pct0(q.error_rate)} (limite inferior 99%: ${pct0(q.error_lower_99)})`],
+      ["Inconclusivas (fora da janela)", int(q.inconclusive_total)],
+      ["Erros técnicos", int(q.technical_total)],
+      ["Perda de EV estimada", s.summary.ev_loss_bb.n ? `${s.summary.ev_loss_bb.total} bb em ${s.summary.ev_loss_bb.n} spots com referência` : "sem spots com referência ainda"],
+    ]);
+    const tb = $("#r-pos tbody"); tb.replaceChildren();
+    const rows = [["Total", s.summary.bb_per_100]]
+      .concat(Object.entries(s.summary.by_position).map(([k, v]) => [`Posição ${k}`, v]))
+      .concat(Object.entries(s.summary.by_opponent).map(([k, v]) => [`vs ${k}`, v]));
+    for (const [k, v] of rows) { const tr = document.createElement("tr"); cell(tr, k); cell(tr, int(v.n), "num"); cell(tr, bb(v.mean), "num"); cell(tr, ci(v), "num"); tb.append(tr); }
+    const td = $("#r-dec tbody"); td.replaceChildren();
+    for (const d of s.recent_decisions) {
+      const tr = document.createElement("tr");
+      cell(tr, d.hand, "num"); cell(tr, d.street); cell(tr, d.position); cell(tr, actionText(d.action));
+      cell(tr, LABEL[d.label] || d.label, `lbl-${d.label}`); cell(tr, d.reason);
+      td.append(tr);
+    }
+    clearTimeout(simTimer);
+    if (running && location.hash === "#simulacao") simTimer = setTimeout(() => refreshSim().catch(showErr), 1000);
+  }
+  window.addEventListener("hashchange", () => { if (location.hash === "#simulacao") refreshSim().catch(showErr); });
+
+  // ---------- sessions & hand viewer ----------
+  let curSession = null, handOffset = 0;
+  async function loadSessions() {
+    const { sessions } = await api("/api/sessions");
+    const tb = $("#ss-table tbody"); tb.replaceChildren();
+    if (!sessions.length) { const tr = document.createElement("tr"); cell(tr, "Nenhuma sessão ainda. Inicie uma em Simulação.").colSpan = 7; tb.append(tr); }
+    for (const s of sessions) {
+      const tr = document.createElement("tr"); tr.className = "click"; tr.tabIndex = 0;
+      cell(tr, (s.created_at || "").replace("T", " ").slice(0, 19)); cell(tr, s.session_id); cell(tr, STATE_LABEL[s.state] || s.state);
+      cell(tr, `${int(s.hands_played)}/${int(s.hands_target)}`, "num");
+      cell(tr, s.bb_per_100 ? `${bb(s.bb_per_100.mean)} (${ci(s.bb_per_100)})` : "—", "num");
+      cell(tr, s.labels ? Object.entries(s.labels).map(([k, v]) => `${LABEL[k] || k}: ${v}`).join(" · ") : "—");
+      cell(tr, s.stop_reason || "—");
+      const open = () => { curSession = s.session_id; handOffset = 0; $("#ss-hands tbody").replaceChildren(); loadHands().catch(showErr); };
+      tr.addEventListener("click", open); tr.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
+      tb.append(tr);
+    }
+  }
+  async function loadHands() {
+    $("#ss-hands-card").hidden = false; $("#ss-id").textContent = curSession;
+    const { hands } = await api(`/api/sessions/${encodeURIComponent(curSession)}/hands?offset=${handOffset}&limit=100`);
+    handOffset += hands.length;
+    $("#ss-more").hidden = hands.length < 100;
+    const tb = $("#ss-hands tbody");
+    for (const h of hands) {
+      const tr = document.createElement("tr"); tr.className = "click"; tr.tabIndex = 0;
+      cell(tr, h.hand_no, "num"); cell(tr, h.hero_position || "—");
+      cell(tr, h.aborted ? "interrompida" : bb(h.net_bb), "num"); cell(tr, h.final_street || "—");
+      cell(tr, h.labels.length ? h.labels.map((l) => LABEL[l] || l).join(", ") : "sem decisão");
+      const open = () => showHand(h.hand_id, h.hand_no).catch(showErr);
+      tr.addEventListener("click", open); tr.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
+      tb.append(tr);
+    }
+  }
+  $("#ss-more").addEventListener("click", () => loadHands().catch(showErr));
+  async function showHand(id, no) {
+    const h = await api(`/api/hands/${encodeURIComponent(id)}`);
+    $("#hand-card").hidden = false; $("#h-no").textContent = `#${no}`;
+    const box = $("#h-dec"); box.replaceChildren();
+    if (!h.decision_time.length) { const p = document.createElement("p"); p.className = "note"; p.textContent = "O agente não precisou decidir nesta mão."; box.append(p); }
+    for (const d of h.decision_time) {
+      const div = document.createElement("div"); div.className = "dec";
+      const o = d.observation;
+      const head = document.createElement("div");
+      head.textContent = `${d.street} · ${d.position} · pote ${o.pot} · para pagar ${o.to_call} · stack ${o.stack} → ${actionText(d.applied)}`;
+      const lab = document.createElement("div"); lab.className = `lbl-${d.label}`; lab.textContent = `${LABEL[d.label] || d.label}: ${d.assessment.reason}`;
+      const meta = document.createElement("div"); meta.className = "meta";
+      const a = d.assessment;
+      meta.textContent = [a.ev_chosen_bb !== null && a.ev_chosen_bb !== undefined ? `EV escolhido ${a.ev_chosen_bb} bb · melhor ${a.ev_best_bb} bb (${a.best_action})` : null,
+        a.confidence ? `confiança ${a.confidence}` : null, (a.limitations || []).join("; ") || null].filter(Boolean).join(" · ");
+      div.append(head, lab, meta); box.append(div);
+    }
+    kv($("#h-rev"), h.revealed_after_hand.map((r) => [r.profile === "hero" ? "Agente" : `Assento ${r.seat} (${r.profile})`, r.cards]));
+    kv($("#h-res"), [["Resultado do agente", h.hand.aborted ? "mão interrompida" : `${bb(h.hand.net_bb)} bb`], ["Rua final", h.hand.final_street || "—"], ["Showdown", h.hand.showdown ? "sim" : "não"]]);
+    $("#hand-card").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   // ---------- home ----------

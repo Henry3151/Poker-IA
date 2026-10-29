@@ -7,8 +7,10 @@ Security model (local app, single user):
 - ``Host`` must be 127.0.0.1:<port> or localhost:<port> (blocks DNS rebinding); a present
   ``Origin`` must be the same origin (blocks cross-site requests); no CORS is enabled;
 - request body size and request rate are limited; strict security headers (CSP 'self' only);
-- stage B exposes read-only views, settings without secrets and read-only verification jobs.
-  Simulation (stage C) and online sessions (stage E) are NOT available and say so.
+- stage B: read-only views, settings without secrets and read-only verification jobs;
+- stage C: autonomous LOCAL simulation sessions (start requires explicit confirmation; pause,
+  resume, emergency stop, finish, quality acknowledgement) and the session/hand history.
+  Online sessions (stage E) are NOT available here and say so.
 """
 
 from __future__ import annotations
@@ -25,10 +27,12 @@ from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from poker_lab.lab import config as cfg
+from poker_lab.lab.control import TransitionRefused
 from poker_lab.lab.frozen import verify_manifest
 from poker_lab.lab.health import check_all
 from poker_lab.lab.integrity import verify_run
 from poker_lab.lab.jobs import JobBusy, JobManager
+from poker_lab.lab.manager import SessionBusy, SessionManager
 from poker_lab.lab.registry import (
     KNOWN_RUNS,
     discover_databases,
@@ -37,11 +41,12 @@ from poker_lab.lab.registry import (
     project_root,
     run_overview,
 )
+from poker_lab.lab.session import SimConfig
 from poker_lab.lab.summary import compare_table, run_summary, scenario_table
 
 STATIC = Path(__file__).parent / "static"
 MAX_BODY = 32 * 1024
-APP_VERSION = "p9-b"
+APP_VERSION = "p9-c"
 
 SECURITY_HEADERS = {
     "Content-Security-Policy": "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; "
@@ -75,7 +80,8 @@ def _err(status: int, msg: str) -> JSONResponse:
     return JSONResponse({"error": msg}, status_code=status, headers=SECURITY_HEADERS)
 
 
-def create_app(token: str, port: int, root: Path | None = None, rate_per_minute: int = 600) -> FastAPI:
+def create_app(token: str, port: int, root: Path | None = None, rate_per_minute: int = 600,
+               sessions_db: Path | None = None) -> FastAPI:
     if len(token) < 32:
         raise ValueError("token too short")
     root = root or project_root()
@@ -84,7 +90,9 @@ def create_app(token: str, port: int, root: Path | None = None, rate_per_minute:
     allowed_origins = {f"http://{h}" for h in allowed_hosts}
     limiter = RateLimiter(rate_per_minute)
     jobs = JobManager()
-    state: dict[str, Any] = {"agent_state": "desconectado", "started_at": time.time()}
+    state: dict[str, Any] = {"started_at": time.time()}
+    sessions = SessionManager(root, sessions_db)
+    app.state.sessions = sessions
 
     @app.middleware("http")
     async def guard(request: Request, call_next: Any) -> Response:
@@ -121,9 +129,9 @@ def create_app(token: str, port: int, root: Path | None = None, rate_per_minute:
         active = jobs.active()
         return {
             "app_version": APP_VERSION,
-            "agent_state": state["agent_state"],
+            "agent_state": sessions.agent_state(),
             "online": {"enabled": False, "status": "desativada", "stage": "E"},
-            "simulation": {"available": False, "stage": "C"},
+            "simulation": {"available": True, "session_id": sessions.current.session_id if sessions.current else None},
             "active_job": active.view() if active else None,
             "uptime_s": round(time.time() - state["started_at"]),
         }
@@ -203,9 +211,70 @@ def create_app(token: str, port: int, root: Path | None = None, rate_per_minute:
             raise HTTPException(404, "tarefa inexistente")
         return job.view()
 
+    async def _json(request: Request) -> dict[str, Any]:
+        try:
+            body = await request.json()
+        except Exception as exc:  # noqa: BLE001
+            raise HTTPException(400, "JSON inválido") from exc
+        if not isinstance(body, dict):
+            raise HTTPException(400, "esperado um objeto JSON")
+        return body
+
     @app.post("/api/simulation/start")
-    def sim_start() -> JSONResponse:
-        return _err(501, "simulação local disponível na etapa C")
+    async def sim_start(request: Request) -> dict[str, Any]:
+        body = await _json(request)
+        if body.pop("confirm", None) is not True:
+            raise HTTPException(400, "confirme o início da sessão autônoma (confirm=true)")
+        try:
+            conf = SimConfig(**body)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc).splitlines()[0][:300]) from exc
+        try:
+            s = sessions.start(conf)
+        except SessionBusy as exc:
+            raise HTTPException(409, str(exc)) from exc
+        return s.status()
+
+    @app.get("/api/simulation/current")
+    def sim_current() -> dict[str, Any]:
+        s = sessions.current
+        return {"session": s.status() if s else None}
+
+    @app.post("/api/simulation/{command}")
+    async def sim_command(command: str, request: Request) -> dict[str, Any]:
+        body = await _json(request) if int(request.headers.get("content-length") or 0) else {}
+        mapping = {"pause": "pause", "resume": "resume", "emergency": "emergency", "finish": "finish",
+                   "ack-quality": "ack_quality"}
+        if command not in mapping:
+            raise HTTPException(404, "comando desconhecido")
+        try:
+            st = sessions.command(mapping[command], **{k: body[k] for k in ("session_id", "mode", "confirm", "note") if k in body})
+        except TransitionRefused as exc:
+            raise HTTPException(409, str(exc)) from exc
+        s = sessions.current
+        return {"state": st.value, "session": s.status() if s else None}
+
+    @app.get("/api/sessions")
+    def list_sessions() -> dict[str, Any]:
+        return {"sessions": sessions.list_sessions()}
+
+    @app.get("/api/sessions/{session_id}")
+    def get_session(session_id: str) -> dict[str, Any]:
+        r = sessions.get_session(session_id)
+        if r is None:
+            raise HTTPException(404, "sessão não encontrada")
+        return r
+
+    @app.get("/api/sessions/{session_id}/hands")
+    def list_hands(session_id: str, offset: int = 0, limit: int = 100) -> dict[str, Any]:
+        return {"hands": sessions.list_hands(session_id, offset, limit)}
+
+    @app.get("/api/hands/{hand_id}")
+    def get_hand(hand_id: str) -> dict[str, Any]:
+        r = sessions.get_hand(hand_id)
+        if r is None:
+            raise HTTPException(404, "mão não encontrada")
+        return r
 
     @app.post("/api/online/start")
     def online_start() -> JSONResponse:
