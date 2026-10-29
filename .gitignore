@@ -17,3 +17,6 @@ artifacts/*
 *.log
 *.parquet
 .env
+# small, read-only model files needed to reproduce the evaluations (sha256 in .meta.json / MODEL_VERSIONS.md)
+!artifacts/checkpoints/
+!artifacts/tables/
