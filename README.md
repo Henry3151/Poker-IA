@@ -12,7 +12,7 @@
 ![Power BI](https://img.shields.io/badge/Power%20BI-ready-F2C811?logo=powerbi&logoColor=black)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-[**Como usar (passo a passo)**](docs/COMO_USAR.md) · [Visão geral](#visão-geral) · [Resultados](#resultados) · [Arquitetura](#arquitetura) · [Metodologia](#metodologia-de-avaliação) · [Como rodar](#como-rodar) · [Roadmap](#roadmap)
+[**Como usar (passo a passo)**](docs/COMO_USAR.md) · [Visão geral](#visão-geral) · [Resultados](#resultados) · [Arquitetura](#arquitetura) · [Metodologia](#metodologia-de-avaliação) · [Power BI](#analytics-e-power-bi) · [Como rodar](#como-rodar) · [Roadmap](#roadmap)
 
 </div>
 
@@ -20,6 +20,16 @@
 > Tudo roda em um **simulador local**, em unidades simuladas (SIM). Nenhum resultado aqui é evidência de lucro com dinheiro real. Não há integração com salas de poker com dinheiro real nem automação de interface gráfica ([`docs/EXECUTION_LAYER.md`](docs/EXECUTION_LAYER.md)).
 
 ---
+
+## Em números
+
+| | |
+|---|---|
+| **21.000** torneios avaliados | P7 (5.900) · P7b (9.100) · P7c (6.000), todos com seeds fixas e reproduzíveis |
+| **`hybrid-v1`** é o champion | promovido na P7b (+0,998 buy-in/torneio, p Holm 0,0015) e mantido na P7c |
+| **983** verificações de reconciliação | entre banco, exportação e relatório, com **0** divergências |
+| **164** testes | motor, agentes (incluindo invariância a cartas ocultas), MCCFR, estatística, migrações e exportação |
+| **0** ações inválidas | em todas as avaliações finais |
 
 ## Visão geral
 
@@ -33,13 +43,13 @@ O projeto responde a uma pergunta de engenharia: **como construir, treinar e com
 | **Treino** | MCCFR com *external sampling*, melhor resposta exata, abstração push/fold com antes e dead money, checkpoints com sha256 |
 | **Avaliação** | Common random numbers, bootstrap, correção de Holm, regra champion/challenger **pré-registrada** e seeds separadas para desenvolvimento e avaliação final |
 | **Dados** | SQLite com migrações versionadas, backup verificado, ledger financeiro conciliado e métricas por decisão |
-| **Analytics** | Modelo estrela para Power BI, medidas DAX e intervalos de confiança pré-calculados |
+| **Analytics** | Exportação para Power BI em modelo estrela (Parquet), reconciliada contra banco e relatórios, com 49 medidas DAX, Power Query, tema e guia de montagem |
 
 ---
 
 ## Resultados
 
-Os números abaixo vêm da **avaliação final da P7b** (seed raiz 20261028, nunca usada para ajuste). Os gráficos são gerados por [`scripts/make_readme_charts.py`](scripts/make_readme_charts.py) a partir de [`docs/p7b_artifacts/p7b_final_report.json`](docs/p7b_artifacts/p7b_final_report.json); nenhum valor foi digitado à mão.
+Os números abaixo vêm das **avaliações finais da P7b** (seed raiz 20261028) **e da P7c** (seed 20261029). Nenhuma das duas seeds foi usada para ajuste. Os gráficos são gerados por [`scripts/make_readme_charts.py`](scripts/make_readme_charts.py) a partir dos relatórios versionados em `docs/p7b_artifacts/` e `docs/p7c_artifacts/`; nenhum valor foi digitado à mão.
 
 ### ROI por agente no cenário principal
 
@@ -192,7 +202,57 @@ erDiagram
     ARTIFACTS ||--o{ AGENT_VERSIONS : checkpoint
 ```
 
-As migrações são versionadas ([`docs/MIGRATIONS.md`](docs/MIGRATIONS.md)) e cada uma é aplicada com backup verificado e restauração automática em caso de falha. A view `v_entry_financials` alimenta ROI, ITM e drawdown no Power BI ([`powerbi/`](powerbi/)).
+As migrações são versionadas ([`docs/MIGRATIONS.md`](docs/MIGRATIONS.md)) e cada uma é aplicada com backup verificado e restauração automática em caso de falha. A view `v_entry_financials` é a base de ROI, ITM e drawdown.
+
+---
+
+## Analytics e Power BI
+
+```mermaid
+flowchart LR
+    subgraph Fontes["Fontes (somente leitura)"]
+        DB1[(P7 · SQLite)]
+        DB2[(P7b · SQLite)]
+        DB3[(P7c · SQLite)]
+        RP[Relatórios congelados<br/>JSON com IC e p-valores]
+    end
+    X[poker-lab export powerbi] --> RC{Reconciliação<br/>SQL × linhas × relatório}
+    Fontes --> X
+    RC -->|tudo confere| OUT[Pasta Parquet<br/>1 pasta por tabela<br/>manifest.json com sha256]
+    RC -->|divergência| NO[Nada é publicado<br/>reconciliation_FAILED.json]
+    OUT --> PQ[Power Query<br/>fnCarregarTabela]
+    PQ --> PBI[Power BI<br/>49 medidas DAX · 8 páginas]
+```
+
+```mermaid
+erDiagram
+    DimRun ||--o{ DimScenario : contem
+    DimFieldClass ||--o{ DimScenario : classifica
+    DimScenario ||--o{ FactEntryResult : filtra
+    DimCandidate ||--o{ FactEntryResult : filtra
+    DimScenario ||--o{ FactHandHero : filtra
+    DimCandidate ||--o{ FactHandHero : filtra
+    DimPosition ||--o{ FactHandHero : posicao
+    DimStackBucket ||--o{ FactHandHero : stack
+    DimScenario ||--o{ FactDecision : filtra
+    DimScenario ||--o{ FactScenarioSummary : IC_pronto
+    DimScenario ||--o{ FactPairedComparison : IC_pronto
+```
+
+- **Classe do campo:** cada cenário é classificado pela composição real dos oponentes. As classes são explorável, agressivo/blefador, adaptativo, self-play ou misto. Isso permite separar "ganha de campos fracos" de "resiste a adversários fortes".
+- **Estatística pronta:** intervalos de confiança, p-valores e decisões vêm dos relatórios congelados. O DAX só filtra e exibe, e as medidas de IC ficam vazias fora de um contexto de 1 cenário × 1 agente.
+- **Privacidade da informação:** a tabela de decisões só tem o que o herói via. Não há cartas de adversários nem board; há teste para isso.
+- **8 páginas:**
+  1. Resumo executivo;
+  2. Campo explorável × agressivo/adaptativo;
+  3. Champion × desafiante;
+  4. Posição e stack;
+  5. Decisões;
+  6. Variância e sorte;
+  7. Steal;
+  8. Versões e auditoria.
+
+Montagem passo a passo, com os valores esperados para conferência, em [`powerbi/GUIA_MONTAGEM_P8.md`](powerbi/GUIA_MONTAGEM_P8.md).
 
 ---
 
@@ -208,12 +268,14 @@ src/poker_lab/
 ├── training/      MCCFR, Kuhn, push/fold HU, checkpoints
 ├── evaluation/    protocolo, estatística, champion/challenger, relatório
 ├── persistence/   SQLite, migrações, backup, retenção
-├── analytics/     all-in EV, métricas de decisão
-└── application/   casos de uso (mão, torneio, treino)
-scripts/           treino, avaliações P7/P7b/P7c, auditorias, gráficos
+├── analytics/     all-in EV, métricas de decisão, exportação Power BI reconciliada
+├── application/   casos de uso (mão, torneio, treino)
+└── cli.py         comando `poker-lab` (ex.: `poker-lab export powerbi`)
+scripts/           treino, avaliações P7/P7b/P7c, integridade, recuperação, tabelas e gráficos
 tests/             unit · engine · property (Hypothesis) · agents · tournament · integration
-docs/              relatórios por fase, protocolo, regras, versões de modelo
-powerbi/           especificação do modelo semântico e medidas DAX
+docs/              guia de uso, relatórios por fase, protocolo, regras, versões de modelo
+powerbi/           Power Query, medidas DAX, tema, especificação e guia de montagem
+artifacts/         checkpoints e tabelas de equity versionados; bancos e exportações gerados (fora do Git)
 ```
 
 ---
@@ -281,6 +343,7 @@ poker-lab export powerbi              # exportação Power BI (exige os bancos d
 - Os resultados valem **contra os campos simulados testados**; não se generalizam para jogadores humanos nem para outros bots.
 - O pós-flop do `hybrid-v1` é heurístico. Só a parte push/fold tem garantia de proximidade de equilíbrio (heads-up, abstração de stack).
 - Um IC que contém zero é **inconclusivo**, não "sem diferença".
+- O kit do Power BI (Power Query, DAX, tema) foi verificado fora do Power BI Desktop. A montagem visual é manual e o guia traz os valores para conferência.
 
 ## Licença
 
