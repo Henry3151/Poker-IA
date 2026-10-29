@@ -5,7 +5,7 @@
 **Laboratório de pesquisa em agentes para No-Limit Hold'em 6-max: simulador de torneios MTT, MCCFR, avaliação estatística pareada e analytics para Power BI.**
 
 ![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-164%20passing-2ea44f)
+![Tests](https://img.shields.io/badge/tests-200%20passing-2ea44f)
 ![Typing](https://img.shields.io/badge/mypy-strict-1f5082)
 ![Lint](https://img.shields.io/badge/ruff-checked-d7ff64?logo=ruff&logoColor=black)
 ![SQLite](https://img.shields.io/badge/SQLite-migrations-003B57?logo=sqlite&logoColor=white)
@@ -28,7 +28,7 @@
 | **21.000** torneios avaliados | P7 (5.900) · P7b (9.100) · P7c (6.000), todos com seeds fixas e reproduzíveis |
 | **`hybrid-v1`** é o champion | promovido na P7b (+0,998 buy-in/torneio, p Holm 0,0015) e mantido na P7c |
 | **983** verificações de reconciliação | entre banco, exportação e relatório, com **0** divergências |
-| **164** testes | motor, agentes (incluindo invariância a cartas ocultas), MCCFR, estatística, migrações e exportação |
+| **200** testes | motor, agentes (incluindo invariância a cartas ocultas), MCCFR, estatística, migrações, exportação e aplicação local |
 | **0** ações inválidas | em todas as avaliações finais |
 
 ## Visão geral
@@ -270,7 +270,9 @@ src/poker_lab/
 ├── persistence/   SQLite, migrações, backup, retenção
 ├── analytics/     all-in EV, métricas de decisão, exportação Power BI reconciliada
 ├── application/   casos de uso (mão, torneio, treino)
-└── cli.py         comando `poker-lab` (ex.: `poker-lab export powerbi`)
+├── lab/           camada operacional: verificações somente leitura, artefatos congelados, configuração
+├── api/           servidor local (127.0.0.1) e interface no navegador
+└── cli.py         comando `poker-lab` (info, ui, runs, verify, config, export)
 scripts/           treino, avaliações P7/P7b/P7c, integridade, recuperação, tabelas e gráficos
 tests/             unit · engine · property (Hypothesis) · agents · tournament · integration
 docs/              guia de uso, relatórios por fase, protocolo, regras, versões de modelo
@@ -284,10 +286,13 @@ artifacts/         checkpoints e tabelas de equity versionados; bancos e exporta
 
 > **Guia completo, passo a passo:** [`docs/COMO_USAR.md`](docs/COMO_USAR.md). Ele cobre instalação, testes, reprodução das avaliações, verificação de integridade, como analisar os resultados e o Power BI.
 
+**Aplicação (interface no navegador):** dê dois cliques em `iniciar_lab.bat` (Linux/macOS: `./iniciar_lab.sh`). O servidor roda só nesta máquina (127.0.0.1) com código de acesso por sessão. As telas atuais são Início, Histórico, Análise, Configurar e Verificar.
+
 **Windows**
 ```bat
 setup.bat                 :: cria .venv e instala dependências
-run_tests.bat             :: suíte completa (164 testes)
+iniciar_lab.bat           :: abre a interface local no navegador
+run_tests.bat             :: suíte completa (200 testes)
 run_demo.bat              :: MTT de 12 jogadores -> artifacts\demo.db
 run_p7c_evaluation.bat    :: avaliação de robustez completa (6.000 torneios)
 run_powerbi_export.bat    :: exportação reconciliada para o Power BI
@@ -299,6 +304,9 @@ python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt && pip install -e . --no-deps
 python -m pytest                      # testes
 python scripts/demo.py                # torneio de demonstração
+poker-lab info                        # ambiente, champion e estado dos artefatos congelados
+poker-lab runs show P7c               # resumo de uma avaliação
+poker-lab verify --all --frozen       # integridade (somente leitura)
 poker-lab export powerbi              # exportação Power BI (exige os bancos das avaliações)
 ```
 
@@ -318,7 +326,8 @@ poker-lab export powerbi              # exportação Power BI (exige os bancos d
 | P7b | Diagnóstico, melhorias e promoção do `hybrid-v1` | ✅ |
 | P7c | Robustez: oponentes adaptativos, blefadores, self-play (6.000 torneios); `hybrid-v1` mantido | ✅ |
 | P8 | Exportação Power BI reconciliada (983 verificações), kit DAX/Power Query e guia de montagem | ✅ |
-| P9–P10 | CLI/API/UI e otimização | ⏳ |
+| P9 | Aplicação operacional: interface local, linha de comando e verificações (etapa B concluída); sessões autônomas com controles, análise de decisões e online nas etapas C–F ([`docs/P9_PLANO.md`](docs/P9_PLANO.md)) | 🔄 |
+| P10 | Otimização | ⏳ |
 | P11 | Adaptador experimental para plataforma de bots com fichas virtuais (branch `p11-openpoker`) | 🧪 testado localmente |
 
 ---

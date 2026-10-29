@@ -7,7 +7,7 @@ Guia passo a passo para instalar, rodar, reproduzir as avaliações e **analisar
 ---
 
 ## Sumário
-1. [Instalação](#1-instalação)
+1. [Instalação](#1-instalação) · [Abrir o programa](#abrir-o-programa-interface-no-navegador) · [Linha de comando](#linha-de-comando-poker-lab)
 2. [Testes](#2-testes-confirme-que-está-tudo-certo)
 3. [Primeiro torneio (demonstração)](#3-primeiro-torneio-demonstração)
 4. [Reproduzir as avaliações (P7, P7b, P7c)](#4-reproduzir-as-avaliações)
@@ -42,13 +42,51 @@ pip install -r requirements-dev.txt && pip install -e . --no-deps
 
 **O que vem no repositório:** código, testes, documentação, os checkpoints dos modelos (`artifacts/checkpoints/`, com sha256 em `.meta.json`) e as tabelas de equity (`artifacts/tables/`). Os **bancos de resultados** (vários GB) **não** vêm: são recriados no passo 4.
 
+### Abrir o programa (interface no navegador)
+- **Windows:** dê dois cliques em **`iniciar_lab.bat`**.
+- **Linux/macOS:** rode `./iniciar_lab.sh`.
+
+O programa abre o navegador em `http://127.0.0.1:<porta>/`. O servidor **só aceita conexões desta máquina** e usa um código de acesso novo a cada início, que já vai embutido no endereço aberto automaticamente. Para encerrar, feche a janela do terminal ou use `Ctrl+C`.
+
+**Telas disponíveis**
+| Tela | O que faz |
+|---|---|
+| **Início** | Os 7 acessos (simulação, sessão online, sessão ativa, histórico, análise, configurar, verificar), o champion atual, um resumo das avaliações e o indicador de estado do agente (desconectado, conectado, aguardando mão, jogando, pausado, encerrado) |
+| **Histórico** | Avaliações registradas (P7, P7b, P7c) e bancos encontrados em `artifacts/`, só para consulta |
+| **Análise** | ROI com IC 95% por agente (gráfico e tabela) e comparação pareada contra o champion, com p Holm e relevância, por execução e cenário. Números lidos dos relatórios congelados |
+| **Configurar** | Limites de tarefas, mãos e duração, salvos em `artifacts/lab/config.json`. **Chaves, senhas e tokens são recusados** |
+| **Verificar** | Python e dependências, artefatos congelados (`FROZEN.sha256`) e integridade completa de cada avaliação |
+
+**Ainda indisponível**, e marcado na tela como tal:
+- simulação local e sessão ativa (etapa C);
+- análise de decisões (etapa D);
+- **sessão online, desativada** (etapa E).
+
+### Linha de comando (`poker-lab`)
+Com o ambiente ativo (`.venv\Scripts\activate` no Windows, `source .venv/bin/activate` no Linux/macOS):
+
+| Comando | O que faz | Grava algo? |
+|---|---|---|
+| `poker-lab info` | Ambiente, champion, execuções e artefatos congelados | não |
+| `poker-lab ui` | Abre a interface (o mesmo que `iniciar_lab.bat`) | não |
+| `poker-lab runs list` | Execuções conhecidas e bancos locais | não |
+| `poker-lab runs show P7c` | Resumo, decisão da regra e ROI por agente | não |
+| `poker-lab runs compare P7c --scenario robust_mix` | Diferenças pareadas, IC, p Holm, relevância | não |
+| `poker-lab verify P7c` · `verify --all` · `verify --frozen` | Integridade dos bancos e dos artefatos congelados | não |
+| `poker-lab config show` | Limites atuais | não |
+| `poker-lab export powerbi` | Exportação reconciliada (passo 7) | só em `--out`; recusa pastas protegidas |
+| `poker-lab doctor` | Só o ambiente | não |
+
+- Todos os comandos aceitam `--json` e `--help`.
+- Códigos de saída: **0** ok, **1** verificação falhou, **2** erro de uso.
+
 ## 2. Testes: confirme que está tudo certo
 ```bat
 run_tests.bat
 ```
 No Linux/macOS: `python -m pytest`.
 
-**Resultado esperado:** todos os testes passam (`164 passed` no `main`). Leva cerca de 3 a 10 minutos.
+**Resultado esperado:** todos os testes passam (`200 passed` no `main`). Leva cerca de 3 a 10 minutos.
 
 A suíte cobre:
 - motor NLHE, com o avaliador validado contra a `treys`;
@@ -57,7 +95,8 @@ A suíte cobre:
 - MCCFR;
 - estatística;
 - migrações do banco;
-- exportação para o Power BI.
+- exportação para o Power BI;
+- aplicação local: segurança do servidor, linha de comando, integridade e bancos intactos.
 
 Verificações de qualidade opcionais: `ruff check src tests scripts` e `mypy`.
 
@@ -103,9 +142,9 @@ python scripts\p7c_dev.py finalize 1
 ## 5. Verificar a integridade dos dados
 Sempre **antes** de olhar resultados:
 ```bat
-python scripts\p7c_integrity.py artifacts\p7c\final.db
+poker-lab verify --all --frozen
 ```
-Todas as verificações devem dar `"ok": true`:
+Ou use a tela **Verificar** do programa. O resultado esperado é **"INTEGRIDADE CONFIRMADA"** em cada execução presente e **"Artefatos congelados: íntegros"**. Nesta máquina de referência, as três avaliações levam cerca de 40 s. As verificações são:
 - completude contra a escala congelada;
 - pareamento de seeds (CRN);
 - um herói por torneio;
@@ -114,7 +153,7 @@ Todas as verificações devem dar `"ok": true`:
 - zero ações inválidas;
 - nenhum torneio duplicado.
 
-O script abre o banco **somente para leitura**.
+Os bancos são abertos **somente para leitura**. O script antigo `python scripts\p7c_integrity.py artifacts\p7c\final.db` continua funcionando.
 
 ## 6. Analisar os resultados
 
