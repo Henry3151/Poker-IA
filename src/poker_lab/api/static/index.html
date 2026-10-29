@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poker AI Tournament Lab</title>
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="mark" aria-hidden="true">♠</span>
+    <div>
+      <div class="name">Poker AI Tournament Lab</div>
+      <div class="sub">Laboratório local · unidades simuladas · sem dinheiro real</div>
+    </div>
+  </div>
+  <div class="status" aria-live="polite">
+    <span class="pill" id="agent-state" data-state="desconectado">Desconectado</span>
+    <span class="pill muted" id="online-state">Online: desativada</span>
+    <span class="pill muted" id="job-state" hidden>Tarefa em andamento</span>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Seções">
+  <a href="#inicio" data-route="inicio">Início</a>
+  <a href="#historico" data-route="historico">Histórico</a>
+  <a href="#analise" data-route="analise">Análise</a>
+  <a href="#config" data-route="config">Configurar</a>
+  <a href="#verificar" data-route="verificar">Verificar</a>
+</nav>
+
+<main>
+  <div class="banner error" id="auth-error" hidden>
+    Sem acesso: abra o programa pelo <b>iniciar_lab.bat</b> (o endereço com o código de acesso é aberto automaticamente).
+  </div>
+
+  <!-- INÍCIO -->
+  <section data-page="inicio" class="page">
+    <h1>O que você quer fazer?</h1>
+    <p class="lead">Champion atual: <b id="home-champion">—</b>. Use as opções abaixo; as marcadas como etapa futura ainda não estão habilitadas.</p>
+    <div class="tiles">
+      <a class="tile disabled" href="#inicio" data-stage="C" aria-disabled="true">
+        <span class="t-title">Iniciar simulação local</span>
+        <span class="t-desc">Torneios e sessões simuladas com o agente jogando sozinho.</span>
+        <span class="t-badge">etapa C</span>
+      </a>
+      <a class="tile disabled" href="#inicio" data-stage="E" aria-disabled="true">
+        <span class="t-title">Iniciar sessão online autorizada</span>
+        <span class="t-desc">Fichas virtuais, com confirmação explícita e controles de pausa e parada.</span>
+        <span class="t-badge">desativada · etapa E</span>
+      </a>
+      <a class="tile disabled" href="#inicio" data-stage="C" aria-disabled="true">
+        <span class="t-title">Acompanhar sessão ativa</span>
+        <span class="t-desc">Estado do agente, decisões ao vivo e botões Pausar, Retomar e Parada de emergência.</span>
+        <span class="t-badge">nenhuma sessão · etapa C</span>
+      </a>
+      <a class="tile" href="#historico">
+        <span class="t-title">Consultar histórico</span>
+        <span class="t-desc">Avaliações registradas (P7, P7b, P7c) e bancos locais. Mãos e sessões novas chegam na etapa C.</span>
+        <span class="t-badge ok">disponível</span>
+      </a>
+      <a class="tile" href="#analise">
+        <span class="t-title">Analisar desempenho</span>
+        <span class="t-desc">ROI com intervalo de confiança e comparação de versões dos relatórios congelados.</span>
+        <span class="t-badge ok">disponível</span>
+      </a>
+      <a class="tile" href="#config">
+        <span class="t-title">Configurar limites</span>
+        <span class="t-desc">Limites de tarefas, mãos e duração. Nenhum segredo é salvo.</span>
+        <span class="t-badge ok">disponível</span>
+      </a>
+      <a class="tile" href="#verificar">
+        <span class="t-title">Verificar sistema e dados</span>
+        <span class="t-desc">Dependências, artefatos congelados e integridade dos bancos.</span>
+        <span class="t-badge ok">disponível</span>
+      </a>
+    </div>
+    <div class="card">
+      <h2>Resumo rápido</h2>
+      <dl class="kv" id="home-summary"><dt>Carregando</dt><dd>—</dd></dl>
+    </div>
+  </section>
+
+  <!-- HISTÓRICO -->
+  <section data-page="historico" class="page" hidden>
+    <h1>Histórico</h1>
+    <p class="lead">Avaliações registradas e bancos encontrados nesta máquina. Tudo aqui é lido sem modificar os dados.</p>
+    <div class="card">
+      <h2>Avaliações</h2>
+      <div class="scroll"><table class="tbl" id="runs-table">
+        <thead><tr><th>Execução</th><th>Pergunta</th><th class="num">Seed</th><th class="num">Torneios</th><th class="num">Esperado</th><th>Banco</th><th>Decisões</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h2>Bancos locais</h2>
+      <div class="scroll"><table class="tbl" id="dbs-table">
+        <thead><tr><th>Arquivo</th><th class="num">Tamanho (MB)</th><th class="num">Schema</th><th>Congelado</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- ANÁLISE -->
+  <section data-page="analise" class="page" hidden>
+    <h1>Análise de desempenho</h1>
+    <div class="row">
+      <label for="an-run">Execução</label>
+      <select id="an-run"></select>
+      <label for="an-scen">Cenário</label>
+      <select id="an-scen"></select>
+    </div>
+    <div class="card">
+      <h2 id="an-title">—</h2>
+      <p class="note" id="an-note">—</p>
+      <div class="chart" id="an-roi-chart" role="img" aria-label="ROI por agente com intervalo de confiança"></div>
+      <div class="scroll"><table class="tbl" id="an-roi">
+        <thead><tr><th>Agente</th><th class="num">n</th><th class="num">ROI</th><th class="num">IC 95%</th><th>Veredito</th><th class="num">ITM</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="card">
+      <h2>Comparação com o champion da execução</h2>
+      <p class="note">Diferença pareada de lucro por torneio, em buy-ins, com as mesmas seeds. Onde houve regra de promoção, os valores são os do teste congelado. Inconclusivo não é equivalência.</p>
+      <div class="scroll"><table class="tbl" id="an-cmp">
+        <thead><tr><th>Agente</th><th class="num">Diferença</th><th class="num">IC 95%</th><th class="num">n</th><th class="num">p Holm</th><th>Relevância (δ 0,10)</th><th>Decisão</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- CONFIG -->
+  <section data-page="config" class="page" hidden>
+    <h1>Configurar limites</h1>
+    <p class="lead">Valores validados e salvos em <code>artifacts/lab/config.json</code>. Chaves, senhas e tokens são recusados e nunca gravados.</p>
+    <div class="card">
+      <h2>Simulação local</h2>
+      <div class="form">
+        <label for="c-tour">Máx. de torneios por tarefa (1–2000)</label><input id="c-tour" type="number" min="1" max="2000">
+        <label for="c-hands">Máx. de mãos por sessão (10–100000)</label><input id="c-hands" type="number" min="10" max="100000">
+        <label for="c-min">Duração máx. de uma tarefa, em minutos (1–1440)</label><input id="c-min" type="number" min="1" max="1440">
+        <label for="c-low">Rodar com prioridade baixa (mantém o PC leve)</label><input id="c-low" type="checkbox">
+      </div>
+    </div>
+    <div class="card">
+      <h2>Sessão online <span class="tag">desativada até a etapa E</span></h2>
+      <div class="form">
+        <label for="o-hands">Máx. de mãos por sessão (1–1000)</label><input id="o-hands" type="number" min="1" max="1000">
+        <label for="o-min">Duração máx., em minutos (1–480)</label><input id="o-min" type="number" min="1" max="480">
+        <label for="o-buy">Buy-in em fichas virtuais (1000–5000)</label><input id="o-buy" type="number" min="1000" max="5000">
+        <label for="o-margin">Margem de segurança para retomar, em segundos (1–30)</label><input id="o-margin" type="number" min="1" max="30" step="0.5">
+      </div>
+    </div>
+    <div class="row">
+      <button id="c-save" class="primary">Salvar</button>
+      <span id="c-msg" class="msg" role="status"></span>
+    </div>
+  </section>
+
+  <!-- VERIFICAR -->
+  <section data-page="verificar" class="page" hidden>
+    <h1>Verificar sistema e dados</h1>
+    <div class="grid2">
+      <div class="card">
+        <h2>Ambiente</h2>
+        <dl class="kv" id="v-env"><dt>Carregando</dt><dd>—</dd></dl>
+      </div>
+      <div class="card">
+        <h2>Artefatos congelados</h2>
+        <p class="note">Relatórios, checkpoints, tabelas, scripts das avaliações finais e o núcleo de simulação, comparados com <code>FROZEN.sha256</code>.</p>
+        <dl class="kv" id="v-frozen"><dt>Carregando</dt><dd>—</dd></dl>
+        <button id="v-frozen-btn">Verificar de novo</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Integridade das avaliações</h2>
+      <p class="note">Completude contra o protocolo congelado, pareamento de seeds, ledger, conservação do dinheiro e ações inválidas. Somente leitura; pode levar alguns minutos.</p>
+      <div class="scroll"><table class="tbl" id="v-runs">
+        <thead><tr><th>Execução</th><th>Banco</th><th class="num">Torneios</th><th>Contagem</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <pre class="log" id="v-job" hidden></pre>
+    </div>
+  </section>
+</main>
+<footer class="foot">Servidor local em 127.0.0.1 · acesso por código desta sessão · versão <span id="app-version">—</span></footer>
+<script src="/static/app.js"></script>
+</body>
+</html>
