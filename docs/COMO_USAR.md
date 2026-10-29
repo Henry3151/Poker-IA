@@ -33,6 +33,8 @@ Guia passo a passo para instalar, rodar, reproduzir as avaliações e **analisar
 4. Dê dois cliques em **`setup.bat`**, ou rode-o no terminal. No PowerShell, os arquivos da pasta atual precisam de `.\` na frente: **`.\setup.bat`**. Ele cria o ambiente `.venv`, instala as dependências fixadas em `requirements-dev.txt` e instala o pacote.
    - Leva de 2 a 5 minutos.
    - A mensagem final esperada é **"Instalação concluída"**.
+   - **PC mais leve / só quer usar o programa:** `.\setup.bat leve` instala só o necessário para rodar (sem as ferramentas de teste). Para rodar a suíte de testes depois, rode `.\setup.bat` completo.
+5. *(Opcional)* Dê dois cliques em **`criar_atalho.bat`** para ter o atalho **"Poker AI Lab"** na área de trabalho.
 
 ### Linux / macOS
 ```bash

@@ -5,7 +5,7 @@
 **Laboratório de pesquisa em agentes para No-Limit Hold'em 6-max: simulador de torneios MTT, MCCFR, avaliação estatística pareada e analytics para Power BI.**
 
 ![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-254%20passing-2ea44f)
+![Tests](https://img.shields.io/badge/tests-318%20passing-2ea44f)
 ![Typing](https://img.shields.io/badge/mypy-strict-1f5082)
 ![Lint](https://img.shields.io/badge/ruff-checked-d7ff64?logo=ruff&logoColor=black)
 ![SQLite](https://img.shields.io/badge/SQLite-migrations-003B57?logo=sqlite&logoColor=white)
@@ -28,7 +28,7 @@
 | **21.000** torneios avaliados | P7 (5.900) · P7b (9.100) · P7c (6.000), todos com seeds fixas e reproduzíveis |
 | **`hybrid-v1`** é o champion | promovido na P7b (+0,998 buy-in/torneio, p Holm 0,0015) e mantido na P7c |
 | **983** verificações de reconciliação | entre banco, exportação e relatório, com **0** divergências |
-| **254** testes | motor, agentes (incluindo invariância a cartas ocultas), MCCFR, estatística, migrações, exportação, aplicação local, controle de sessão (pausa/emergência/concorrência) e controle de qualidade |
+| **318** testes | motor, agentes (incluindo invariância a cartas ocultas), MCCFR, estatística, migrações, exportação, aplicação local, controle de sessão (pausa/emergência/concorrência), controle de qualidade, análise de decisões e integração online com servidor falso |
 | **0** ações inválidas | em todas as avaliações finais |
 
 ## Visão geral
@@ -290,9 +290,10 @@ artifacts/         checkpoints e tabelas de equity versionados; bancos e exporta
 
 **Windows**
 ```bat
-setup.bat                 :: cria .venv e instala dependências
+setup.bat                 :: cria .venv e instala dependências (setup.bat leve = só o programa)
 iniciar_lab.bat           :: abre a interface local no navegador
-run_tests.bat             :: suíte completa (254 testes)
+criar_atalho.bat          :: atalho "Poker AI Lab" na área de trabalho
+run_tests.bat             :: suíte completa (318 testes)
 run_demo.bat              :: MTT de 12 jogadores -> artifacts\demo.db
 run_p7c_evaluation.bat    :: avaliação de robustez completa (6.000 torneios)
 run_powerbi_export.bat    :: exportação reconciliada para o Power BI
@@ -328,7 +329,7 @@ poker-lab export powerbi              # exportação Power BI (exige os bancos d
 | P7b | Diagnóstico, melhorias e promoção do `hybrid-v1` | ✅ |
 | P7c | Robustez: oponentes adaptativos, blefadores, self-play (6.000 torneios); `hybrid-v1` mantido | ✅ |
 | P8 | Exportação Power BI reconciliada (983 verificações), kit DAX/Power Query e guia de montagem | ✅ |
-| P9 | Aplicação operacional ([`docs/P9_PLANO.md`](docs/P9_PLANO.md)): **B** interface local, linha de comando e verificações ✅ · **C** sessões autônomas na simulação com pausar/retomar/emergência e controle de qualidade estatístico ✅ · **D** análise de decisões por sessão ✅ · **E** integração online (fichas virtuais) no `main`, desativada na aplicação e iniciada só manualmente ✅ · **F** empacotamento ⏳ | 🔄 |
+| P9 | Aplicação operacional ([`docs/P9_PLANO.md`](docs/P9_PLANO.md)): **B** interface local, linha de comando e verificações ✅ · **C** sessões autônomas na simulação com pausar/retomar/emergência e controle de qualidade estatístico ✅ · **D** análise de decisões por sessão ✅ · **E** integração online (fichas virtuais) no `main`, desativada na aplicação e iniciada só manualmente ✅ · **F** empacotamento 1.0.0, instalação leve e atalho ✅ | ✅ |
 | P10 | Otimização | ⏳ |
 | P11 | Adaptador experimental para plataforma de bots com fichas virtuais (integrado ao `main`, desativado por padrão, testado só com servidor falso) | 🧪 testado localmente |
 

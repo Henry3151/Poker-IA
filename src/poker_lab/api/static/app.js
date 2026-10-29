@@ -57,7 +57,7 @@
 
   // ---------- status polling ----------
   const STATE_LABEL = {
-    desconectado: "Desconectado", conectado: "Conectado", aguardando: "Aguardando mão", jogando: "Jogando",
+    desconectado: "Sem sessão ativa", conectado: "Conectado", aguardando: "Aguardando mão", jogando: "Jogando",
     pausado: "Pausado", encerrado: "Encerrado", erro: "Erro", ocioso: "Ocioso", autonomo: "Autônomo",
     pausando: "Pausando…", supervisionado: "Pausado (supervisionado)", sincronizando: "Sincronizando",
     parado_qualidade: "Parado por qualidade", saindo_apos_mao: "Encerrando após a mão", emergencia: "Emergência",

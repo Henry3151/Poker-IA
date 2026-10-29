@@ -29,7 +29,7 @@ Este documento registra a auditoria feita antes da P9, o plano aprovado (etapas 
 | C | Motor de sessão autônoma com controles, aplicado à simulação local; acompanhamento ao vivo; histórico de mãos com painel "no momento da decisão" × "revelado depois" | **concluída** |
 | D | Avaliação de decisões, métricas (MTT e cash separados), controle de qualidade, recomendações transformadas em experimentos | **concluída (escopo enxuto)** |
 | E | Integração online autorizada (fichas virtuais), com todos os testes de controle no servidor falso antes de habilitar | **concluída (integrada e desativada na aplicação)** |
-| F | Empacotamento, atalho na área de trabalho e documentação final | aguardando |
+| F | Empacotamento, atalho na área de trabalho e documentação final | **concluída** |
 
 ## Etapa B: entregue
 - **Pacote `poker_lab.lab`:**
@@ -121,3 +121,19 @@ Este documento registra a auditoria feita antes da P9, o plano aprovado (etapas 
 - O que a aplicação mostra: estado da integração (instalada, `websockets` presente, kill switch), instruções de início/parada e a lista somente leitura das sessões gravadas em `artifacts/openpoker/online.db` (`GET /api/online/sessions`, `poker-lab online status`).
 - Testes novos (4): mesmo com `OPEN_POKER_ENABLED=1` e uma chave no ambiente, o status continua desativado, o início é recusado e a chave não aparece em nenhuma resposta; kill switch reportado; leitura de `online.db` sem alterar o arquivo; CLI sem conexão e sem a chave.
 - Diferença em relação ao plano original: a sessão online não passa pelo controlador de sessão da etapa C; ela usa os controles próprios da P11 (pausa até snapshot consistente, token de turno, kill switch, limites). Unificar os dois controladores fica como evolução, a ser feita só depois do primeiro teste manual.
+
+## Etapa F: entregue
+- Versão **1.0.0** (`pyproject.toml`, `poker_lab.__version__`, rodapé da interface).
+- `setup.bat leve`: instala só as dependências de execução (`requirements.txt`), sem as ferramentas de teste, para PCs mais modestos; `setup.bat` continua completo. Instalação com `--no-cache-dir` para não encher o disco.
+- `criar_atalho.bat`: atalho "Poker AI Lab" na área de trabalho, apontando para `iniciar_lab.bat`.
+- Verificação de instalação limpa: clone novo, ambiente novo só com `requirements.txt`, `poker-lab doctor` (ok), `poker-lab sim run` (ok), `poker-lab online status` (desativada, sem conexão) e a interface respondendo em 127.0.0.1.
+
+### Verificação final (P9 completa)
+| Verificação | Resultado |
+|---|---|
+| Suíte completa | **318 testes passando** (inclui os 56 da integração online, todos com servidor falso) |
+| ruff / mypy strict | sem erros / sem erros (90 arquivos) |
+| Artefatos congelados | `FROZEN.sha256` íntegro (73 arquivos) |
+| Bancos e relatórios das avaliações (32 arquivos) | sha256 idêntico ao baseline registrado antes da etapa B |
+| Interface | 7 telas sem erros de console, sem rolagem horizontal em 1200 px e 390 px |
+| Conexão online | nenhuma feita durante o desenvolvimento |
