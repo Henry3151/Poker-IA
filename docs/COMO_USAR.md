@@ -8,6 +8,7 @@ Guia passo a passo para instalar, rodar, reproduzir as avaliações e **analisar
 
 ## Sumário
 1. [Instalação](#1-instalação) · [Abrir o programa](#abrir-o-programa-interface-no-navegador) · [Linha de comando](#linha-de-comando-poker-lab)
+   · [Sessões autônomas de simulação](#sessões-autônomas-de-simulação-local)
 2. [Testes](#2-testes-confirme-que-está-tudo-certo)
 3. [Primeiro torneio (demonstração)](#3-primeiro-torneio-demonstração)
 4. [Reproduzir as avaliações (P7, P7b, P7c)](#4-reproduzir-as-avaliações)
@@ -51,16 +52,39 @@ O programa abre o navegador em `http://127.0.0.1:<porta>/`. O servidor **só ace
 **Telas disponíveis**
 | Tela | O que faz |
 |---|---|
-| **Início** | Os 7 acessos (simulação, sessão online, sessão ativa, histórico, análise, configurar, verificar), o champion atual, um resumo das avaliações e o indicador de estado do agente (desconectado, conectado, aguardando mão, jogando, pausado, encerrado) |
+| **Início** | Os acessos (simulação, sessão online, sessão ativa, sessões, avaliações, análise, configurar, verificar), o champion atual, um resumo das avaliações e o indicador de estado do agente |
+| **Simulação** | Inicia uma sessão autônoma local e acompanha ao vivo: progresso, controles, qualidade das decisões, bb/100 por posição e por adversário, últimas decisões |
+| **Sessões** | Histórico das sessões locais, lista de mãos e visualizador de mão ("no momento da decisão" × "revelado após a mão") |
 | **Histórico** | Avaliações registradas (P7, P7b, P7c) e bancos encontrados em `artifacts/`, só para consulta |
 | **Análise** | ROI com IC 95% por agente (gráfico e tabela) e comparação pareada contra o champion, com p Holm e relevância, por execução e cenário. Números lidos dos relatórios congelados |
 | **Configurar** | Limites de tarefas, mãos e duração, salvos em `artifacts/lab/config.json`. **Chaves, senhas e tokens são recusados** |
 | **Verificar** | Python e dependências, artefatos congelados (`FROZEN.sha256`) e integridade completa de cada avaliação |
 
-**Ainda indisponível**, e marcado na tela como tal:
-- simulação local e sessão ativa (etapa C);
-- análise de decisões (etapa D);
-- **sessão online, desativada** (etapa E).
+**Ainda indisponível**, e marcado na tela como tal: **sessão online, desativada** (etapa E; o primeiro teste online é sempre iniciado manualmente pelo usuário, com fichas virtuais).
+
+### Sessões autônomas de simulação local
+1. Abra a tela **Simulação**.
+2. Escolha mãos, seed, stack inicial (em big blinds), ante e até 5 adversários simulados (`tag`, `lag`, `nit`, `station`, `random`, `adaptive_tag`, `adaptive_lag`, `bluffer40`, `bluffer60`, `maniac`).
+3. Marque a confirmação e clique em **Iniciar sessão**. A partir daí o champion (`hybrid-v1`, política congelada; o sha256 aparece na tela) joga **sozinho**, sem pedir aprovação a cada mão.
+4. Controles:
+
+| Botão | Efeito |
+|---|---|
+| **Pausar bot** | Fecha a porta de ação na hora. Se havia um cálculo em andamento, o resultado é **descartado**. "Pausado (supervisionado)" só aparece quando não há mais nenhuma ação em envio; depois disso nada é enviado |
+| **Retomar bot** | Confere o estado da mesa (conservação das fichas) e a política (sha256) e só então volta ao modo autônomo; decisões calculadas antes da pausa nunca são reaproveitadas |
+| **Encerrar após a mão** | Termina a mão atual e encerra |
+| **Parada de emergência** | Interrompe imediatamente (menos de 1 s nos testes); a mão em curso é marcada como interrompida e nada mais é enviado |
+
+5. **Controle de qualidade.** Cada decisão do agente é classificada como *adequada*, *provável erro estratégico*, *erro técnico* ou *inconclusiva*:
+   - só há referência validada para spots **heads-up de push/fold** (SB sem ninguém ter entrado, ou BB contra all-in do SB) perto dos contextos treinados (5–20 bb). Ali a decisão é comparada com o equilíbrio do checkpoint pelo EV em big blinds (adequada se perder no máximo 0,10 bb; provável erro se perder 0,50 bb ou mais; entre os dois, inconclusiva);
+   - todo o resto é **inconclusivo** e fica fora da janela de qualidade: concordar com "ranges plausíveis" não basta para chamar uma decisão de correta;
+   - **o resultado da mão nunca é usado** para julgar a decisão (testado);
+   - janela móvel de até 100 decisões avaliáveis, mínimo de 50, checagem a cada 25. A sessão **para sozinha** se o limite inferior unilateral de 99% (Clopper–Pearson) da taxa de erro passar de 25%, ou se o limite inferior ficar acima de 20% em 3 checagens seguidas, ou ainda por falhas técnicas (2 ações inválidas ou 2 exceções em 100 decisões; 3 timeouts seguidos). Em 100 decisões, a parada exige **36 erros** ou mais;
+   - para retomar após uma parada por qualidade é preciso **marcar "Revisei o relatório" e escrever uma nota**;
+   - a meta de 75% de adequadas é um alvo operacional experimental, **não garantia de lucro**.
+6. Em **Sessões**, clique numa sessão e depois numa mão para ver cada decisão com a observação daquele momento, a classificação, o EV estimado (quando há referência), a confiança e as limitações; à direita, as cartas reveladas depois da mão.
+
+Os dados vão para um banco **novo e separado**, `artifacts/lab/sessions.db`; os bancos e relatórios das avaliações nunca são tocados. A mesma seed reproduz a mesma sessão.
 
 ### Linha de comando (`poker-lab`)
 Com o ambiente ativo (`.venv\Scripts\activate` no Windows, `source .venv/bin/activate` no Linux/macOS):
@@ -76,6 +100,8 @@ Com o ambiente ativo (`.venv\Scripts\activate` no Windows, `source .venv/bin/act
 | `poker-lab config show` | Limites atuais | não |
 | `poker-lab export powerbi` | Exportação reconciliada (passo 7) | só em `--out`; recusa pastas protegidas |
 | `poker-lab doctor` | Só o ambiente | não |
+| `poker-lab sim run --hands 500 --seed 1 --yes` | Sessão autônoma local no terminal (`Ctrl+C` = parada de emergência) | só em `artifacts/lab/sessions.db` |
+| `poker-lab sessions list` · `sessions show <id>` | Histórico de sessões, métricas e eventos de controle | não |
 
 - Todos os comandos aceitam `--json` e `--help`.
 - Códigos de saída: **0** ok, **1** verificação falhou, **2** erro de uso.
@@ -86,7 +112,7 @@ run_tests.bat
 ```
 No Linux/macOS: `python -m pytest`.
 
-**Resultado esperado:** todos os testes passam (`200 passed` no `main`). Leva cerca de 3 a 10 minutos.
+**Resultado esperado:** todos os testes passam (`254 passed` no `main`). Leva cerca de 3 a 10 minutos.
 
 A suíte cobre:
 - motor NLHE, com o avaliador validado contra a `treys`;

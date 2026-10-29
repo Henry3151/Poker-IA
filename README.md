@@ -5,7 +5,7 @@
 **Laboratório de pesquisa em agentes para No-Limit Hold'em 6-max: simulador de torneios MTT, MCCFR, avaliação estatística pareada e analytics para Power BI.**
 
 ![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-200%20passing-2ea44f)
+![Tests](https://img.shields.io/badge/tests-254%20passing-2ea44f)
 ![Typing](https://img.shields.io/badge/mypy-strict-1f5082)
 ![Lint](https://img.shields.io/badge/ruff-checked-d7ff64?logo=ruff&logoColor=black)
 ![SQLite](https://img.shields.io/badge/SQLite-migrations-003B57?logo=sqlite&logoColor=white)
@@ -28,7 +28,7 @@
 | **21.000** torneios avaliados | P7 (5.900) · P7b (9.100) · P7c (6.000), todos com seeds fixas e reproduzíveis |
 | **`hybrid-v1`** é o champion | promovido na P7b (+0,998 buy-in/torneio, p Holm 0,0015) e mantido na P7c |
 | **983** verificações de reconciliação | entre banco, exportação e relatório, com **0** divergências |
-| **200** testes | motor, agentes (incluindo invariância a cartas ocultas), MCCFR, estatística, migrações, exportação e aplicação local |
+| **254** testes | motor, agentes (incluindo invariância a cartas ocultas), MCCFR, estatística, migrações, exportação, aplicação local, controle de sessão (pausa/emergência/concorrência) e controle de qualidade |
 | **0** ações inválidas | em todas as avaliações finais |
 
 ## Visão geral
@@ -286,13 +286,13 @@ artifacts/         checkpoints e tabelas de equity versionados; bancos e exporta
 
 > **Guia completo, passo a passo:** [`docs/COMO_USAR.md`](docs/COMO_USAR.md). Ele cobre instalação, testes, reprodução das avaliações, verificação de integridade, como analisar os resultados e o Power BI.
 
-**Aplicação (interface no navegador):** dê dois cliques em `iniciar_lab.bat` (no PowerShell: `.\iniciar_lab.bat`) (Linux/macOS: `./iniciar_lab.sh`). O servidor roda só nesta máquina (127.0.0.1) com código de acesso por sessão. As telas atuais são Início, Histórico, Análise, Configurar e Verificar.
+**Aplicação (interface no navegador):** dê dois cliques em `iniciar_lab.bat` (no PowerShell: `.\iniciar_lab.bat`) (Linux/macOS: `./iniciar_lab.sh`). O servidor roda só nesta máquina (127.0.0.1) com código de acesso por sessão. As telas são Início, **Simulação** (sessão autônoma local com Pausar, Retomar, Encerrar e Parada de emergência, controle de qualidade estatístico e resultados ao vivo), **Sessões** (histórico mão a mão), Histórico, Análise, Configurar e Verificar. A sessão online continua desativada.
 
 **Windows**
 ```bat
 setup.bat                 :: cria .venv e instala dependências
 iniciar_lab.bat           :: abre a interface local no navegador
-run_tests.bat             :: suíte completa (200 testes)
+run_tests.bat             :: suíte completa (254 testes)
 run_demo.bat              :: MTT de 12 jogadores -> artifacts\demo.db
 run_p7c_evaluation.bat    :: avaliação de robustez completa (6.000 torneios)
 run_powerbi_export.bat    :: exportação reconciliada para o Power BI
@@ -307,6 +307,8 @@ python scripts/demo.py                # torneio de demonstração
 poker-lab info                        # ambiente, champion e estado dos artefatos congelados
 poker-lab runs show P7c               # resumo de uma avaliação
 poker-lab verify --all --frozen       # integridade (somente leitura)
+poker-lab sim run --hands 500 --yes   # sessão autônoma local (Ctrl+C = parada de emergência)
+poker-lab sessions list               # histórico das sessões locais
 poker-lab export powerbi              # exportação Power BI (exige os bancos das avaliações)
 ```
 
@@ -326,7 +328,7 @@ poker-lab export powerbi              # exportação Power BI (exige os bancos d
 | P7b | Diagnóstico, melhorias e promoção do `hybrid-v1` | ✅ |
 | P7c | Robustez: oponentes adaptativos, blefadores, self-play (6.000 torneios); `hybrid-v1` mantido | ✅ |
 | P8 | Exportação Power BI reconciliada (983 verificações), kit DAX/Power Query e guia de montagem | ✅ |
-| P9 | Aplicação operacional ([`docs/P9_PLANO.md`](docs/P9_PLANO.md)): **B** interface local, linha de comando e verificações ✅ · **C** sessões autônomas na simulação com pausar/retomar/emergência e controle de qualidade estatístico 🔄 · **D** análise de decisões ⏳ · **E** online (fichas virtuais, desligado por padrão) ⏳ · **F** empacotamento ⏳ | 🔄 |
+| P9 | Aplicação operacional ([`docs/P9_PLANO.md`](docs/P9_PLANO.md)): **B** interface local, linha de comando e verificações ✅ · **C** sessões autônomas na simulação com pausar/retomar/emergência e controle de qualidade estatístico ✅ · **D** análise de decisões ⏳ · **E** online (fichas virtuais, desligado por padrão) ⏳ · **F** empacotamento ⏳ | 🔄 |
 | P10 | Otimização | ⏳ |
 | P11 | Adaptador experimental para plataforma de bots com fichas virtuais (branch `p11-openpoker`) | 🧪 testado localmente |
 
