@@ -1,0 +1,134 @@
+// Gerado por scripts/build_powerbi_kit.py a partir de powerbi/measures.dax — não edite à mão.
+// Power BI Desktop > Exibição de consulta DAX > cole tudo > clique em 'Atualizar modelo: Adicionar novas medidas'.
+// Pré-requisito: uma tabela chamada _Medidas (Página Inicial > Inserir dados > tabela vazia > nome _Medidas).
+DEFINE
+    MEASURE '_Medidas'[Torneios Hero] =
+        CALCULATE ( DISTINCTCOUNT ( FactEntryResult[TournamentId] ), FactEntryResult[Role] = "hero" )
+    MEASURE '_Medidas'[Custo Hero] =
+        CALCULATE ( SUM ( FactEntryResult[Cost] ), FactEntryResult[Role] = "hero" )
+    MEASURE '_Medidas'[Prêmios Hero] =
+        CALCULATE ( SUM ( FactEntryResult[Payout] ), FactEntryResult[Role] = "hero" )
+    MEASURE '_Medidas'[Lucro Hero] =
+        CALCULATE ( SUM ( FactEntryResult[NetProfit] ), FactEntryResult[Role] = "hero" )
+    MEASURE '_Medidas'[ROI Agregado] =
+        DIVIDE ( [Lucro Hero], [Custo Hero] )
+    MEASURE '_Medidas'[ITM %] =
+        DIVIDE ( CALCULATE ( SUM ( FactEntryResult[ITM] ), FactEntryResult[Role] = "hero" ), [Torneios Hero] )
+    MEASURE '_Medidas'[Vitórias] =
+        CALCULATE ( COUNTROWS ( FactEntryResult ), FactEntryResult[Role] = "hero", FactEntryResult[FinalPlace] = 1 )
+    MEASURE '_Medidas'[Lucro por Torneio (buy-ins)] =
+        CALCULATE ( AVERAGE ( FactEntryResult[NetBuyIns] ), FactEntryResult[Role] = "hero" )
+    MEASURE '_Medidas'[ROI Campo Igual (referência)] =
+        - DIVIDE ( 10, 110 )
+    MEASURE '_Medidas'[Contexto Único] =
+        HASONEVALUE ( DimScenario[ScenarioKey] ) && HASONEVALUE ( DimCandidate[CandidateKey] )
+    MEASURE '_Medidas'[ROI (relatório)] =
+        IF ( [Contexto Único], MIN ( FactScenarioSummary[Roi] ) )
+    MEASURE '_Medidas'[ROI IC Inferior] =
+        IF ( [Contexto Único], MIN ( FactScenarioSummary[RoiCiLow] ) )
+    MEASURE '_Medidas'[ROI IC Superior] =
+        IF ( [Contexto Único], MAX ( FactScenarioSummary[RoiCiHigh] ) )
+    MEASURE '_Medidas'[ROI Veredito] =
+        IF ( [Contexto Único], SELECTEDVALUE ( FactScenarioSummary[RoiVerdict] ) )
+    MEASURE '_Medidas'[N Torneios (relatório)] =
+        IF ( [Contexto Único], MIN ( FactScenarioSummary[NTournaments] ) )
+    MEASURE '_Medidas'[Amostra Suficiente] =
+        IF ( [N Torneios (relatório)] >= 200, "sim", "insuficiente (n < 200)" )
+    MEASURE '_Medidas'[ROI ± texto] =
+        IF (
+                [Contexto Único],
+                FORMAT ( [ROI (relatório)], "+0.0%;-0.0%" ) & "  [" & FORMAT ( [ROI IC Inferior], "+0.0%;-0.0%" ) & "; "
+                    & FORMAT ( [ROI IC Superior], "+0.0%;-0.0%" ) & "]"
+            )
+    MEASURE '_Medidas'[Checagem ROI (linhas − relatório)] =
+        IF ( [Contexto Único], [ROI Agregado] - [ROI (relatório)] )
+    MEASURE '_Medidas'[Delta Relevância (buy-ins)] =
+        0.10
+    MEASURE '_Medidas'[Diferença Pareada] =
+        IF (
+                [Contexto Único],
+                VAR t = MIN ( FactPairedComparison[DecisionTestEstimate] )
+                RETURN IF ( ISBLANK ( t ), MIN ( FactPairedComparison[Diff] ), t )
+            )
+    MEASURE '_Medidas'[Diferença IC Inferior] =
+        IF (
+                [Contexto Único],
+                VAR t = MIN ( FactPairedComparison[DecisionTestCiLow] )
+                RETURN IF ( ISBLANK ( t ), MIN ( FactPairedComparison[DiffCiLow] ), t )
+            )
+    MEASURE '_Medidas'[Diferença IC Superior] =
+        IF (
+                [Contexto Único],
+                VAR t = MAX ( FactPairedComparison[DecisionTestCiHigh] )
+                RETURN IF ( ISBLANK ( t ), MAX ( FactPairedComparison[DiffCiHigh] ), t )
+            )
+    MEASURE '_Medidas'[p Holm] =
+        IF ( [Contexto Único], MIN ( FactPairedComparison[PHolm] ) )
+    MEASURE '_Medidas'[Decisão de Promoção] =
+        IF ( HASONEVALUE ( DimCandidate[CandidateKey] ), SELECTEDVALUE ( DimCandidate[PromotionDecision] ) )
+    MEASURE '_Medidas'[Relevância Prática] =
+        VAR lo = [Diferença IC Inferior]
+            VAR hi = [Diferença IC Superior]
+            VAR d = [Delta Relevância (buy-ins)]
+            RETURN
+                SWITCH (
+                    TRUE (),
+                    ISBLANK ( lo ), BLANK (),
+                    lo > d, "melhora relevante",
+                    hi < -d, "piora relevante",
+                    lo > -d && hi < d, "equivalência prática",
+                    lo > 0, "melhora (relevância incerta)",
+                    hi < 0, "piora (relevância incerta)",
+                    "inconclusivo (≠ equivalência)"
+                )
+    MEASURE '_Medidas'[Mãos Hero] =
+        COUNTROWS ( FactHandHero )
+    MEASURE '_Medidas'[bb por Mão] =
+        DIVIDE ( SUM ( FactHandHero[NetBB] ), [Mãos Hero] )
+    MEASURE '_Medidas'[bb por 100 Mãos] =
+        [bb por Mão] * 100
+    MEASURE '_Medidas'[Mãos All-in] =
+        CALCULATE ( COUNTROWS ( FactHandHero ), FactHandHero[AllIn] = 1 )
+    MEASURE '_Medidas'[Sorte All-in (bb por all-in)] =
+        CALCULATE ( AVERAGE ( FactHandHero[LuckBB] ), FactHandHero[AllIn] = 1 )
+    MEASURE '_Medidas'[Showdown %] =
+        DIVIDE ( SUM ( FactHandHero[WentToShowdown] ), [Mãos Hero] )
+    MEASURE '_Medidas'[Vitória no Showdown %] =
+        DIVIDE ( SUM ( FactHandHero[WonAtShowdown] ), SUM ( FactHandHero[WentToShowdown] ) )
+    MEASURE '_Medidas'[bb por Mão IC Inferior] =
+        IF ( HASONEVALUE ( FactBreakdownCI[Group] ), MIN ( FactBreakdownCI[BBPerHandCiLow] ) )
+    MEASURE '_Medidas'[bb por Mão IC Superior] =
+        IF ( HASONEVALUE ( FactBreakdownCI[Group] ), MAX ( FactBreakdownCI[BBPerHandCiHigh] ) )
+    MEASURE '_Medidas'[Decisões] =
+        COUNTROWS ( FactDecision )
+    MEASURE '_Medidas'[% Fold] =
+        DIVIDE ( CALCULATE ( [Decisões], FactDecision[Action] = "fold" ), [Decisões] )
+    MEASURE '_Medidas'[% Check/Call] =
+        DIVIDE ( CALCULATE ( [Decisões], FactDecision[Action] IN { "check", "call" } ), [Decisões] )
+    MEASURE '_Medidas'[% Bet/Raise] =
+        DIVIDE ( CALCULATE ( [Decisões], FactDecision[Action] IN { "bet", "raise" } ), [Decisões] )
+    MEASURE '_Medidas'[Ações Inválidas] =
+        CALCULATE ( [Decisões], FactDecision[Valid] = 0 )
+    MEASURE '_Medidas'[Fallbacks] =
+        CALCULATE ( [Decisões], FactDecision[Fallback] = 1 )
+    MEASURE '_Medidas'[Margem Equity − Pot Odds] =
+        AVERAGE ( FactDecision[EquityMinusPotOdds] )
+    MEASURE '_Medidas'[Latência Média (ms)] =
+        AVERAGE ( FactDecision[LatencyMs] )
+    MEASURE '_Medidas'[Taxa de Steal] =
+        IF ( [Contexto Único], MIN ( FactSteal[StealRate] ) )
+    MEASURE '_Medidas'[Lucro por Steal (bb)] =
+        IF ( [Contexto Único], MIN ( FactSteal[NetPerSteal] ) )
+    MEASURE '_Medidas'[Lucro por Steal IC Inferior] =
+        IF ( [Contexto Único], MIN ( FactSteal[NetPerStealCiLow] ) )
+    MEASURE '_Medidas'[Lucro por Steal IC Superior] =
+        IF ( [Contexto Único], MAX ( FactSteal[NetPerStealCiHigh] ) )
+    MEASURE '_Medidas'[Problemas de Auditoria] =
+        COUNTROWS ( FactAudit )
+    MEASURE '_Medidas'[Saldo Ledger Hero] =
+        CALCULATE ( SUM ( FactLedger[Amount] ), FactLedger[Role] = "hero" )
+    MEASURE '_Medidas'[Checagem Ledger (deve ser 0)] =
+        [Saldo Ledger Hero] - [Lucro Hero]
+
+EVALUATE
+    ROW ( "Medidas definidas", 49 )

@@ -1,0 +1,108 @@
+-- =====================================================================================
+-- Poker AI Tournament Lab — medidas DAX (P8)
+-- Regras:
+--  * Intervalos de confiança, p-valores e vereditos NÃO são calculados em DAX: vêm prontos
+--    das tabelas Fact*Summary / FactPairedComparison / FactBreakdownCI (relatórios congelados).
+--  * Medidas de IC só fazem sentido com 1 cenário x 1 candidato no contexto: retornam BLANK
+--    caso contrário (guarda HASONEVALUE), para nunca exibir um IC "agregado" falso.
+--  * Unidades simuladas (SIM). Nenhum valor representa dinheiro real.
+-- Crie uma tabela vazia "_Medidas" e cole cada medida nela (ou use o script TMDL).
+-- =====================================================================================
+
+-- ---------- Resultado financeiro (calculado das linhas; reconcilia com o relatório) ----------
+Torneios Hero = CALCULATE ( DISTINCTCOUNT ( FactEntryResult[TournamentId] ), FactEntryResult[Role] = "hero" )
+Custo Hero = CALCULATE ( SUM ( FactEntryResult[Cost] ), FactEntryResult[Role] = "hero" )
+Prêmios Hero = CALCULATE ( SUM ( FactEntryResult[Payout] ), FactEntryResult[Role] = "hero" )
+Lucro Hero = CALCULATE ( SUM ( FactEntryResult[NetProfit] ), FactEntryResult[Role] = "hero" )
+ROI Agregado = DIVIDE ( [Lucro Hero], [Custo Hero] )
+ITM % = DIVIDE ( CALCULATE ( SUM ( FactEntryResult[ITM] ), FactEntryResult[Role] = "hero" ), [Torneios Hero] )
+Vitórias = CALCULATE ( COUNTROWS ( FactEntryResult ), FactEntryResult[Role] = "hero", FactEntryResult[FinalPlace] = 1 )
+Lucro por Torneio (buy-ins) = CALCULATE ( AVERAGE ( FactEntryResult[NetBuyIns] ), FactEntryResult[Role] = "hero" )
+ROI Campo Igual (referência) = - DIVIDE ( 10, 110 )   -- só a taxa: 100 de buy-in + 10 de taxa
+
+-- ---------- Estatística pronta (relatório congelado) ----------
+Contexto Único = HASONEVALUE ( DimScenario[ScenarioKey] ) && HASONEVALUE ( DimCandidate[CandidateKey] )
+ROI (relatório) = IF ( [Contexto Único], MIN ( FactScenarioSummary[Roi] ) )
+ROI IC Inferior = IF ( [Contexto Único], MIN ( FactScenarioSummary[RoiCiLow] ) )
+ROI IC Superior = IF ( [Contexto Único], MAX ( FactScenarioSummary[RoiCiHigh] ) )
+ROI Veredito = IF ( [Contexto Único], SELECTEDVALUE ( FactScenarioSummary[RoiVerdict] ) )
+N Torneios (relatório) = IF ( [Contexto Único], MIN ( FactScenarioSummary[NTournaments] ) )
+Amostra Suficiente = IF ( [N Torneios (relatório)] >= 200, "sim", "insuficiente (n < 200)" )
+ROI ± texto =
+    IF (
+        [Contexto Único],
+        FORMAT ( [ROI (relatório)], "+0.0%;-0.0%" ) & "  [" & FORMAT ( [ROI IC Inferior], "+0.0%;-0.0%" ) & "; "
+            & FORMAT ( [ROI IC Superior], "+0.0%;-0.0%" ) & "]"
+    )
+Checagem ROI (linhas − relatório) = IF ( [Contexto Único], [ROI Agregado] - [ROI (relatório)] )   -- deve ser 0,0000
+
+-- ---------- Comparação pareada (champion/baseline × desafiante) ----------
+Delta Relevância (buy-ins) = 0.10
+-- usa o teste da regra de decisão quando existe (IsDecisionTest = 1); senão, a comparação descritiva
+Diferença Pareada =
+    IF (
+        [Contexto Único],
+        VAR t = MIN ( FactPairedComparison[DecisionTestEstimate] )
+        RETURN IF ( ISBLANK ( t ), MIN ( FactPairedComparison[Diff] ), t )
+    )
+Diferença IC Inferior =
+    IF (
+        [Contexto Único],
+        VAR t = MIN ( FactPairedComparison[DecisionTestCiLow] )
+        RETURN IF ( ISBLANK ( t ), MIN ( FactPairedComparison[DiffCiLow] ), t )
+    )
+Diferença IC Superior =
+    IF (
+        [Contexto Único],
+        VAR t = MAX ( FactPairedComparison[DecisionTestCiHigh] )
+        RETURN IF ( ISBLANK ( t ), MAX ( FactPairedComparison[DiffCiHigh] ), t )
+    )
+p Holm = IF ( [Contexto Único], MIN ( FactPairedComparison[PHolm] ) )
+Decisão de Promoção = IF ( HASONEVALUE ( DimCandidate[CandidateKey] ), SELECTEDVALUE ( DimCandidate[PromotionDecision] ) )
+Relevância Prática =
+    VAR lo = [Diferença IC Inferior]
+    VAR hi = [Diferença IC Superior]
+    VAR d = [Delta Relevância (buy-ins)]
+    RETURN
+        SWITCH (
+            TRUE (),
+            ISBLANK ( lo ), BLANK (),
+            lo > d, "melhora relevante",
+            hi < -d, "piora relevante",
+            lo > -d && hi < d, "equivalência prática",
+            lo > 0, "melhora (relevância incerta)",
+            hi < 0, "piora (relevância incerta)",
+            "inconclusivo (≠ equivalência)"
+        )
+
+-- ---------- Mãos, posição e stack ----------
+Mãos Hero = COUNTROWS ( FactHandHero )
+bb por Mão = DIVIDE ( SUM ( FactHandHero[NetBB] ), [Mãos Hero] )
+bb por 100 Mãos = [bb por Mão] * 100
+Mãos All-in = CALCULATE ( COUNTROWS ( FactHandHero ), FactHandHero[AllIn] = 1 )
+Sorte All-in (bb por all-in) = CALCULATE ( AVERAGE ( FactHandHero[LuckBB] ), FactHandHero[AllIn] = 1 )
+Showdown % = DIVIDE ( SUM ( FactHandHero[WentToShowdown] ), [Mãos Hero] )
+Vitória no Showdown % = DIVIDE ( SUM ( FactHandHero[WonAtShowdown] ), SUM ( FactHandHero[WentToShowdown] ) )
+bb por Mão IC Inferior = IF ( HASONEVALUE ( FactBreakdownCI[Group] ), MIN ( FactBreakdownCI[BBPerHandCiLow] ) )
+bb por Mão IC Superior = IF ( HASONEVALUE ( FactBreakdownCI[Group] ), MAX ( FactBreakdownCI[BBPerHandCiHigh] ) )
+
+-- ---------- Decisões ----------
+Decisões = COUNTROWS ( FactDecision )
+% Fold = DIVIDE ( CALCULATE ( [Decisões], FactDecision[Action] = "fold" ), [Decisões] )
+% Check/Call = DIVIDE ( CALCULATE ( [Decisões], FactDecision[Action] IN { "check", "call" } ), [Decisões] )
+% Bet/Raise = DIVIDE ( CALCULATE ( [Decisões], FactDecision[Action] IN { "bet", "raise" } ), [Decisões] )
+Ações Inválidas = CALCULATE ( [Decisões], FactDecision[Valid] = 0 )
+Fallbacks = CALCULATE ( [Decisões], FactDecision[Fallback] = 1 )
+Margem Equity − Pot Odds = AVERAGE ( FactDecision[EquityMinusPotOdds] )
+Latência Média (ms) = AVERAGE ( FactDecision[LatencyMs] )
+
+-- ---------- Steal (P7c) ----------
+Taxa de Steal = IF ( [Contexto Único], MIN ( FactSteal[StealRate] ) )
+Lucro por Steal (bb) = IF ( [Contexto Único], MIN ( FactSteal[NetPerSteal] ) )
+Lucro por Steal IC Inferior = IF ( [Contexto Único], MIN ( FactSteal[NetPerStealCiLow] ) )
+Lucro por Steal IC Superior = IF ( [Contexto Único], MAX ( FactSteal[NetPerStealCiHigh] ) )
+
+-- ---------- Auditoria ----------
+Problemas de Auditoria = COUNTROWS ( FactAudit )
+Saldo Ledger Hero = CALCULATE ( SUM ( FactLedger[Amount] ), FactLedger[Role] = "hero" )
+Checagem Ledger (deve ser 0) = [Saldo Ledger Hero] - [Lucro Hero]
