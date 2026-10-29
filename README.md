@@ -5,14 +5,14 @@
 **Laboratório de pesquisa em agentes para No-Limit Hold'em 6-max: simulador de torneios MTT, MCCFR, avaliação estatística pareada e analytics para Power BI.**
 
 ![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-157%20passing-2ea44f)
+![Tests](https://img.shields.io/badge/tests-164%20passing-2ea44f)
 ![Typing](https://img.shields.io/badge/mypy-strict-1f5082)
 ![Lint](https://img.shields.io/badge/ruff-checked-d7ff64?logo=ruff&logoColor=black)
 ![SQLite](https://img.shields.io/badge/SQLite-migrations-003B57?logo=sqlite&logoColor=white)
 ![Power BI](https://img.shields.io/badge/Power%20BI-ready-F2C811?logo=powerbi&logoColor=black)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-[Visão geral](#visão-geral) · [Resultados](#resultados) · [Arquitetura](#arquitetura) · [Metodologia](#metodologia-de-avaliação) · [Como rodar](#como-rodar) · [Roadmap](#roadmap)
+[**Como usar (passo a passo)**](docs/COMO_USAR.md) · [Visão geral](#visão-geral) · [Resultados](#resultados) · [Arquitetura](#arquitetura) · [Metodologia](#metodologia-de-avaliação) · [Como rodar](#como-rodar) · [Roadmap](#roadmap)
 
 </div>
 
@@ -220,11 +220,15 @@ powerbi/           especificação do modelo semântico e medidas DAX
 
 ## Como rodar
 
+> **Guia completo, passo a passo:** [`docs/COMO_USAR.md`](docs/COMO_USAR.md). Ele cobre instalação, testes, reprodução das avaliações, verificação de integridade, como analisar os resultados e o Power BI.
+
 **Windows**
 ```bat
-setup.bat              :: cria .venv e instala dependências
-run_tests.bat          :: suíte completa
-run_demo.bat           :: MTT de 12 jogadores -> artifacts\demo.db
+setup.bat                 :: cria .venv e instala dependências
+run_tests.bat             :: suíte completa (164 testes)
+run_demo.bat              :: MTT de 12 jogadores -> artifacts\demo.db
+run_p7c_evaluation.bat    :: avaliação de robustez completa (6.000 torneios)
+run_powerbi_export.bat    :: exportação reconciliada para o Power BI
 ```
 
 **Linux / macOS**
@@ -233,10 +237,10 @@ python3.12 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt && pip install -e . --no-deps
 python -m pytest                      # testes
 python scripts/demo.py                # torneio de demonstração
-python scripts/make_readme_charts.py  # regenera os gráficos deste README (requer matplotlib)
+poker-lab export powerbi              # exportação Power BI (exige os bancos das avaliações)
 ```
 
-> Os checkpoints e os bancos de resultados ficam em `artifacts/`, que não é versionado por causa do tamanho. As versões de modelo, os hashes e as premissas de treino estão em [`docs/MODEL_VERSIONS.md`](docs/MODEL_VERSIONS.md).
+> Os checkpoints dos modelos e as tabelas de equity vêm no repositório (`artifacts/checkpoints`, `artifacts/tables`). Os bancos de resultados (vários GB) são recriados pelas avaliações. As versões de modelo, os hashes e as premissas de treino estão em [`docs/MODEL_VERSIONS.md`](docs/MODEL_VERSIONS.md).
 
 ---
 
@@ -251,7 +255,7 @@ python scripts/make_readme_charts.py  # regenera os gráficos deste README (requ
 | P7 | Avaliação quantitativa (~5.900 torneios) e métricas financeiras | ✅ |
 | P7b | Diagnóstico, melhorias e promoção do `hybrid-v1` | ✅ |
 | P7c | Robustez: oponentes adaptativos, blefadores, self-play (6.000 torneios); `hybrid-v1` mantido | ✅ |
-| P8 | Dashboard Power BI (especificação pronta) | ⏳ |
+| P8 | Exportação Power BI reconciliada (983 verificações), kit DAX/Power Query e guia de montagem | ✅ |
 | P9–P10 | CLI/API/UI e otimização | ⏳ |
 | P11 | Adaptador experimental para plataforma de bots com fichas virtuais (branch `p11-openpoker`) | 🧪 testado localmente |
 
@@ -261,6 +265,8 @@ python scripts/make_readme_charts.py  # regenera os gráficos deste README (requ
 
 | Documento | Conteúdo |
 |---|---|
+| [`COMO_USAR.md`](docs/COMO_USAR.md) | **Passo a passo**: instalar, rodar, reproduzir, verificar e analisar |
+| [`P8_REPORT.md`](docs/P8_REPORT.md) · [`powerbi/GUIA_MONTAGEM_P8.md`](powerbi/GUIA_MONTAGEM_P8.md) | Exportação Power BI reconciliada e guia de montagem |
 | [`P0_REPORT.md`](docs/P0_REPORT.md) | Inspeção inicial, arquitetura e contratos |
 | [`P7_REPORT.md`](docs/P7_REPORT.md) · [`P7B_REPORT.md`](docs/P7B_REPORT.md) · [`P7C_REPORT.md`](docs/P7C_REPORT.md) | Resultados, limitações e conclusões permitidas |
 | [`MODEL_VERSIONS.md`](docs/MODEL_VERSIONS.md) | Registro imutável de versões, sha256 e premissas |
