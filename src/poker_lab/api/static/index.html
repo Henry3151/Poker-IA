@@ -47,10 +47,10 @@
         <span class="t-desc">Sessão 6-max com o champion jogando sozinho contra perfis simulados.</span>
         <span class="t-badge ok">disponível</span>
       </a>
-      <a class="tile disabled" href="#inicio" data-stage="E" aria-disabled="true">
-        <span class="t-title">Iniciar sessão online autorizada</span>
-        <span class="t-desc">Fichas virtuais, com confirmação explícita e controles de pausa e parada.</span>
-        <span class="t-badge">desativada · etapa E</span>
+      <a class="tile disabled" href="#inicio" aria-disabled="true">
+        <span class="t-title">Sessão online (Open Poker)</span>
+        <span class="t-desc" id="online-how">Só fichas virtuais. Nunca é iniciada por esta aplicação: quem inicia é você, manualmente, com <code>.\run_openpoker.ps1</code>. Parar: <code>.\stop_openpoker.bat</code>.</span>
+        <span class="t-badge">desativada na aplicação</span>
       </a>
       <a class="tile" href="#simulacao">
         <span class="t-title">Acompanhar sessão ativa</span>
@@ -239,7 +239,7 @@
       </div>
     </div>
     <div class="card">
-      <h2>Sessão online <span class="tag">desativada até a etapa E</span></h2>
+      <h2>Sessão online <span class="tag">referência; a sessão é iniciada manualmente</span></h2>
       <div class="form">
         <label for="o-hands">Máx. de mãos por sessão (1–1000)</label><input id="o-hands" type="number" min="1" max="1000">
         <label for="o-min">Duração máx., em minutos (1–480)</label><input id="o-min" type="number" min="1" max="480">

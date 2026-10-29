@@ -28,7 +28,7 @@ Este documento registra a auditoria feita antes da P9, o plano aprovado (etapas 
 | B | Interface local, inicialização simples, linha de comando, verificações | concluída |
 | C | Motor de sessão autônoma com controles, aplicado à simulação local; acompanhamento ao vivo; histórico de mãos com painel "no momento da decisão" × "revelado depois" | **concluída** |
 | D | Avaliação de decisões, métricas (MTT e cash separados), controle de qualidade, recomendações transformadas em experimentos | **concluída (escopo enxuto)** |
-| E | Integração online autorizada (fichas virtuais), com todos os testes de controle no servidor falso antes de habilitar | aguardando |
+| E | Integração online autorizada (fichas virtuais), com todos os testes de controle no servidor falso antes de habilitar | **concluída (integrada e desativada na aplicação)** |
 | F | Empacotamento, atalho na área de trabalho e documentação final | aguardando |
 
 ## Etapa B: entregue
@@ -114,3 +114,10 @@ Este documento registra a auditoria feita antes da P9, o plano aprovado (etapas 
 - Interface: cartão "Análise de decisões" na tela Sessões. API: `GET /api/sessions/{id}/analysis`. CLI: `poker-lab sessions analyze <id> [--out pasta]` (Markdown + JSON; recusa pastas protegidas).
 - Testes (4 novos + API): contagens consistentes; **trocar o resultado das mãos e apagar as cartas reveladas não muda nenhuma classificação, padrão ou recomendação**; limiar de amostra das recomendações; relatório gravado e pasta congelada recusada.
 - Fora do escopo enxuto (fica como evolução): referências para spots multiway/pós-flop, solver online e agregação entre várias sessões.
+
+## Etapa E: entregue
+- Branch `p11-openpoker` **rebaseado sobre a P9** sem conflitos (9 commits) e integrado ao `main` por fast-forward, depois de a suíte completa passar no branch rebaseado. Os testes da integração usam **apenas um servidor falso local**; nenhuma conexão real foi feita.
+- **Decisão de segurança:** a aplicação local **não inicia** sessões online. `POST /api/online/start` responde 403; o servidor e a CLI nunca leem `OPEN_POKER_API_KEY` e nunca abrem socket. O primeiro teste online é iniciado só pelo usuário, manualmente, com `run_openpoker.ps1` (fichas virtuais; chave digitada sem eco e apagada ao sair).
+- O que a aplicação mostra: estado da integração (instalada, `websockets` presente, kill switch), instruções de início/parada e a lista somente leitura das sessões gravadas em `artifacts/openpoker/online.db` (`GET /api/online/sessions`, `poker-lab online status`).
+- Testes novos (4): mesmo com `OPEN_POKER_ENABLED=1` e uma chave no ambiente, o status continua desativado, o início é recusado e a chave não aparece em nenhuma resposta; kill switch reportado; leitura de `online.db` sem alterar o arquivo; CLI sem conexão e sem a chave.
+- Diferença em relação ao plano original: a sessão online não passa pelo controlador de sessão da etapa C; ela usa os controles próprios da P11 (pausa até snapshot consistente, token de turno, kill switch, limites). Unificar os dois controladores fica como evolução, a ser feita só depois do primeiro teste manual.

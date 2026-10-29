@@ -10,10 +10,11 @@ from pathlib import Path
 from typing import Any
 
 from poker_lab.lab.frozen import MANIFEST, verify_manifest
+from poker_lab.lab.online import online_status
 from poker_lab.lab.registry import KNOWN_RUNS, run_overview
 
 REQUIRED = ("pydantic", "typer", "pyarrow", "fastapi", "uvicorn")
-OPTIONAL = {"websockets": "integração online (etapa E)", "matplotlib": "gráficos do README"}
+OPTIONAL = {"websockets": "integração online (sessão manual, fichas virtuais)", "matplotlib": "gráficos do README"}
 
 
 def _version(mod: str) -> str | None:
@@ -51,6 +52,6 @@ def check_all(root: Path) -> dict[str, Any]:
         "frozen": frozen,
         "runs": runs,
         "disk_free_gb": round(free / 1e9, 1),
-        "online": {"enabled": False, "status": "desativada", "reason": "integração online só na etapa E, após aprovação"},
+        "online": online_status(root),
         "ok": bool(env["python_ok"] and env["dependencies_ok"] and frozen.get("passed")),
     }

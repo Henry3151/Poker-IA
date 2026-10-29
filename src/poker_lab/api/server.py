@@ -10,7 +10,8 @@ Security model (local app, single user):
 - stage B: read-only views, settings without secrets and read-only verification jobs;
 - stage C: autonomous LOCAL simulation sessions (start requires explicit confirmation; pause,
   resume, emergency stop, finish, quality acknowledgement) and the session/hand history.
-  Online sessions (stage E) are NOT available here and say so.
+- stage E: the Open Poker integration ships in the package but the app NEVER starts it, never
+  reads the API key and never opens a socket; it only shows its status and recorded sessions.
 """
 
 from __future__ import annotations
@@ -33,6 +34,7 @@ from poker_lab.lab.health import check_all
 from poker_lab.lab.integrity import verify_run
 from poker_lab.lab.jobs import JobBusy, JobManager
 from poker_lab.lab.manager import SessionBusy, SessionManager
+from poker_lab.lab.online import list_online_sessions, online_status
 from poker_lab.lab.registry import (
     KNOWN_RUNS,
     discover_databases,
@@ -130,7 +132,7 @@ def create_app(token: str, port: int, root: Path | None = None, rate_per_minute:
         return {
             "app_version": APP_VERSION,
             "agent_state": sessions.agent_state(),
-            "online": {"enabled": False, "status": "desativada", "stage": "E"},
+            "online": online_status(root),
             "simulation": {"available": True, "session_id": sessions.current.session_id if sessions.current else None},
             "active_job": active.view() if active else None,
             "uptime_s": round(time.time() - state["started_at"]),
@@ -285,7 +287,12 @@ def create_app(token: str, port: int, root: Path | None = None, rate_per_minute:
 
     @app.post("/api/online/start")
     def online_start() -> JSONResponse:
-        return _err(403, "integração online desativada (etapa E, após aprovação e testes)")
+        return _err(403, "integração online desativada na aplicação: a sessão online é iniciada só manualmente pelo "
+                         "usuário com run_openpoker.ps1 (fichas virtuais)")
+
+    @app.get("/api/online/sessions")
+    def online_sessions() -> dict[str, Any]:
+        return {"status": online_status(root), "sessions": list_online_sessions(root)}
 
     app.state.jobs = jobs
     return app

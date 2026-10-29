@@ -5,7 +5,7 @@ Status: **adaptador implementado e testado só com mensagens simuladas e servido
 Fonte: documentação oficial lida em 2026-10-27, [docs.openpoker.ai](https://docs.openpoker.ai/) (Quickstart, Message Types, `llms-full.txt`).
 
 ## 1. Auditoria
-- Repositório: branch `p11-openpoker` criado a partir de `main`, que contém toda a P7c.
+- Repositório: desenvolvido no branch `p11-openpoker` e integrado ao `main` na etapa E da P9 (rebase sobre a P9, todos os testes passando). Continua **desativado por padrão**: a aplicação local nunca inicia a sessão online.
 - O champion de MTT `pushfold@hybrid-v1` **não** é usado online. A política online é `cash6max-v0` (seção 4). O checkpoint `pushfold-v2-ante.json` (sha256 `d3e7d9ca…`) é somente leitura.
 - A plataforma é feita para bots (WebSocket + JSON) e joga com **fichas virtuais** ("no real money is involved in gameplay").
   - Existem créditos e USDC (depósito/saque), mas só para o plano Pro e para prêmios de patrocinadores.
@@ -29,7 +29,7 @@ Fonte: documentação oficial lida em 2026-10-27, [docs.openpoker.ai](https://do
 
 **Consequência para a estratégia:** o `hybrid-v1` foi validado em MTT com stacks médios/curtos e antes. Online, os stacks são profundos e não há ante: a política push/fold quase nunca é usada, e o pós-flop heurístico (a parte menos validada) domina. Os resultados online **não** são comparáveis aos do simulador sem essa ressalva.
 
-## 2. Arquitetura (módulo isolado `src/poker_lab/integrations/openpoker/`, branch `p11-openpoker`)
+## 2. Arquitetura (módulo isolado `src/poker_lab/integrations/openpoker/`)
 | Arquivo | Função |
 |---|---|
 | `config.py` | Ativa só com `OPEN_POKER_ENABLED=1` + `OPEN_POKER_API_KEY`. A `ApiKey` não aparece em `repr`, `str` ou pickle, e um filtro de log mascara a chave. Guardas: buy-in 1.000–5.000; orçamento de decisão < 40 s; < 20 mensagens/s; só o endpoint oficial (ou localhost em teste); `resync_timeout_s` = 20 s; `max_resync_attempts` = 3 |
@@ -170,7 +170,7 @@ Durante a pausa, a sessão envia `resync_request`. Ela só retoma depois de apli
 
 ## 10. Configuração e primeiro teste online (fichas virtuais) — a executar por você
 1. Em openpoker.ai, crie **um** bot ("Self Host") e copie a chave. Não a coloque em arquivos, chats ou capturas.
-2. No Windows, dentro da pasta `poker-ai` (branch `p11-openpoker`): rode `setup.bat` (instala `websockets`) e depois `run_tests.bat` (tudo deve passar).
+2. No Windows, dentro da pasta do projeto (branch `main`): rode `setup.bat` (instala `websockets`) e depois `run_tests.bat` (tudo deve passar).
 3. Execute `powershell -ExecutionPolicy Bypass -File run_openpoker.ps1 -MaxHands 30 -BuyIn 2000`. A chave é pedida sem eco e fica só nesse processo.
 4. Para parar: `stop_openpoker.bat` (cria o kill switch) ou Ctrl+C. Apague `artifacts\openpoker\STOP` antes da próxima sessão.
 5. Ao final, confira as estatísticas.

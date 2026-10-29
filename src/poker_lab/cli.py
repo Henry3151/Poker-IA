@@ -35,6 +35,8 @@ sim_app = typer.Typer(no_args_is_help=True, help="Sessões autônomas de simula�
 sessions_app = typer.Typer(no_args_is_help=True, help="Histórico das sessões locais e mãos (somente leitura).")
 app.add_typer(sim_app, name="sim")
 app.add_typer(sessions_app, name="sessions")
+online_app = typer.Typer(no_args_is_help=True, help="Integração Open Poker: só status e histórico (nunca inicia sessão).")
+app.add_typer(online_app, name="online")
 
 ROOT = Path(__file__).resolve().parents[2]
 FROZEN_DIRS = ("artifacts/p7", "artifacts/p7b", "artifacts/p7c", "artifacts/checkpoints", "artifacts/tables", "docs", "src")
@@ -401,6 +403,28 @@ def sessions_analyze(
         paths = write_report(a, out)
         typer.echo(json.dumps(paths, ensure_ascii=False), err=True)
     _emit(a, as_json, lambda a: typer.echo(render_markdown(a)))
+
+
+@online_app.command("status")
+def online_status_cmd(as_json: JsonOpt = False) -> None:
+    """Estado da integração online (sem ler a chave e sem conectar) e sessões online registradas."""
+    from poker_lab.lab.online import list_online_sessions, online_status
+
+    _utf8()
+    obj = {"status": online_status(ROOT), "sessions": list_online_sessions(ROOT)}
+
+    def render(o: dict[str, Any]) -> None:
+        st = o["status"]
+        typer.echo(f"online: {st['status']} · {st['money']} · kill switch {'ATIVO' if st['kill_switch_set'] else 'ausente'}")
+        typer.echo(f"integração instalada: {st['integration_installed']} · websockets: {st['websockets_installed']}")
+        typer.echo(f"como iniciar: {st['how_to_start']}")
+        if o["sessions"]:
+            _table([[r["started_at"], r["session_id"], r["agent_label"], r["hands"], r["net_chips"], r["stop_reason"] or "—"]
+                    for r in o["sessions"]], ["início", "sessão", "política", "mãos", "fichas", "motivo"])
+        else:
+            typer.echo("nenhuma sessão online registrada")
+
+    _emit(obj, as_json, render)
 
 
 @app.command()

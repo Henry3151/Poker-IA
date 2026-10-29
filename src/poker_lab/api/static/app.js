@@ -69,7 +69,7 @@
       const p = $("#agent-state");
       p.dataset.state = s.agent_state;
       p.textContent = STATE_LABEL[s.agent_state] || s.agent_state;
-      $("#online-state").textContent = s.online.enabled ? "Online: habilitada" : "Online: desativada";
+      $("#online-state").textContent = s.online.kill_switch_set ? "Online: desativada · kill switch ativo" : "Online: desativada na aplicação";
       $("#job-state").hidden = !s.active_job;
       $("#app-version").textContent = s.app_version;
     } catch (e) { showErr(e); }

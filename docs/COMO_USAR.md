@@ -243,7 +243,12 @@ python scripts\render_p7c_steal.py
 3. Resumos em JSON, por exemplo para um painel web: `python scripts\build_dashboard_datasets.py` gera arquivos pequenos (ROI por cenário, comparações pareadas, cortes, steal) a partir da exportação reconciliada.
 
 ## 8. Integração experimental Open Poker (P11)
-Fica no branch separado **`p11-openpoker`** e está **desativada por padrão**. Joga só com fichas virtuais, numa plataforma feita para bots. Antes de qualquer uso, leia `docs/P11_OPENPOKER.md` (branch `p11-openpoker`): configuração da chave, kill switch, limites e critérios do primeiro teste.
+Faz parte do `main` (módulo `src/poker_lab/integrations/openpoker/`) e está **desativada por padrão**. Joga só com fichas virtuais, numa plataforma feita para bots, com a política experimental de cash `cash6max-v0` (o champion de MTT não é usado online).
+
+- **A aplicação local nunca inicia a sessão online**, nunca lê a chave e nunca abre conexão. Ela só mostra o estado (tela Início e `poker-lab online status`) e lista, somente leitura, as sessões gravadas em `artifacts/openpoker/online.db`.
+- **Quem inicia é você, manualmente**, no PowerShell: `.\run_openpoker.ps1 -MaxHands 30 -BuyIn 2000`. A chave é digitada sem eco, fica só naquele processo e é apagada ao sair.
+- **Parar:** `.\stop_openpoker.bat` (kill switch) ou `Ctrl+C`. Apague `artifacts\openpoker\STOP` antes da próxima sessão.
+- Antes do primeiro uso, leia `docs/P11_OPENPOKER.md`: configuração da chave, modelo de segurança, limites e critérios do primeiro teste. Todos os testes automatizados usam **somente um servidor falso local**.
 
 ## 9. Problemas comuns
 | Sintoma | Causa provável | Solução |
