@@ -328,7 +328,7 @@ poker-lab export powerbi              # exportação Power BI (exige os bancos d
 | P7b | Diagnóstico, melhorias e promoção do `hybrid-v1` | ✅ |
 | P7c | Robustez: oponentes adaptativos, blefadores, self-play (6.000 torneios); `hybrid-v1` mantido | ✅ |
 | P8 | Exportação Power BI reconciliada (983 verificações), kit DAX/Power Query e guia de montagem | ✅ |
-| P9 | Aplicação operacional ([`docs/P9_PLANO.md`](docs/P9_PLANO.md)): **B** interface local, linha de comando e verificações ✅ · **C** sessões autônomas na simulação com pausar/retomar/emergência e controle de qualidade estatístico ✅ · **D** análise de decisões ⏳ · **E** online (fichas virtuais, desligado por padrão) ⏳ · **F** empacotamento ⏳ | 🔄 |
+| P9 | Aplicação operacional ([`docs/P9_PLANO.md`](docs/P9_PLANO.md)): **B** interface local, linha de comando e verificações ✅ · **C** sessões autônomas na simulação com pausar/retomar/emergência e controle de qualidade estatístico ✅ · **D** análise de decisões por sessão ✅ · **E** online (fichas virtuais, desligado por padrão) ⏳ · **F** empacotamento ⏳ | 🔄 |
 | P10 | Otimização | ⏳ |
 | P11 | Adaptador experimental para plataforma de bots com fichas virtuais (branch `p11-openpoker`) | 🧪 testado localmente |
 

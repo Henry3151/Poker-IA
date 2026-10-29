@@ -378,6 +378,31 @@ def sessions_show(session_id: str, db: DbOpt = None, as_json: JsonOpt = False) -
     _emit(r, as_json, render)
 
 
+@sessions_app.command("analyze")
+def sessions_analyze(
+    session_id: str,
+    out: Annotated[Path | None, typer.Option(help="Pasta para salvar o relatório (JSON + Markdown).")] = None,
+    db: DbOpt = None,
+    as_json: JsonOpt = False,
+) -> None:
+    """Análise de decisões da sessão: cobertura, adequação com IC, piores decisões e hipóteses de experimento."""
+    from poker_lab.lab.analysis import render_markdown, write_report
+
+    _utf8()
+    mgr = _manager(db)
+    a = mgr.analysis(session_id)
+    mgr.close()
+    if a is None:
+        typer.echo("sessão não encontrada", err=True)
+        raise typer.Exit(2)
+    if out is not None:
+        if _inside_frozen(out):
+            raise typer.BadParameter(f"pasta protegida (resultados congelados): {out}")
+        paths = write_report(a, out)
+        typer.echo(json.dumps(paths, ensure_ascii=False), err=True)
+    _emit(a, as_json, lambda a: typer.echo(render_markdown(a)))
+
+
 @app.command()
 def doctor() -> None:
     """Checagem rápida só do ambiente (sem tocar nos bancos)."""

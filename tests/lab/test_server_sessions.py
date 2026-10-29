@@ -64,6 +64,9 @@ def test_full_session_cycle_and_history(client):
     hd = client.get(f"/api/hands/{with_dec['hand_id']}", headers=AUTH).json()
     assert hd["decision_time"] and "revealed_after_hand" in hd
     assert client.get("/api/hands/inexistente", headers=AUTH).status_code == 404
+    an = client.get(f"/api/sessions/{sid}/analysis", headers=AUTH).json()
+    assert an["session_id"] == sid and sum(an["labels"].values()) == an["decisions"]
+    assert client.get("/api/sessions/nao-existe/analysis", headers=AUTH).status_code == 404
 
 
 def test_emergency_via_api(client):

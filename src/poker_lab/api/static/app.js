@@ -194,10 +194,30 @@
       cell(tr, s.bb_per_100 ? `${bb(s.bb_per_100.mean)} (${ci(s.bb_per_100)})` : "—", "num");
       cell(tr, s.labels ? Object.entries(s.labels).map(([k, v]) => `${LABEL[k] || k}: ${v}`).join(" · ") : "—");
       cell(tr, s.stop_reason || "—");
-      const open = () => { curSession = s.session_id; handOffset = 0; $("#ss-hands tbody").replaceChildren(); loadHands().catch(showErr); };
+      const open = () => { curSession = s.session_id; handOffset = 0; $("#ss-hands tbody").replaceChildren(); loadSessionAnalysis(s.session_id).catch(showErr); loadHands().catch(showErr); };
       tr.addEventListener("click", open); tr.addEventListener("keydown", (e) => { if (e.key === "Enter") open(); });
       tb.append(tr);
     }
+  }
+  const rate = (r) => (r.rate === null ? "—" : `${pct0(r.rate)} (IC 95% ${pct0(r.ci95[0])} a ${pct0(r.ci95[1])}; n=${r.n})`);
+  async function loadSessionAnalysis(id) {
+    const a = await api(`/api/sessions/${encodeURIComponent(id)}/analysis`);
+    $("#ss-analysis").hidden = false;
+    $("#sa-note").textContent = a.notes.join(" ");
+    kv($("#sa-kv"), [
+      ["Decisões", `${int(a.decisions)} em ${int(a.hands_played)} mãos`],
+      ["Cobertura com referência", rate(a.coverage)],
+      ["Adequadas (avaliáveis)", rate(a.adequacy)],
+      ["Prováveis erros (avaliáveis)", rate(a.error_rate)],
+      ["Inconclusivas por motivo", Object.entries(a.inconclusive_reasons).map(([k, v]) => `${k}: ${v}`).join(" · ") || "—"],
+      ["Falhas técnicas", int(a.technical.length)],
+    ]);
+    const tb = $("#sa-worst tbody"); tb.replaceChildren();
+    if (!a.worst_decisions.length) { const tr = document.createElement("tr"); cell(tr, "Nenhuma decisão com perda de EV estimada.").colSpan = 6; tb.append(tr); }
+    for (const w of a.worst_decisions) { const tr = document.createElement("tr"); cell(tr, w.hand_no, "num"); cell(tr, w.spot); cell(tr, w.class); cell(tr, w.chosen); cell(tr, w.best); cell(tr, w.ev_gap_bb, "num"); tb.append(tr); }
+    const ul = $("#sa-rec"); ul.replaceChildren();
+    const recs = a.recommendations.length ? a.recommendations.map((r) => `${r.pattern}: erros ${rate(r.evidence)}; ${r.status}. ${r.next_step}.`) : ["Nenhum padrão com amostra suficiente. A política da sessão nunca é alterada automaticamente."];
+    for (const t of recs) { const li = document.createElement("li"); li.textContent = t; ul.append(li); }
   }
   async function loadHands() {
     $("#ss-hands-card").hidden = false; $("#ss-id").textContent = curSession;

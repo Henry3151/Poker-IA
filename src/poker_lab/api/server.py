@@ -265,6 +265,13 @@ def create_app(token: str, port: int, root: Path | None = None, rate_per_minute:
             raise HTTPException(404, "sessão não encontrada")
         return r
 
+    @app.get("/api/sessions/{session_id}/analysis")
+    def session_analysis(session_id: str) -> dict[str, Any]:
+        r = sessions.analysis(session_id)
+        if r is None:
+            raise HTTPException(404, "sessão não encontrada")
+        return r
+
     @app.get("/api/sessions/{session_id}/hands")
     def list_hands(session_id: str, offset: int = 0, limit: int = 100) -> dict[str, Any]:
         return {"hands": sessions.list_hands(session_id, offset, limit)}

@@ -123,6 +123,11 @@ class SessionManager:
             r["labels"] = (r["labels"] or "").split(",") if r["labels"] else []
         return rows
 
+    def analysis(self, session_id: str) -> dict[str, Any] | None:
+        from poker_lab.lab.analysis import analyze_session
+
+        return analyze_session(self.store, session_id)
+
     def get_hand(self, hand_id: str) -> dict[str, Any] | None:
         rows = self.store.query("SELECT * FROM hands WHERE hand_id=?", (hand_id,))
         if not rows:

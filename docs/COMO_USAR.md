@@ -82,7 +82,9 @@ O programa abre o navegador em `http://127.0.0.1:<porta>/`. O servidor **só ace
    - janela móvel de até 100 decisões avaliáveis, mínimo de 50, checagem a cada 25. A sessão **para sozinha** se o limite inferior unilateral de 99% (Clopper–Pearson) da taxa de erro passar de 25%, ou se o limite inferior ficar acima de 20% em 3 checagens seguidas, ou ainda por falhas técnicas (2 ações inválidas ou 2 exceções em 100 decisões; 3 timeouts seguidos). Em 100 decisões, a parada exige **36 erros** ou mais;
    - para retomar após uma parada por qualidade é preciso **marcar "Revisei o relatório" e escrever uma nota**;
    - a meta de 75% de adequadas é um alvo operacional experimental, **não garantia de lucro**.
-6. Em **Sessões**, clique numa sessão e depois numa mão para ver cada decisão com a observação daquele momento, a classificação, o EV estimado (quando há referência), a confiança e as limitações; à direita, as cartas reveladas depois da mão.
+6. Em **Sessões**, clique numa sessão para ver a **análise de decisões** (cobertura com referência, adequação e erros com IC 95% de Wilson, piores decisões por perda de EV estimada, motivos das inconclusivas e hipóteses de experimento) e depois numa mão para ver cada decisão com a observação daquele momento, a classificação, o EV estimado (quando há referência), a confiança e as limitações; à direita, as cartas reveladas depois da mão.
+
+**Como ler a análise da sessão.** Recomendações são **hipóteses**: um padrão só vira "propor experimento" com pelo menos 30 ocorrências, e o próximo passo é sempre um challenger avaliado pela regra champion/challenger com seeds novas. A política da sessão nunca é alterada automaticamente. Sessões usam formato cash (stacks reiniciados), por isso bb/100 não se mistura com ROI/ITM de torneio.
 
 Os dados vão para um banco **novo e separado**, `artifacts/lab/sessions.db`; os bancos e relatórios das avaliações nunca são tocados. A mesma seed reproduz a mesma sessão.
 
@@ -102,6 +104,7 @@ Com o ambiente ativo (`.venv\Scripts\activate` no Windows, `source .venv/bin/act
 | `poker-lab doctor` | Só o ambiente | não |
 | `poker-lab sim run --hands 500 --seed 1 --yes` | Sessão autônoma local no terminal (`Ctrl+C` = parada de emergência) | só em `artifacts/lab/sessions.db` |
 | `poker-lab sessions list` · `sessions show <id>` | Histórico de sessões, métricas e eventos de controle | não |
+| `poker-lab sessions analyze <id> [--out pasta]` | Análise de decisões em Markdown/JSON | só em `--out`; recusa pastas protegidas |
 
 - Todos os comandos aceitam `--json` e `--help`.
 - Códigos de saída: **0** ok, **1** verificação falhou, **2** erro de uso.
