@@ -286,7 +286,7 @@ artifacts/         checkpoints e tabelas de equity versionados; bancos e exporta
 
 > **Guia completo, passo a passo:** [`docs/COMO_USAR.md`](docs/COMO_USAR.md). Ele cobre instalação, testes, reprodução das avaliações, verificação de integridade, como analisar os resultados e o Power BI.
 
-**Aplicação (interface no navegador):** dê dois cliques em `iniciar_lab.bat` (Linux/macOS: `./iniciar_lab.sh`). O servidor roda só nesta máquina (127.0.0.1) com código de acesso por sessão. As telas atuais são Início, Histórico, Análise, Configurar e Verificar.
+**Aplicação (interface no navegador):** dê dois cliques em `iniciar_lab.bat` (no PowerShell: `.\iniciar_lab.bat`) (Linux/macOS: `./iniciar_lab.sh`). O servidor roda só nesta máquina (127.0.0.1) com código de acesso por sessão. As telas atuais são Início, Histórico, Análise, Configurar e Verificar.
 
 **Windows**
 ```bat
@@ -326,7 +326,7 @@ poker-lab export powerbi              # exportação Power BI (exige os bancos d
 | P7b | Diagnóstico, melhorias e promoção do `hybrid-v1` | ✅ |
 | P7c | Robustez: oponentes adaptativos, blefadores, self-play (6.000 torneios); `hybrid-v1` mantido | ✅ |
 | P8 | Exportação Power BI reconciliada (983 verificações), kit DAX/Power Query e guia de montagem | ✅ |
-| P9 | Aplicação operacional: interface local, linha de comando e verificações (etapa B concluída); sessões autônomas com controles, análise de decisões e online nas etapas C–F ([`docs/P9_PLANO.md`](docs/P9_PLANO.md)) | 🔄 |
+| P9 | Aplicação operacional ([`docs/P9_PLANO.md`](docs/P9_PLANO.md)): **B** interface local, linha de comando e verificações ✅ · **C** sessões autônomas na simulação com pausar/retomar/emergência e controle de qualidade estatístico 🔄 · **D** análise de decisões ⏳ · **E** online (fichas virtuais, desligado por padrão) ⏳ · **F** empacotamento ⏳ | 🔄 |
 | P10 | Otimização | ⏳ |
 | P11 | Adaptador experimental para plataforma de bots com fichas virtuais (branch `p11-openpoker`) | 🧪 testado localmente |
 

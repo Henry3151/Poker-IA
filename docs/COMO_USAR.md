@@ -29,7 +29,7 @@ Guia passo a passo para instalar, rodar, reproduzir as avaliações e **analisar
    git clone https://github.com/Henry3151/Poker-IA.git
    cd Poker-IA
    ```
-4. Dê dois cliques em **`setup.bat`**, ou rode-o no terminal. Ele cria o ambiente `.venv`, instala as dependências fixadas em `requirements-dev.txt` e instala o pacote.
+4. Dê dois cliques em **`setup.bat`**, ou rode-o no terminal. No PowerShell, os arquivos da pasta atual precisam de `.\` na frente: **`.\setup.bat`**. Ele cria o ambiente `.venv`, instala as dependências fixadas em `requirements-dev.txt` e instala o pacote.
    - Leva de 2 a 5 minutos.
    - A mensagem final esperada é **"Instalação concluída"**.
 
@@ -43,7 +43,7 @@ pip install -r requirements-dev.txt && pip install -e . --no-deps
 **O que vem no repositório:** código, testes, documentação, os checkpoints dos modelos (`artifacts/checkpoints/`, com sha256 em `.meta.json`) e as tabelas de equity (`artifacts/tables/`). Os **bancos de resultados** (vários GB) **não** vêm: são recriados no passo 4.
 
 ### Abrir o programa (interface no navegador)
-- **Windows:** dê dois cliques em **`iniciar_lab.bat`**.
+- **Windows:** dê dois cliques em **`iniciar_lab.bat`** (no PowerShell: `.\iniciar_lab.bat`).
 - **Linux/macOS:** rode `./iniciar_lab.sh`.
 
 O programa abre o navegador em `http://127.0.0.1:<porta>/`. O servidor **só aceita conexões desta máquina** e usa um código de acesso novo a cada início, que já vai embutido no endereço aberto automaticamente. Para encerrar, feche a janela do terminal ou use `Ctrl+C`.
@@ -220,6 +220,7 @@ Fica no branch separado **`p11-openpoker`** e está **desativada por padrão**. 
 | Sintoma | Causa provável | Solução |
 |---|---|---|
 | `Rode setup.bat primeiro` | ambiente `.venv` não criado | rode `setup.bat` |
+| `'setup.bat' is not recognized` no PowerShell | o PowerShell não roda arquivos da pasta atual sem `.\` | use `.\setup.bat`, `.\iniciar_lab.bat` |
 | `python` não reconhecido | Python fora do PATH | reinstale marcando "Add python.exe to PATH" |
 | `ModuleNotFoundError: poker_lab` | pacote não instalado | `pip install -e . --no-deps`, com o `.venv` ativo |
 | Avaliação interrompida | queda de energia ou reinício | rode o mesmo comando de shard de novo (é retomável) |
