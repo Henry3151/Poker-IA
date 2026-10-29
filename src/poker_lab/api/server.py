@@ -48,7 +48,7 @@ from poker_lab.lab.summary import compare_table, run_summary, scenario_table
 
 STATIC = Path(__file__).parent / "static"
 MAX_BODY = 32 * 1024
-APP_VERSION = "p9-c"
+APP_VERSION = "1.0.0"
 
 SECURITY_HEADERS = {
     "Content-Security-Policy": "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; "
